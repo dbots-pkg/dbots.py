@@ -10,6 +10,7 @@
     <a href="https://libraries.io/pypi/dbots"><img src="https://img.shields.io/librariesio/release/pypi/dbots?style=for-the-badge" alt="Dependencies" /></a>
   </p>
 </div>
+<br/>
 
 # Table of Contents
 - [About](#about)
@@ -100,7 +101,7 @@ poster = dbots.Poster(client_id, server_count, user_count, voice_connections, ap
  - [discord.bots.gg](https://discord.bots.gg)
  - *More services will be supported in a future release...*
 
-## #Adding Custom Services
+### Adding Custom Services
 You can add custom services by extending from the base service class (`dbots.Service`) and overriding the `_post` method.  
 Make sure to add the custom service class to the service keymap. (`dbots.Service.SERVICE_KEYMAP`) An example of adding a custom service can be shown [here](/examples/costom_service.py).
 
