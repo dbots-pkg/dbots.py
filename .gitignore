@@ -1,0 +1,11 @@
+test.py
+upload.sh
+dbots/__pycache__/**
+dist
+*.log
+*.egg-info
+venv
+.venv
+*.buildinfo
+*.whl
+*.tar.gz
