@@ -22,7 +22,7 @@ class CustomService(dbots.Service):
             json = payload
         )
 
-dbots.Service.SERVICE_KEYMAP['customservice'] = TestService
+dbots.Service.SERVICE_KEYMAP['customservice'] = CustomService
 
 client_id = '1234567890'
 
