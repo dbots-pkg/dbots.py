@@ -2,7 +2,7 @@ test.py
 upload.sh
 dbots/__pycache__/**
 dist
-build
+_build
 *.log
 *.egg-info
 venv
@@ -10,3 +10,4 @@ venv
 *.buildinfo
 *.whl
 *.tar.gz
+.vscode

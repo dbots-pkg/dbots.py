@@ -12,6 +12,7 @@
 </div>
 <br/>
 
+<!-- omit in toc -->
 # Table of Contents
 - [About](#about)
 - [Installing](#installing)
@@ -22,6 +23,7 @@
   - [Supported Services](#supported-services)
   - [Adding Custom Services](#adding-custom-services)
   - [Adding a custom post function](#adding-a-custom-post-function)
+- [Contribution](#contribution)
 - [Other Links](#other-links)
 
 ## About
@@ -38,9 +40,14 @@ python3 -m pip install -U dbots
 py -3 -m pip install -U dbots
 ```
 
-## Examples
+To install package from the master branch, do the following:
+```sh
+git clone https://github.com/dbots-pkg/dbots.py
+cd dbots.py
+python3 -m pip install -U
+```
 
-See other examples [here](/examples).
+## Examples
 
 ### Example with client
 Currently, only `discord.py` is supported as a usable client. (You can use any derivative of `discord.py` as long as it does not interfere with important properties used by `dbots`.)
@@ -94,6 +101,8 @@ poster = dbots.Poster(client_id, server_count, user_count, voice_connections, ap
 })
 ```
 
+See more examples [here](/examples).
+
 ## Services
 
 ### Supported Services
@@ -103,12 +112,12 @@ poster = dbots.Poster(client_id, server_count, user_count, voice_connections, ap
 
 ### Adding Custom Services
 You can add custom services by extending from the base service class (`dbots.Service`) and overriding the `_post` method.  
-Make sure to add the custom service class to the service keymap. (`dbots.Service.SERVICE_KEYMAP`) An example of adding a custom service can be shown [here](/examples/costom_service.py).
+Make sure to add the custom service class to the service keymap. (`dbots.Service.SERVICE_KEYMAP`) An example of adding a custom service can be shown [here](/examples/cUstom_service.py).
 
 ### Adding a custom post function
 You can add a custom post event by defining `on_custom_post` in the initialization of a Poster.  
 This function can be used when executing `poster.post('custom')` and when all services are being posted to. 
-An example of adding a custom post function can be shown [here](/examples/costom_post.py).
+An example of adding a custom post function can be shown [here](/examples/custom_post.py).
 
 ## Contribution
 Any contribution may be useful for the package! Make sure when making issues or PRs that the issue has not been addressed yet in a past issue/PR.
@@ -116,4 +125,5 @@ Any contribution may be useful for the package! Make sure when making issues or 
 ## Other Links
 - [PyPi](https://www.pypi.org/project/dbots)
 - [Libraries.io](https://libraries.io/pypi/dbots)
-- Documentation (work in progress)
+- [Documentation](https://dbots.readthedocs.io/en/latest/index.html)
+- [dbots Github Organization](https://github.com/dbots-pkg)
