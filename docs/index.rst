@@ -120,6 +120,7 @@ Services
 Supported Services
 ~~~~~~~~~~~~~~~~~~
  - `botlist.space <https://botlist.space>`_
+ - `botsfordiscord.com <botsfordiscord.com>`_
  - `top.gg <https://top.gg>`_
  - `discord.bots.gg <https://discord.bots.gg>`_
  - *More services will be supported in a future release...*

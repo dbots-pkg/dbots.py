@@ -107,7 +107,8 @@ See more examples [here](/examples).
 
 ### Supported Services
  - [botlist.space](https://botlist.space)
- - [top.gg (formerly discordbots.org)](https://top.gg)
+ - [botsfordiscord.com](https://botsfordiscord.com)
+ - [top.gg](https://top.gg)
  - [discord.bots.gg](https://discord.bots.gg)
  - *More services will be supported in a future release...*
 

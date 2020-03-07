@@ -109,6 +109,59 @@ class BotListSpace(Service):
     def get_widget_url(self, bot_id, style = 1, **query) -> str:
         return f'https://api.botlist.space/widget/{bot_id}/{style}?{_encode_query(query)}'
 
+class BotsForDiscord(Service):
+    """
+    Represents the Bots For Discord's service.
+    
+    .. seealso::
+        `Service's API Documentation <https://docs.botsfordiscord.com/>`_
+            API Documentation for Bots For Discord
+    """
+
+    BASE_URL = 'https://botsfordiscord.com/api'
+
+    @staticmethod
+    def _post(
+        http_client, bot_id, token,
+        server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count = None,
+        shard_id = None
+    ):
+        return http_client.request(
+            method = 'POST',
+            path = f'{BotsForDiscord.BASE_URL}/bot/{bot_id}',
+            headers = { 'Authorization': token },
+            json = { 'server_count': server_count }
+        )
+
+    def get_bot(self, bot_id) -> HTTPResponse:
+        return self._request(
+            method = 'GET',
+            path = f'/bot/{bot_id}'
+        )
+
+    def get_bot_votes(self, bot_id) -> HTTPResponse:
+        return self._request(
+            method = 'GET',
+            path = f'/bot/{bot_id}/votes',
+            requires_token = True
+        )
+
+    def get_user(self, user_id) -> HTTPResponse:
+        return self._request(
+            method = 'GET',
+            path = f'/user/{user_id}'
+        )
+
+    def get_user_bots(self, user_id) -> HTTPResponse:
+        return self._request(
+            method = 'GET',
+            path = f'/user/{user_id}/bots'
+        )
+
+    def get_widget_url(self, bot_id, **query) -> str:
+        return f'{BotsForDiscord.BASE_URL}/bot/{bot_id}/widget?{_encode_query(query)}'
+
 class DiscordBotsGG(Service):
     """
     Represents the discord.bots.gg service.
@@ -235,6 +288,10 @@ Service.SERVICE_KEYMAP = {
     'botlistspace': BotListSpace,
     'botlist.space': BotListSpace,
     'bls': BotListSpace,
+
+    'botsfordiscord': BotsForDiscord,
+    'botsfordiscord.com': BotsForDiscord,
+    'bfd': BotsForDiscord,
 
     'discordbotsgg': DiscordBotsGG,
     'discord.bots.gg': DiscordBotsGG,
