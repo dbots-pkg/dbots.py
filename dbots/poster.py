@@ -70,11 +70,11 @@ class Poster(EventHandler):
     # property fill-ins
     
     @property
-    def client_id(self) -> str or None::
+    def client_id(self) -> str or None:
         return self._client_id
     
     @property
-    def shard_id(self) -> int or None::
+    def shard_id(self) -> int or None:
         return self._shard_id
     
     @property

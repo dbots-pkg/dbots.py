@@ -119,19 +119,21 @@ Services
 
 Supported Services
 ~~~~~~~~~~~~~~~~~~
+ - `botlist.space <https://botlist.space>`_
  - `top.gg <https://top.gg>`_
  - `discord.bots.gg <https://discord.bots.gg>`_
  - *More services will be supported in a future release...*
 
 Adding Custom Services
 ~~~~~~~~~~~~~~~~~~~~~~
-You can add custom services by extending from the base service class (``dbots.Service``) and overriding the ``_post`` method.  
-Make sure to add the custom service class to the service keymap. (``dbots.Service.SERVICE_KEYMAP``) An example of adding a custom service can be shown `here <https://github.com/dbots-pkg/dbots.py/blob/master/examples/custom_service.py>`_.
+You can add custom services by extending from the base service class (``dbots.Service``) and overriding the ``_post`` method.
+Make sure to add the custom service class to the service keymap. (``dbots.Service.SERVICE_KEYMAP``)
+An example of adding a custom service can be shown `here <https://github.com/dbots-pkg/dbots.py/blob/master/examples/custom_service.py>`_.
 
 Adding a custom post function
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-You can add a custom post event by defining ``on_custom_post`` in the initialization of a Poster.  
-This function can be used when executing ``poster.post('custom')`` and when all services are being posted to. 
+You can add a custom post event by defining ``on_custom_post`` in the initialization of a Poster.
+This function can be used when executing ``poster.post('custom')`` and when all services are being posted to.
 An example of adding a custom post function can be shown `here <https://github.com/dbots-pkg/dbots.py/blob/master/examples/custom_post.py>`_.
 
 Contribution

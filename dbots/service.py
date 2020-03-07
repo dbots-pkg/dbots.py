@@ -36,6 +36,79 @@ class Service:
         ]
         return '<%s %s>' % (self.__class__.__name__, ' '.join('%s=%r' % t for t in attrs))
 
+###############################
+
+class BotListSpace(Service):
+    """
+    Represents the botlist.space's service.
+    
+    .. seealso::
+        `Service's API Documentation <https://docs.botlist.space/>`_
+            API Documentation for botlist.space
+    """
+
+    BASE_URL = 'https://api.botlist.space/v1'
+
+    @staticmethod
+    def _post(
+        http_client, bot_id, token,
+        server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count = None,
+        shard_id = None
+    ):
+        return http_client.request(
+            method = 'POST',
+            path = f'{BotListSpace.BASE_URL}/bots/{bot_id}',
+            headers = { 'Authorization': token, 'Content-Type': 'application/json' },
+            json = { 'server_count': server_count }
+        )
+
+    def get_statistics(self) -> HTTPResponse:
+        return self._request(
+            method = 'GET',
+            path = '/statistics'
+        )
+
+    def get_bots(self) -> HTTPResponse:
+        return self._request(
+            method = 'GET',
+            path = '/bots'
+        )
+
+    def get_bot(self, bot_id) -> HTTPResponse:
+        return self._request(
+            method = 'GET',
+            path = f'/bots/{bot_id}'
+        )
+
+    def get_bot_votes(self, bot_id) -> HTTPResponse:
+        return self._request(
+            method = 'GET',
+            path = f'/bots/{bot_id}/upvotes',
+            requires_token = True
+        )
+
+    def get_bot_uptime(self, bot_id) -> HTTPResponse:
+        return self._request(
+            method = 'GET',
+            path = f'/bots/{bot_id}/uptime'
+        )
+
+    def get_user(self, user_id) -> HTTPResponse:
+        return self._request(
+            method = 'GET',
+            path = f'/users/{user_id}'
+        )
+
+    def get_user_bots(self, user_id) -> HTTPResponse:
+        return self._request(
+            method = 'GET',
+            path = f'/users/{user_id}/bots'
+        )
+
+    def get_widget_url(self, bot_id, style = 1, **query) -> str:
+        return f'https://api.botlist.space/widget/{bot_id}/{style}?{_encode_query(query)}'
+
 class DiscordBotsGG(Service):
     """
     Represents the discord.bots.gg service.
@@ -159,6 +232,10 @@ class TopGG(Service):
         return f'{TopGG.BASE_URL}/widget/{subpath}{bot_id}.svg?{_encode_query(query)}'
 
 Service.SERVICE_KEYMAP = {
+    'botlistspace': BotListSpace,
+    'botlist.space': BotListSpace,
+    'bls': BotListSpace,
+
     'discordbotsgg': DiscordBotsGG,
     'discord.bots.gg': DiscordBotsGG,
     'dbotsgg': DiscordBotsGG,
