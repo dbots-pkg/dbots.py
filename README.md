@@ -5,8 +5,8 @@
   <h1>dbots<i>.py</i></h1>
   <p>A poster for Discord bot lists</p>
   <p>
-    <a href="https://www.pypi.org/package/dbots"><img src="https://img.shields.io/pypi/v/dbots?style=for-the-badge" alt="PyPi version" /></a>
-    <a href="https://www.pypi.org/package/dbots"><img src="https://img.shields.io/pypi/dm/dbots?style=for-the-badge" alt="PyPi downloads" /></a>
+    <a href="https://www.pypi.org/project/dbots"><img src="https://img.shields.io/pypi/v/dbots?style=for-the-badge" alt="PyPi version" /></a>
+    <a href="https://www.pypi.org/project/dbots"><img src="https://img.shields.io/pypi/dm/dbots?style=for-the-badge" alt="PyPi downloads" /></a>
     <a href="https://libraries.io/pypi/dbots"><img src="https://img.shields.io/librariesio/release/pypi/dbots?style=for-the-badge" alt="Dependencies" /></a>
   </p>
 </div>
@@ -114,6 +114,6 @@ An example of adding a custom post function can be shown [here](/examples/costom
 Any contribution may be useful for the package! Make sure when making issues or PRs that the issue has not been addressed yet in a past issue/PR.
 
 ## Other Links
-- [PyPi](https://www.pypi.org/package/dbots)
+- [PyPi](https://www.pypi.org/project/dbots)
 - [Libraries.io](https://libraries.io/pypi/dbots)
 - Documentation (work in progress)
