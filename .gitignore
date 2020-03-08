@@ -2,6 +2,7 @@ test.py
 upload.sh
 dbots/__pycache__/**
 dist
+build
 _build
 *.log
 *.egg-info
