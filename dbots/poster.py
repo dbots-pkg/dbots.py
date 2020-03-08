@@ -179,7 +179,7 @@ class ClientPoster(Poster):
     def __init__(self, client, client_library, **options):
         filler = ClientFiller.get(client_library, client)
         super().__init__(
-            None, filler.user_count, filler.server_count,
+            None, filler.server_count, filler.user_count,
             filler.voice_connections, **options
         )
         self.client = client
