@@ -59,7 +59,7 @@ class BotListSpace(Service):
         return http_client.request(
             method = 'POST',
             path = f'{BotListSpace.BASE_URL}/bots/{bot_id}',
-            headers = { 'Authorization': token, 'Content-Type': 'application/json' },
+            headers = { 'Authorization': token },
             json = { 'server_count': server_count }
         )
 
@@ -75,38 +75,38 @@ class BotListSpace(Service):
             path = '/bots'
         )
 
-    def get_bot(self, bot_id) -> HTTPResponse:
+    def get_bot(self, bot_id: str) -> HTTPResponse:
         return self._request(
             method = 'GET',
             path = f'/bots/{bot_id}'
         )
 
-    def get_bot_votes(self, bot_id) -> HTTPResponse:
+    def get_bot_votes(self, bot_id: str) -> HTTPResponse:
         return self._request(
             method = 'GET',
             path = f'/bots/{bot_id}/upvotes',
             requires_token = True
         )
 
-    def get_bot_uptime(self, bot_id) -> HTTPResponse:
+    def get_bot_uptime(self, bot_id: str) -> HTTPResponse:
         return self._request(
             method = 'GET',
             path = f'/bots/{bot_id}/uptime'
         )
 
-    def get_user(self, user_id) -> HTTPResponse:
+    def get_user(self, user_id: str) -> HTTPResponse:
         return self._request(
             method = 'GET',
             path = f'/users/{user_id}'
         )
 
-    def get_user_bots(self, user_id) -> HTTPResponse:
+    def get_user_bots(self, user_id: str) -> HTTPResponse:
         return self._request(
             method = 'GET',
             path = f'/users/{user_id}/bots'
         )
 
-    def get_widget_url(self, bot_id, style = 1, **query) -> str:
+    def get_widget_url(self, bot_id: str, style: int = 1, **query) -> str:
         return f'https://api.botlist.space/widget/{bot_id}/{style}?{_encode_query(query)}'
 
 class BotsForDiscord(Service):
@@ -134,32 +134,32 @@ class BotsForDiscord(Service):
             json = { 'server_count': server_count }
         )
 
-    def get_bot(self, bot_id) -> HTTPResponse:
+    def get_bot(self, bot_id: str) -> HTTPResponse:
         return self._request(
             method = 'GET',
             path = f'/bot/{bot_id}'
         )
 
-    def get_bot_votes(self, bot_id) -> HTTPResponse:
+    def get_bot_votes(self, bot_id: str) -> HTTPResponse:
         return self._request(
             method = 'GET',
             path = f'/bot/{bot_id}/votes',
             requires_token = True
         )
 
-    def get_user(self, user_id) -> HTTPResponse:
+    def get_user(self, user_id: str) -> HTTPResponse:
         return self._request(
             method = 'GET',
             path = f'/user/{user_id}'
         )
 
-    def get_user_bots(self, user_id) -> HTTPResponse:
+    def get_user_bots(self, user_id: str) -> HTTPResponse:
         return self._request(
             method = 'GET',
             path = f'/user/{user_id}/bots'
         )
 
-    def get_widget_url(self, bot_id, **query) -> str:
+    def get_widget_url(self, bot_id: str, **query) -> str:
         return f'{BotsForDiscord.BASE_URL}/bot/{bot_id}/widget?{_encode_query(query)}'
 
 class DiscordBotsGG(Service):
@@ -199,7 +199,7 @@ class DiscordBotsGG(Service):
             requires_token = True
         )
 
-    def get_bot(self, bot_id, **query) -> HTTPResponse:
+    def get_bot(self, bot_id: str, **query) -> HTTPResponse:
         return self._request(
             method = 'GET',
             path = f'/bots/{bot_id}',
@@ -216,7 +216,7 @@ class TopGG(Service):
             API Documentation for top.gg
     """
 
-    BASE_URL = 'https://top.gg/api/'
+    BASE_URL = 'https://top.gg/api'
 
     @staticmethod
     def _post(
@@ -244,21 +244,21 @@ class TopGG(Service):
             requires_token = True
         )
 
-    def get_bot(self, bot_id) -> HTTPResponse:
+    def get_bot(self, bot_id: str) -> HTTPResponse:
         return self._request(
             method = 'GET',
             path = f'/bots/{bot_id}',
             requires_token = True
         )
 
-    def get_bot_votes(self, bot_id) -> HTTPResponse:
+    def get_bot_votes(self, bot_id: str) -> HTTPResponse:
         return self._request(
             method = 'GET',
             path = f'/bots/{bot_id}/votes',
             requires_token = True
         )
 
-    def check_vote(self, bot_id, user_id) -> HTTPResponse:
+    def check_vote(self, bot_id: str, user_id: str) -> HTTPResponse:
         return self._request(
             method = 'GET',
             path = f'/bots/{bot_id}/check',
@@ -266,21 +266,21 @@ class TopGG(Service):
             requires_token = True
         )
 
-    def get_bot_stats(self, bot_id) -> HTTPResponse:
+    def get_bot_stats(self, bot_id: str) -> HTTPResponse:
         return self._request(
             method = 'GET',
             path = f'/bots/{bot_id}/stats',
             requires_token = True
         )
 
-    def get_user(self, user_id) -> HTTPResponse:
+    def get_user(self, user_id: str) -> HTTPResponse:
         return self._request(
             method = 'GET',
             path = f'/users/{user_id}',
             requires_token = True
         )
 
-    def get_widget_url(self, bot_id, small_widget = None, **query) -> str:
+    def get_widget_url(self, bot_id: str, small_widget = None, **query) -> str:
         subpath = '' if not small_widget else f'/{small_widget}'
         return f'{TopGG.BASE_URL}/widget/{subpath}{bot_id}.svg?{_encode_query(query)}'
 
