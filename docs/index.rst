@@ -12,13 +12,16 @@ A poster/wrapper for Discord bot lists
    :target: https://libraries.io/pypi/dbots
    :alt: Dependencies
 
+
+Documentation Contents
+----------------------
 .. toctree::
    :maxdepth: 4
 
    api
 
-Other Links
------------
+Links
+-----
 
 - `PyPi <https://www.pypi.org/project/dbots>`_
 - `Libraries.io <https://libraries.io/pypi/dbots>`_

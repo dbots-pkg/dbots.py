@@ -8,6 +8,7 @@
     <a href="https://www.pypi.org/project/dbots"><img src="https://img.shields.io/pypi/v/dbots?style=for-the-badge" alt="PyPi version" /></a>
     <a href="https://www.pypi.org/project/dbots"><img src="https://img.shields.io/pypi/dm/dbots?style=for-the-badge" alt="PyPi downloads" /></a>
     <a href="https://libraries.io/pypi/dbots"><img src="https://img.shields.io/librariesio/release/pypi/dbots?style=for-the-badge" alt="Dependencies" /></a>
+    <a href="https://dbots.readthedocs.io/en/latest/?badge=latest"><img src="https://readthedocs.org/projects/dbots/badge/?version=latest&style=for-the-badge" alt="Documentation Status" /></a>
   </p>
 </div>
 <br/>
