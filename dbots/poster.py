@@ -51,7 +51,6 @@ class Poster(EventHandler):
         self.http = HTTPClient(proxy = proxy, proxy_auth = proxy_auth)
         self.api_keys = options.pop('api_keys', {})
 
-        print('inst', _ensure_coro(server_count), server_count)
         setattr(self, 'server_count', _ensure_coro(server_count))
         setattr(self, 'user_count', _ensure_coro(user_count))
         setattr(self, 'voice_connections', _ensure_coro(voice_connections))
