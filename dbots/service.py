@@ -113,7 +113,7 @@ class BotListSpace(Service):
 
     @staticmethod
     def _post(
-        http_client, bot_id, token,
+        http_client: HTTPClient, bot_id: str, token: str,
         server_count = 0
     ) -> HTTPResponse:
         return http_client.request(
@@ -208,7 +208,7 @@ class BotListSpace(Service):
             path = f'/users/{user_id}/bots'
         )
 
-    def get_widget_url(self, bot_id: str, style: int = 1, **query) -> str:
+    def get_widget_url(self, bot_id: str, style = 1, **query) -> str:
         """
         Gets the widget URL for this bot.
 
@@ -240,7 +240,7 @@ class BotsForDiscord(Service):
 
     @staticmethod
     def _post(
-        http_client, bot_id, token,
+        http_client: HTTPClient, bot_id: str, token: str,
         server_count = 0
     ) -> HTTPResponse:
         return http_client.request(
@@ -337,10 +337,10 @@ class DiscordBotsGG(Service):
 
     @staticmethod
     def _post(
-        http_client, bot_id, token,
+        http_client: HTTPClient, bot_id: str, token: str,
         server_count = 0, user_count = 0,
-        voice_connections = 0, shard_count = None,
-        shard_id = None
+        voice_connections = 0, shard_count: int = None,
+        shard_id: int = None
     ) -> HTTPResponse:
         payload = { 'guildCount': server_count }
         if shard_id and shard_count:
@@ -404,10 +404,10 @@ class TopGG(Service):
 
     @staticmethod
     def _post(
-        http_client, bot_id, token,
+        http_client: HTTPClient, bot_id: str, token: str,
         server_count = 0, user_count = 0,
-        voice_connections = 0, shard_count = None,
-        shard_id = None
+        voice_connections = 0, shard_count: int = None,
+        shard_id: int = None
     ) -> HTTPResponse:
         payload = { 'server_count': server_count }
         if shard_id and shard_count:
@@ -514,7 +514,7 @@ class TopGG(Service):
             requires_token = True
         )
 
-    def get_widget_url(self, bot_id: str, small_widget = None, **query) -> str:
+    def get_widget_url(self, bot_id: str, small_widget: str = None, **query) -> str:
         """
         Gets the widget URL for this bot.
 

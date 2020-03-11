@@ -29,14 +29,47 @@ def _ensure_coro(func):
     return func
 
 class Poster(EventHandler):
-    """A class that posts server count to listing sites."""
+    """
+    A class that posts server count to listing sites.
+
+    Parameters
+    -----------
+    client_id: str
+        The client ID used for posting to a service.
+    server_count: function
+        The function to use when retrieving the amount of servers.
+    user_count: function
+        The function to use when retrieving the amount of users.
+    voice_connections: function
+        The function to use when retrieving the amount of voice connections.
+    on_custom_post: Optional[function]
+        The function to use when posting to a `custom` service.
+        This function will be used with the named parameters being
+        `server_count`, `user_count` and `voice_connections`.
+    loop: Optional[asyncio.AbstractEventLoop]
+        The `asyncio.AbstractEventLoop` to use for asynchronous operations.
+        Defaults to ``None``, in which case the default event loop is used via
+        `asyncio.get_event_loop()`.
+    sharding: Optional[bool]
+        Whether or not to use sharding values.
+    shard_count: Optional[int]
+        The amount of shards the client has.
+    shard_id: Optional[int]
+        The shard ID the poster us posting for.
+    proxy: Optional[str]
+        Proxy URL.
+    proxy_auth: Optional[aiohttp.BasicAuth]
+        An object that represents proxy HTTP Basic Authorization.
+    api_keys: Optional[dict]
+        A dictionary of API keys with the key being service keys and values being tokens.
+    """
 
     def __init__(
         self, client_id, server_count, user_count,
         voice_connections, on_custom_post = None, **options
     ):
         super().__init__(loop = options.pop('loop', None))
-        
+
         self._loop = None
         self._client_id = client_id
         if options.pop('sharding', True):
@@ -70,26 +103,55 @@ class Poster(EventHandler):
     
     @property
     def client_id(self) -> str or None:
+        """The client ID of the poster."""
         return self._client_id
     
     @property
     def shard_id(self) -> int or None:
+        """The shard ID of the poster."""
         return self._shard_id
     
     @property
     def shard_count(self) -> int or None:
+        """The shard count of the poster."""
         return self._shard_count
 
     # api key management
     
-    def set_key(self, service, key) -> str:
+    def set_key(self, service: str, key: str) -> str:
+        """
+        Sets an API key.
+
+        Parameters
+        -----------
+        service: str
+            The service key to set.
+        key: str
+            The API key to use.
+        """
         self.api_keys[service] = key
         return key
 
-    def get_key(self, service) -> str:
+    def get_key(self, service: str) -> str:
+        """
+        Gets an API key.
+
+        Parameters
+        -----------
+        service: str
+            The service key to get.
+        """
         return self.api_keys[service]
 
-    def remove_key(self, service) -> str:
+    def remove_key(self, service: str) -> str:
+        """
+        Removes an API key.
+
+        Parameters
+        -----------
+        service: str
+            The service key to remove.
+        """
         key = self.api_keys[service]
         del self.api_keys[service]
         return key
@@ -97,12 +159,21 @@ class Poster(EventHandler):
     # loop management
     
     def start_loop(self, interval = 1800) -> AsyncLoop:
+        """
+        Creates a loop that posts to all services every `n` seconds.
+
+        Parameters
+        -----------
+        interval: Optional[int]
+            The amount of time (in seconds) to post to all services again.
+        """
         self.kill_loop()
         self._loop = AsyncLoop(interval, self.__on_loop)
         log.debug('Started loop %s', interval)
         return self._loop
     
     def kill_loop(self):
+        """Cancels the current posting loop."""
         if self._loop:
             log.debug('Ending loop')
             self._loop.cancel()
@@ -123,6 +194,14 @@ class Poster(EventHandler):
     # post management
 
     async def post(self, service = None) -> HTTPResponse:
+        """
+        Posts the current clients server count to a service.
+
+        Parameters
+        -----------
+        service: Optional[str]
+            The service to post to. Can be `None` to post to all services or `custom` to use the custom post method.
+        """
         servers = await self.server_count()
         users = await self.user_count()
         connections = await self.voice_connections()
@@ -132,6 +211,20 @@ class Poster(EventHandler):
         self, server_count, service = None,
         user_count = None, voice_connections = None
     ) -> HTTPResponse:
+        """
+        Manually posts a server count to a service.
+
+        Parameters
+        -----------
+        server_count: int
+            The server count to post to the service.
+        service: Optional[str]
+            The service to post to. Can be `None` to post to all services or `custom` to use the custom post method.
+        user_count: Optional[int]
+            The user count to post to the service.
+        voice_connections: Optional[int]
+            The voice connection count to post to the service.
+        """
         if service == 'custom' and hasattr(self, 'on_custom_post'):
             return await self.on_custom_post(
                 self, server_count = server_count,
@@ -173,7 +266,32 @@ class Poster(EventHandler):
             raise error
 
 class ClientPoster(Poster):
-    """A class that posts certain client values to listing sites."""
+    """
+    A class that posts certain client values to listing sites.
+
+    Parameters
+    -----------
+    client: class
+        The client that a supported library uses to manage the Discord application.
+    client_library: str
+        The library that the client is based on.
+    loop: Optional[asyncio.AbstractEventLoop]
+        The `asyncio.AbstractEventLoop` to use for asynchronous operations.
+        Defaults to ``None``, in which case the default event loop is used via
+        `asyncio.get_event_loop()`.
+    sharding: Optional[bool]
+        Whether or not to use sharding values.
+    shard_count: Optional[int]
+        The amount of shards the client has.
+    shard_id: Optional[int]
+        The shard ID the poster us posting for.
+    proxy: Optional[str]
+        Proxy URL.
+    proxy_auth: Optional[aiohttp.BasicAuth]
+        An object that represents proxy HTTP Basic Authorization.
+    api_keys: Optional[dict]
+        A dictionary of API keys with the key being service keys and values being tokens.
+    """
 
     def __init__(self, client, client_library, **options):
         filler = ClientFiller.get(client_library, client)
