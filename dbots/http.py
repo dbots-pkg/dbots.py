@@ -1,9 +1,9 @@
 import atexit
+import aiohttp
 import json
 import logging
 import sys
 from urllib.parse import urlencode as _encode_query
-import aiohttp
 from .errors import HTTPException, HTTPUnauthorized, HTTPForbidden, HTTPNotFound
 from . import __version__
 
