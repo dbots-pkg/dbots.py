@@ -450,7 +450,7 @@ class TopGG(Service):
             requires_token = True
         )
 
-    def check_vote(self, bot_id: str, user_id: str) -> HTTPResponse:
+    def user_voted(self, bot_id: str, user_id: str) -> HTTPResponse:
         """
         Gets the list of people who voted this bot on this service.
 
@@ -525,15 +525,11 @@ Service.SERVICE_KEYMAP = {
 
     'discordbotsgg': DiscordBotsGG,
     'discord.bots.gg': DiscordBotsGG,
-    'dbotsgg': DiscordBotsGG,
-    'dbgg': DiscordBotsGG,
+    'botsgg': DiscordBotsGG,
+    'bots.gg': DiscordBotsGG,
+    'dbots': DiscordBotsGG,
 
     'topgg': TopGG,
     'top.gg': TopGG,
-    'top': TopGG,
-    'tgg': TopGG,
-    'discordbotsorg': TopGG,
-    'discordbots.org': TopGG,
-    'dbotsorg': TopGG,
-    'dborg': TopGG
+    'top': TopGG
 }
