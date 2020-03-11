@@ -1,4 +1,4 @@
-from .http import HTTPClient
+from .http import HTTPClient, HTTPResponse
 from .errors import EndpointRequiresToken, ServiceException
 from urllib.parse import urlencode as _encode_query
 
@@ -34,7 +34,7 @@ class Service:
         self.http = HTTPClient(base_url = self.BASE_URL, proxy = proxy, proxy_auth = proxy_auth)
 
     @staticmethod
-    def _post() -> void:
+    def _post():
         """
         Posts statistics to this service.
 
@@ -63,7 +63,7 @@ class Service:
         
 
     @staticmethod
-    def get(key: str) -> Service:
+    def get(key: str):
         """
         Gets a service from a key.
 
@@ -72,10 +72,10 @@ class Service:
         key: str
             The name of the service to get.
         """
-        service = Service.SERVICE_KEYMAP.get(key)
-        if not service:
-            raise ServiceException('Invalid service')
-        return service
+        for service in Service.SERVICES:
+            if key.lower() in service.aliases():
+                return service
+        raise ServiceException('Invalid service')
 
     @property
     def has_token(self) -> bool:
@@ -106,6 +106,10 @@ class BotListSpace(Service):
     """
 
     BASE_URL = 'https://api.botlist.space/v1'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['botlistspace', 'botlist.space', 'bls']
 
     @staticmethod
     def _post(
@@ -231,6 +235,10 @@ class BotsForDiscord(Service):
     BASE_URL = 'https://botsfordiscord.com/api'
 
     @staticmethod
+    def aliases() -> list:
+        return ['botsfordiscord', 'botsfordiscord.com', 'bfd']
+
+    @staticmethod
     def _post(
         http_client, bot_id, token,
         server_count = 0
@@ -324,6 +332,10 @@ class DiscordBotsGG(Service):
     BASE_URL = 'https://discord.bots.gg/api/v1'
 
     @staticmethod
+    def aliases() -> list:
+        return ['discordbotsgg', 'discord.bots.gg', 'botsgg', 'bots.gg', 'dbots']
+
+    @staticmethod
     def _post(
         http_client, bot_id, token,
         server_count = 0, user_count = 0,
@@ -385,6 +397,10 @@ class TopGG(Service):
     """
 
     BASE_URL = 'https://top.gg/api'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['topgg', 'top.gg', 'top']
 
     @staticmethod
     def _post(
@@ -514,22 +530,6 @@ class TopGG(Service):
         subpath = '' if not small_widget else f'/{small_widget}'
         return f'{TopGG.BASE_URL}/widget/{subpath}{bot_id}.svg?{_encode_query(query)}'
 
-Service.SERVICE_KEYMAP = {
-    'botlistspace': BotListSpace,
-    'botlist.space': BotListSpace,
-    'bls': BotListSpace,
-
-    'botsfordiscord': BotsForDiscord,
-    'botsfordiscord.com': BotsForDiscord,
-    'bfd': BotsForDiscord,
-
-    'discordbotsgg': DiscordBotsGG,
-    'discord.bots.gg': DiscordBotsGG,
-    'botsgg': DiscordBotsGG,
-    'bots.gg': DiscordBotsGG,
-    'dbots': DiscordBotsGG,
-
-    'topgg': TopGG,
-    'top.gg': TopGG,
-    'top': TopGG
-}
+Service.SERVICES = [
+    BotListSpace, BotsForDiscord, DiscordBotsGG, TopGG
+]

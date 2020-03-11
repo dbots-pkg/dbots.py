@@ -2,6 +2,10 @@ import dbots
 
 class CustomService(dbots.Service):
     @staticmethod
+    def aliases():
+        return ['customservice']
+
+    @staticmethod
     def _post(
         http_client, bot_id, token, server_count = 0, user_count = 0,
         voice_connections = 0, shard_count = None, shard_id = None
@@ -22,7 +26,7 @@ class CustomService(dbots.Service):
             json = payload
         )
 
-dbots.Service.SERVICE_KEYMAP['customservice'] = CustomService
+dbots.Service.SERVICES.append(CustomService)
 
 client_id = '1234567890'
 

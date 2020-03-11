@@ -113,7 +113,7 @@ See more examples [here](/examples).
  - *More services will be supported in a future release...*
 
 ### Adding Custom Services
-You can add custom services by extending from the base service class (`dbots.Service`) and overriding the `_post` method.  
+You can add custom services by extending from the base service class (`dbots.Service`) and overriding the `_post`  and `aliases` method.  
 Make sure to add the custom service class to the service keymap. (`dbots.Service.SERVICE_KEYMAP`) An example of adding a custom service can be shown [here](/examples/cUstom_service.py).
 
 ### Adding a custom post function
