@@ -86,6 +86,25 @@ class HTTPClient:
 
 
 class HTTPResponse:
+    """
+    A wrapped response from an :class:`HTTPClient`:.
+
+    Attributes
+    -----------
+    body: :class:`dict` or :class:`str`
+        The body of the response. The response is auto-parsed to json if available.
+    text: :class:`str`
+        The text body of the response.
+    raw: :class:`aiohttp.ClientResponse`
+        The raw response from ``aiohttp``.
+    status: :class:`int`
+        The HTTP status code of the response.
+    method: :class:`str`
+        The method the request used.
+    url: :class:`str`
+        The URL of the response.
+    """
+
     def __init__(self, response, text):
         try:
             if response.headers['content-type'] == 'application/json':
@@ -93,6 +112,7 @@ class HTTPResponse:
         except KeyError:
             pass
         self.body = text
+        self.text = text
         self.raw = response
         self.status = response.status
         self.method = response.method

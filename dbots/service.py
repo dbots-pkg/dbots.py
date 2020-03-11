@@ -8,20 +8,20 @@ class Service:
 
     Parameters
     -----------
-    token: Optional[str]
+    token: Optional[:class:`str`]
         The token that the class will use to authorize requests.
-    proxy: Optional[str]
+    proxy: Optional[:class:`str`]
         Proxy URL.
-    proxy_auth: Optional[aiohttp.BasicAuth]
+    proxy_auth: Optional[:class:`aiohttp.BasicAuth`]
         An object that represents proxy HTTP Basic Authorization.
 
     Attributes
     -----------
-    BASE_URL: Optional[str]
+    BASE_URL: Optional[:class:`str`]
         The base URL that the service uses for API requests.
-    token: str
+    token: :class:`str`
         The token that will be used for the service.
-    http: HTTPClient
+    http: :class:`HTTPClient`
         The HTTP client the service is using.
     """
 
@@ -40,23 +40,23 @@ class Service:
 
         Parameters
         -----------
-        http_client: HTTPClient
+        http_client: :class:`HTTPClient`
             The HTTP client to use when making the request.
-        bot_id: str
+        bot_id: :class:`str`
             The client ID that the request will post for.
-        token: str
+        token: :class:`str`
             The authorization token for the request.
-        http_client: HTTPClient
+        http_client: :class:`HTTPClient`
             The HTTP client to use when making the request.
         server_count: int
             The amount of servers that the client is in.
-        user_count: Optional[int]
+        user_count: Optional[:class:`int`]
             The amount of users that the client cached.
-        voice_connections: Optional[int]
+        voice_connections: Optional[:class:`int`]
             The amount of voice connections the client has.
-        shard_count: Optional[int]
+        shard_count: Optional[:class:`int`]
             The shard count the request is posting for.
-        shard_id: Optional[int]
+        shard_id: Optional[:class:`int`]
             The shard ID the request is posting for.
         """
         raise ServiceException('Can\'t post to base service')
@@ -69,7 +69,7 @@ class Service:
 
         Parameters
         -----------
-        key: str
+        key: :class:`str`
             The name of the service to get.
         """
         for service in Service.SERVICES:
@@ -98,11 +98,11 @@ class Service:
 
 class BotListSpace(Service):
     """
-    Represents the botlist.space's service.
+    Represents the botlist.space service.
     
     .. seealso::
-        `Service's API Documentation <https://docs.botlist.space/>`_
-            API Documentation for botlist.space
+        - `botlist.space Website <https://botlist.space/>`_
+        - `botlist.space API Documentation <https://docs.botlist.space/>`_
     """
 
     BASE_URL = 'https://api.botlist.space/v1'
@@ -124,26 +124,26 @@ class BotListSpace(Service):
         )
 
     def get_statistics(self) -> HTTPResponse:
-        """Gets the statistics of this service."""
+        """|httpres|\n\n Gets the statistics of this service."""
         return self._request(
             method = 'GET',
             path = '/statistics'
         )
 
     def get_bots(self) -> HTTPResponse:
-        """Gets a list of bots on this service."""
+        """|httpres|\n\n Gets a list of bots on this service."""
         return self._request(
             method = 'GET',
             path = '/bots'
         )
 
     def get_bot(self, bot_id: str) -> HTTPResponse:
-        """
+        """|httpres|\n
         Gets the bot listed on this service.
 
         Parameters
         -----------
-        bot_id: str
+        bot_id: :class:`str`
             The bot's ID.
         """
         return self._request(
@@ -152,12 +152,12 @@ class BotListSpace(Service):
         )
 
     def get_bot_votes(self, bot_id: str) -> HTTPResponse:
-        """
+        """|httpres|\n
         Gets the list of people who voted this bot on this service.
 
         Parameters
         -----------
-        bot_id: str
+        bot_id: :class:`str`
             The bot's ID.
         """
         return self._request(
@@ -167,12 +167,12 @@ class BotListSpace(Service):
         )
 
     def get_bot_uptime(self, bot_id: str) -> HTTPResponse:
-        """
+        """|httpres|\n
         Gets the uptime of a bot listed on this service.
 
         Parameters
         -----------
-        bot_id: str
+        bot_id: :class:`str`
             The bot's ID.
         """
         return self._request(
@@ -181,12 +181,12 @@ class BotListSpace(Service):
         )
 
     def get_user(self, user_id: str) -> HTTPResponse:
-        """
+        """|httpres|\n
         Gets the user listed on this service.
 
         Parameters
         -----------
-        user_id: str
+        user_id: :class:`str`
             The user's ID.
         """
         return self._request(
@@ -195,12 +195,12 @@ class BotListSpace(Service):
         )
 
     def get_user_bots(self, user_id: str) -> HTTPResponse:
-        """
+        """|httpres|\n
         Gets the user's bots listed for this service.
 
         Parameters
         -----------
-        user_id: str
+        user_id: :class:`str`
             The user's ID.
         """
         return self._request(
@@ -214,9 +214,9 @@ class BotListSpace(Service):
 
         Parameters
         -----------
-        bot_id: str
+        bot_id: :class:`str`
             The bot's ID.
-        style: Optional[int]
+        style: Optional[:class:`int`]
             The style of the widget.
         **query
             The query string to append to the URL.
@@ -225,11 +225,11 @@ class BotListSpace(Service):
 
 class BotsForDiscord(Service):
     """
-    Represents the Bots For Discord's service.
+    Represents the Bots For Discord service.
     
     .. seealso::
-        `Service's API Documentation <https://docs.botsfordiscord.com/>`_
-            API Documentation for Bots For Discord
+        - `Bots For Discord Website <https://botsfordiscord.com/>`_
+        - `Bots For Discord API Documentation <https://docs.botsfordiscord.com/>`_
     """
 
     BASE_URL = 'https://botsfordiscord.com/api'
@@ -251,12 +251,12 @@ class BotsForDiscord(Service):
         )
 
     def get_bot(self, bot_id: str) -> HTTPResponse:
-        """
+        """|httpres|\n
         Gets the bot listed on this service.
 
         Parameters
         -----------
-        bot_id: str
+        bot_id: :class:`str`
             The bot's ID.
         """
         return self._request(
@@ -265,12 +265,12 @@ class BotsForDiscord(Service):
         )
 
     def get_bot_votes(self, bot_id: str) -> HTTPResponse:
-        """
+        """|httpres|\n
         Gets the list of people who voted this bot on this service.
 
         Parameters
         -----------
-        bot_id: str
+        bot_id: :class:`str`
             The bot's ID.
         """
         return self._request(
@@ -280,12 +280,12 @@ class BotsForDiscord(Service):
         )
 
     def get_user(self, user_id: str) -> HTTPResponse:
-        """
+        """|httpres|\n
         Gets the user listed on this service.
 
         Parameters
         -----------
-        user_id: str
+        user_id: :class:`str`
             The user's ID.
         """
         return self._request(
@@ -294,12 +294,12 @@ class BotsForDiscord(Service):
         )
 
     def get_user_bots(self, user_id: str) -> HTTPResponse:
-        """
+        """|httpres|\n
         Gets the user's bots listed for this service.
 
         Parameters
         -----------
-        user_id: str
+        user_id: :class:`str`
             The user's ID.
         """
         return self._request(
@@ -313,7 +313,7 @@ class BotsForDiscord(Service):
 
         Parameters
         -----------
-        bot_id: str
+        bot_id: :class:`str`
             The bot's ID.
         **query
             The query string to append to the URL.
@@ -322,11 +322,11 @@ class BotsForDiscord(Service):
 
 class DiscordBotsGG(Service):
     """
-    Represents the discord.bots.gg service.
+    Represents the Discord Bots service.
     
     .. seealso::
-        `Service's API Documentation <https://discord.bots.gg/docs>`_
-            API Documentation for discord.bots.gg
+        - `Discord Bots Website <https://discord.bots.gg/>`_
+        - `Discord Bots API Documentation <https://discord.bots.gg/docs>`_
     """
 
     BASE_URL = 'https://discord.bots.gg/api/v1'
@@ -354,7 +354,7 @@ class DiscordBotsGG(Service):
         )
 
     def get_bots(self, **query) -> HTTPResponse:
-        """
+        """|httpres|\n
         Gets a list of bots on this service.
 
         Parameters
@@ -370,12 +370,12 @@ class DiscordBotsGG(Service):
         )
 
     def get_bot(self, bot_id: str, **query) -> HTTPResponse:
-        """
+        """|httpres|\n
         Gets the bot listed on this service.
 
         Parameters
         -----------
-        bot_id: str
+        bot_id: :class:`str`
             The bot's ID.
         **query
             The query string to append to the URL.
@@ -389,11 +389,11 @@ class DiscordBotsGG(Service):
 
 class TopGG(Service):
     """
-    Represents the top.gg service.
+    Represents the Top.gg service.
     
     .. seealso::
-        `Service's API Documentation <https://top.gg/api/docs>`_
-            API Documentation for top.gg
+        - `Top.gg Website <https://top.gg/>`_
+        - `Top.gg API Documentation <https://top.gg/api/docs>`_
     """
 
     BASE_URL = 'https://top.gg/api'
@@ -421,7 +421,7 @@ class TopGG(Service):
         )
 
     def get_bots(self, **query) -> HTTPResponse:
-        """
+        """|httpres|\n
         Gets a list of bots on this service.
 
         Parameters
@@ -437,12 +437,12 @@ class TopGG(Service):
         )
 
     def get_bot(self, bot_id: str) -> HTTPResponse:
-        """
+        """|httpres|\n
         Gets the bot listed on this service.
 
         Parameters
         -----------
-        bot_id: str
+        bot_id: :class:`str`
             The bot's ID.
         """
         return self._request(
@@ -452,12 +452,12 @@ class TopGG(Service):
         )
 
     def get_bot_votes(self, bot_id: str) -> HTTPResponse:
-        """
+        """|httpres|\n
         Gets the list of people who voted this bot on this service.
 
         Parameters
         -----------
-        bot_id: str
+        bot_id: :class:`str`
             The bot's ID.
         """
         return self._request(
@@ -467,14 +467,14 @@ class TopGG(Service):
         )
 
     def user_voted(self, bot_id: str, user_id: str) -> HTTPResponse:
-        """
+        """|httpres|\n
         Gets the list of people who voted this bot on this service.
 
         Parameters
         -----------
-        bot_id: str
+        bot_id: :class:`str`
             The bot's ID.
-        user_id: str
+        user_id: :class:`str`
             The user's ID.
         """
         return self._request(
@@ -485,12 +485,12 @@ class TopGG(Service):
         )
 
     def get_bot_stats(self, bot_id: str) -> HTTPResponse:
-        """
+        """|httpres|\n
         Gets the bot's stats listed on this service.
 
         Parameters
         -----------
-        bot_id: str
+        bot_id: :class:`str`
             The bot's ID.
         """
         return self._request(
@@ -500,12 +500,12 @@ class TopGG(Service):
         )
 
     def get_user(self, user_id: str) -> HTTPResponse:
-        """
+        """|httpres|\n
         Gets the user listed on this service.
 
         Parameters
         -----------
-        user_id: str
+        user_id: :class:`str`
             The user's ID.
         """
         return self._request(
@@ -520,9 +520,9 @@ class TopGG(Service):
 
         Parameters
         -----------
-        bot_id: str
+        bot_id: :class:`str`
             The bot's ID.
-        small_widget: Optional[str]
+        small_widget: Optional[:class:`str`]
             The sub-path name to turn the widget into a badge. (i.e. owner)
         **query
             The query string to append to the URL.

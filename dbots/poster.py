@@ -34,33 +34,33 @@ class Poster(EventHandler):
 
     Parameters
     -----------
-    client_id: str
+    client_id: :class:`str`
         The client ID used for posting to a service.
-    server_count: function
+    server_count: function or `coroutine`
         The function to use when retrieving the amount of servers.
-    user_count: function
+    user_count: function or `coroutine`
         The function to use when retrieving the amount of users.
-    voice_connections: function
+    voice_connections: function or `coroutine`
         The function to use when retrieving the amount of voice connections.
-    on_custom_post: Optional[function]
+    on_custom_post: Optional[function or `coroutine`]
         The function to use when posting to a `custom` service.
         This function will be used with the named parameters being
         `server_count`, `user_count` and `voice_connections`.
-    loop: Optional[asyncio.AbstractEventLoop]
-        The `asyncio.AbstractEventLoop` to use for asynchronous operations.
+    loop: Optional[:class:`asyncio.AbstractEventLoop`]
+        The :class:`asyncio.AbstractEventLoop` to use for asynchronous operations.
         Defaults to ``None``, in which case the default event loop is used via
         `asyncio.get_event_loop()`.
-    sharding: Optional[bool]
+    sharding: Optional[:class:`bool`]
         Whether or not to use sharding values.
-    shard_count: Optional[int]
+    shard_count: Optional[:class:`int`]
         The amount of shards the client has.
-    shard_id: Optional[int]
+    shard_id: Optional[:class:`int`]
         The shard ID the poster us posting for.
-    proxy: Optional[str]
+    proxy: Optional[:class:`str`]
         Proxy URL.
-    proxy_auth: Optional[aiohttp.BasicAuth]
+    proxy_auth: Optional[:class:`aiohttp.BasicAuth`]
         An object that represents proxy HTTP Basic Authorization.
-    api_keys: Optional[dict]
+    api_keys: Optional[:class:`dict`]
         A dictionary of API keys with the key being service keys and values being tokens.
     """
 
@@ -124,9 +124,9 @@ class Poster(EventHandler):
 
         Parameters
         -----------
-        service: str
+        service: :class:`str`
             The service key to set.
-        key: str
+        key: :class:`str`
             The API key to use.
         """
         self.api_keys[service] = key
@@ -138,7 +138,7 @@ class Poster(EventHandler):
 
         Parameters
         -----------
-        service: str
+        service: :class:`str`
             The service key to get.
         """
         return self.api_keys[service]
@@ -149,7 +149,7 @@ class Poster(EventHandler):
 
         Parameters
         -----------
-        service: str
+        service: :class:`str`
             The service key to remove.
         """
         key = self.api_keys[service]
@@ -164,7 +164,7 @@ class Poster(EventHandler):
 
         Parameters
         -----------
-        interval: Optional[int]
+        interval: Optional[:class:`int`]
             The amount of time (in seconds) to post to all services again.
         """
         self.kill_loop()
@@ -199,7 +199,7 @@ class Poster(EventHandler):
 
         Parameters
         -----------
-        service: Optional[str]
+        service: Optional[:class:`str`]
             The service to post to. Can be `None` to post to all services or `custom` to use the custom post method.
         """
         servers = await self.server_count()
@@ -216,13 +216,13 @@ class Poster(EventHandler):
 
         Parameters
         -----------
-        server_count: int
+        server_count: :class:`int`
             The server count to post to the service.
-        service: Optional[str]
+        service: Optional[:class:`str`]
             The service to post to. Can be `None` to post to all services or `custom` to use the custom post method.
-        user_count: Optional[int]
+        user_count: Optional[:class:`int`]
             The user count to post to the service.
-        voice_connections: Optional[int]
+        voice_connections: Optional[:class:`int`]
             The voice connection count to post to the service.
         """
         if service == 'custom' and hasattr(self, 'on_custom_post'):
@@ -273,23 +273,23 @@ class ClientPoster(Poster):
     -----------
     client: class
         The client that a supported library uses to manage the Discord application.
-    client_library: str
+    client_library: :class:`str`
         The library that the client is based on.
     loop: Optional[asyncio.AbstractEventLoop]
         The `asyncio.AbstractEventLoop` to use for asynchronous operations.
         Defaults to ``None``, in which case the default event loop is used via
         `asyncio.get_event_loop()`.
-    sharding: Optional[bool]
+    sharding: Optional[:class:`bool`]
         Whether or not to use sharding values.
-    shard_count: Optional[int]
+    shard_count: Optional[:class:`int`]
         The amount of shards the client has.
-    shard_id: Optional[int]
+    shard_id: Optional[:class:`int`]
         The shard ID the poster us posting for.
-    proxy: Optional[str]
+    proxy: Optional[:class:`str`]
         Proxy URL.
-    proxy_auth: Optional[aiohttp.BasicAuth]
+    proxy_auth: Optional[:class:`aiohttp.BasicAut`h]
         An object that represents proxy HTTP Basic Authorization.
-    api_keys: Optional[dict]
+    api_keys: Optional[:class:`dict`]
         A dictionary of API keys with the key being service keys and values being tokens.
     """
 

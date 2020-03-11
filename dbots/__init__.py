@@ -7,11 +7,11 @@ __version__ = '1.1.2'
 from collections import namedtuple
 import logging
 
-from .http import HTTPClient
+from .http import HTTPClient, HTTPResponse
 from .client_filler import *
 from .errors import *
 from .service import *
-from .poster import Poster, ClientPoster
+from .poster import Poster, ClientPoster, AsyncLoop
 
 VersionInfo = namedtuple('VersionInfo', 'major minor micro releaselevel serial')
 version_info = VersionInfo(
