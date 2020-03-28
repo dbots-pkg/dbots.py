@@ -786,9 +786,10 @@ class DBLista(Service):
         query: :class:`str`
             The query to search for.
         """
+        uri = _encode_uri(query, safe='~()*!.\'')
         return self._request(
             method = 'GET',
-            path = f'/bots/search/{_encode_uri(query, safe='~()*!.\'')}'
+            path = f'/bots/search/{uri}'
         )
 
 class DiscordBotsGG(Service):
