@@ -1,9 +1,8 @@
 <div align="center">
   <p>
-    <img src="static/logo.png" alt="dbots logo" width="200" align="left" />
+    <img src="static/logo.png" alt="dbots.py logo" width="200" />
   </p>
-  <h1>dbots<i>.py</i></h1>
-  <p>A poster for Discord bot lists</p>
+  <p>A stats poster and API wrapper for all botlists.</p>
   <p>
     <a href="https://www.pypi.org/project/dbots"><img src="https://img.shields.io/pypi/v/dbots?style=for-the-badge" alt="PyPi version" /></a>
     <a href="https://www.pypi.org/project/dbots"><img src="https://img.shields.io/pypi/dm/dbots?style=for-the-badge" alt="PyPi downloads" /></a>
