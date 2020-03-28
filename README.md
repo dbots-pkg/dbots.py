@@ -106,10 +106,10 @@ See more examples [here](/examples).
 ## Services
 
 ### Supported Services
- - [botlist.space](https://botlist.space)
- - [botsfordiscord.com](https://botsfordiscord.com)
- - [top.gg](https://top.gg)
- - [discord.bots.gg](https://discord.bots.gg)
+ - [botlist.space](https://botlist.space) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.BotListSpace))
+ - [botsfordiscord.com](https://botsfordiscord.com) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.BotsForDiscord))
+ - [top.gg](https://top.gg) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.TopGG))
+ - [discord.bots.gg](https://discord.bots.gg) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.DiscordBotsGG))
  - *More services will be supported in a future release...*
 
 ### Adding Custom Services
