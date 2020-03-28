@@ -1,6 +1,7 @@
 from .http import HTTPClient, HTTPResponse
-from .errors import EndpointRequiresToken, ServiceException
+from .errors import EndpointRequiresToken, ServiceException, PostingUnsupported
 from urllib.parse import urlencode as _encode_query
+from urllib.parse import quote as _encode_uri
 
 class Service:
     """
@@ -622,6 +623,172 @@ class CloudList(Service):
             path = f'/bot/vote/{bot_id}',
             headers = { 'Authorization': self.token },
             requires_token = True
+        )
+
+class DBLista(Service):
+    """
+    Represents the DBLista service.
+    
+    .. seealso::
+        - `DBLista Website <https://dblista.pl/>`_
+        - `DBLista API Documentation <https://docs.dblista.pl/>`_
+    """
+
+    BASE_URL = 'https://www.cloudlist.xyz/api'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['dblistapl', 'dblista.pl', 'dblista']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str
+    ) -> HTTPResponse:
+        raise PostingUnsupported()
+
+    def add_bot(self, data: dict) -> HTTPResponse:
+        """|httpres|\n
+        Updates the bot's listing with the data provided.
+
+        Parameters
+        -----------
+        data: :class:`dict`
+            The data being posted. This should include the ID of the bot.
+        """
+        return self._request(
+            method = 'POST',
+            path = '/bots',
+            json = data,
+            headers = { 'Authorization': self.token },
+            requires_token = True
+        )
+
+    def update_bot(self, data: dict) -> HTTPResponse:
+        """|httpres|\n
+        Updates the bot's listing with the data provided.
+
+        Parameters
+        -----------
+        data: :class:`dict`
+            The data being posted. This should include the ID of the bot.
+        """
+        return self._request(
+            method = 'PUT',
+            path = '/bots',
+            json = data,
+            headers = { 'Authorization': self.token },
+            requires_token = True
+        )
+
+    def get_bot(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the bot's stats on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method = 'GET',
+            path = f'/bots/{bot_id}'
+        )
+
+    def get_bots(self, page: int = 0) -> HTTPResponse:
+        """|httpres|\n
+        Gets the bot's stats on this service.
+
+        Parameters
+        -----------
+        page: :class:`int`
+            The page you want to get.
+        """
+        return self._request(
+            method = 'GET',
+            path = f'/bots/list/{page}'
+        )
+
+    def get_unverified_bots(self) -> HTTPResponse:
+        """|httpres|\n
+        Gets a list of unverified bots on this service.
+        """
+        return self._request(
+            method = 'GET',
+            path = '/bots/list/unverified'
+        )
+
+    def get_rejected_bots(self) -> HTTPResponse:
+        """|httpres|\n
+        Gets a list of rejected bots on this service.
+        """
+        return self._request(
+            method = 'GET',
+            path = '/bots/list/rejected'
+        )
+
+    def rate_bot(self, bot_id: str, data: dict) -> HTTPResponse:
+        """|httpres|\n
+        Adds a rating to a bot on the service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        data: :class:`dict`
+            The data being posted. This should include the ID of the bot.
+        """
+        return self._request(
+            method = 'POST',
+            path = f'/bots/{bot_id}/rate',
+            json = data,
+            headers = { 'Authorization': self.token },
+            requires_token = True
+        )
+
+    def remove_rating(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Removes a rating from a bot on the service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method = 'DELETE',
+            path = f'/bots/{bot_id}/rate',
+            headers = { 'Authorization': self.token },
+            requires_token = True
+        )
+
+    def remove_bot(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Removes a bot from the service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method = 'DELETE',
+            path = f'/bots/{bot_id}',
+            headers = { 'Authorization': self.token },
+            requires_token = True
+        )
+
+    def search(self, query: str) -> HTTPResponse:
+        """|httpres|\n
+        Searches for bots on the service.
+
+        Parameters
+        -----------
+        query: :class:`str`
+            The query to search for.
+        """
+        return self._request(
+            method = 'GET',
+            path = f'/bots/search/{_encode_uri(query, safe='~()*!.\'')}'
         )
 
 class DiscordBotsGG(Service):
@@ -1944,8 +2111,8 @@ class YABL(Service):
         )
 
 Service.SERVICES = [
-    Arcane, BotListSpace, BotsForDiscord, BotsOfDiscord, BotsOnDiscord,
-    Carbon, CloudBotList, CloudList, DiscordBotsGG, DiscordAppsDev, DiscordBoats,
+    Arcane, BotListSpace, BotsForDiscord, BotsOfDiscord, BotsOnDiscord, Carbon,
+    CloudBotList, CloudList, DBLista, DiscordBotsGG, DiscordAppsDev, DiscordBoats,
     DiscordBotList, DiscordBotWorld, DiscordExtremeList, DivineDiscordBots, GlennBotList,
     LBots, ListMyBots, MythicalBots, SpaceBotsList, TopGG, WonderBotList, YABL
 ]

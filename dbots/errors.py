@@ -56,3 +56,8 @@ class EndpointRequiresToken(DBotsException):
     """Exception that's thrown for when an endpoint is being used without a token."""
     def __init__(self):
         super().__init__('This endpoint requires a token.')
+
+class PostingUnsupported(ServiceException):
+    """Exception that's thrown for services that cannot be posted to."""
+    def __init__(self):
+        super().__init__('This service does not support posting.')

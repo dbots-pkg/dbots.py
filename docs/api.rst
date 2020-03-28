@@ -70,6 +70,9 @@ Services
 .. autoclass:: CloudList
     :members:
 
+.. autoclass:: DBLista
+    :members:
+
 .. autoclass:: DiscordBotsGG
     :members:
 
