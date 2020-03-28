@@ -96,6 +96,44 @@ class Service:
 
 ###############################
 
+class Arcane(Service):
+    """
+    Represents the Arcane Bot Center service.
+    
+    .. seealso::
+        - `Arcane Bot Center Website <https://arcane-center.xyz/>`_
+        - `Arcane Bot Center API Documentation <https://arcane-center.xyz/documentation>`_
+    """
+
+    BASE_URL = 'https://arcane-center.xyz/api'
+
+    @staticmethod
+    def aliases() -> list:
+        return [
+            'arcanebotcenter', 'arcanecenter', 'arcane-botcenter.xyz', 'arcanebotcenter.xyz',
+            'arcane-center.xyz', 'arcanecenter.xyz', 'arcane', 'abc'
+        ]
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        payload = {
+            'server_count': server_count,
+            'member_count': user_count,
+        }
+        if shard_id and shard_count:
+            payload['shard_count'] = shard_count
+        return http_client.request(
+            method = 'POST',
+            path = f'{Arcane.BASE_URL}/{bot_id}/stats',
+            headers = { 'Authorization': token },
+            json = payload
+        )
+
 class BotListSpace(Service):
     """
     Represents the botlist.space service.
@@ -531,5 +569,5 @@ class TopGG(Service):
         return f'{TopGG.BASE_URL}/widget/{subpath}{bot_id}.svg?{_encode_query(query)}'
 
 Service.SERVICES = [
-    BotListSpace, BotsForDiscord, DiscordBotsGG, TopGG
+    Arcane, BotListSpace, BotsForDiscord, DiscordBotsGG, TopGG
 ]

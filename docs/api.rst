@@ -46,6 +46,9 @@ HTTP Classes
 Services
 --------
 
+.. autoclass:: Arcane
+    :members:
+
 .. autoclass:: BotListSpace
     :members:
 

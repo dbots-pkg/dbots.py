@@ -106,6 +106,7 @@ See more examples [here](/examples).
 ## Services
 
 ### Supported Services
+ - [arcane-center.xyz](https://arcane-center.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.Arcane))
  - [botlist.space](https://botlist.space) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.BotListSpace))
  - [botsfordiscord.com](https://botsfordiscord.com) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.BotsForDiscord))
  - [top.gg](https://top.gg) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.TopGG))
