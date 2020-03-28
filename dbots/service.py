@@ -425,6 +425,43 @@ class BotsOfDiscord(Service):
             path = f'/users/{user_id}'
         )
 
+class Carbon(Service):
+    """
+    Represents the Carbonitex service.
+    
+    .. seealso::
+        - `Carbonitex Website <https://www.carbonitex.net/Discord/bots/>`_
+    """
+
+    BASE_URL = 'https://www.carbonitex.net/discord'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['carbonitex', 'carbonitex.net', 'carbon']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, token: str,
+        server_count = 0
+    ) -> HTTPResponse:
+        return http_client.request(
+            method = 'POST',
+            path = f'{BotsOfDiscord.BASE_URL}/data/botdata.php',
+            json = {
+                'key': token,
+                'servercount': server_count
+            }
+        )
+
+    def get_bots(self) -> HTTPResponse:
+        """|httpres|\n
+        Gets a list of bots on this service.
+        """
+        return self._request(
+            method = 'GET',
+            path = '/api/listedbots'
+        )
+
 class DiscordBotsGG(Service):
     """
     Represents the Discord Bots service.

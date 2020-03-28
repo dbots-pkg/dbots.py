@@ -110,6 +110,7 @@ See more examples [here](/examples).
  - [botlist.space](https://botlist.space) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.BotListSpace))
  - [botsfordiscord.com](https://botsfordiscord.com) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.BotsForDiscord))
  - [b-o-d.cf](https://b-o-d.cf) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.BotsOfDiscord))
+ - [carbonitex.net](https://www.carbonitex.net/Discord/bots) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.Carbon))
  - [top.gg](https://top.gg) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.TopGG))
  - [discord.bots.gg](https://discord.bots.gg) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.DiscordBotsGG))
  - *More services will be supported in a future release...*

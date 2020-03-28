@@ -58,6 +58,9 @@ Services
 .. autoclass:: BotsOfDiscord
     :members:
 
+.. autoclass:: Carbon
+    :members:
+
 .. autoclass:: DiscordBotsGG
     :members:
 
