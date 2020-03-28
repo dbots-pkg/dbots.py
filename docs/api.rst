@@ -58,11 +58,59 @@ Services
 .. autoclass:: BotsOfDiscord
     :members:
 
+.. autoclass:: BotsOnDiscord
+    :members:
+
 .. autoclass:: Carbon
+    :members:
+
+.. autoclass:: CloudBotList
+    :members:
+
+.. autoclass:: CloudList
     :members:
 
 .. autoclass:: DiscordBotsGG
     :members:
 
+.. autoclass:: DiscordAppsDev
+    :members:
+
+.. autoclass:: DiscordBoats
+    :members:
+
+.. autoclass:: DiscordBotList
+    :members:
+
+.. autoclass:: DiscordBotWorld
+    :members:
+
+.. autoclass:: DiscordExtremeList
+    :members:
+
+.. autoclass:: DivineDiscordBots
+    :members:
+
+.. autoclass:: GlennBotList
+    :members:
+
+.. autoclass:: LBots
+    :members:
+
+.. autoclass:: ListMyBots
+    :members:
+
+.. autoclass:: MythicalBots
+    :members:
+
+.. autoclass:: SpaceBotsList
+    :members:
+
 .. autoclass:: TopGG
+    :members:
+
+.. autoclass:: WonderBotList
+    :members:
+
+.. autoclass:: YABL
     :members:

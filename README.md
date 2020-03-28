@@ -110,14 +110,29 @@ See more examples [here](/examples).
  - [botlist.space](https://botlist.space) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.BotListSpace))
  - [botsfordiscord.com](https://botsfordiscord.com) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.BotsForDiscord))
  - [b-o-d.cf](https://b-o-d.cf) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.BotsOfDiscord))
+ - [bots.ondiscord.xyz](https://bots.ondiscord.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.BotsOnDiscord))
  - [carbonitex.net](https://www.carbonitex.net/Discord/bots) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.Carbon))
- - [top.gg](https://top.gg) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.TopGG))
+ - [cloud-botlist.xyz](https://cloud-botlist.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.CloudBotList))
+ - [cloudlist.xyz](https://cloudlist.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.CloudList))
  - [discord.bots.gg](https://discord.bots.gg) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.DiscordBotsGG))
- - *More services will be supported in a future release...*
+ - [discordapps.dev](https://discordapps.dev) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.DiscordAppsDev))
+ - [discord.boats](https://discord.boats) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.DiscordBoats))
+ - [discordbotlist.com](https://discordbotlist.com) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.DiscordBotList))
+ - [discordbot.world](https://discordbot.world) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.DiscordBotWorld))
+ - [discordextremelist.xyz](https://discordextremelist.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.DiscordExtremeList))
+ - [divinediscordbots.com](https://divinediscordbots.com) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.DivineDiscordBots))
+ - [glennbotlist.xyz](https://glennbotlist.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.GlennBotList))
+ - [lbots.org](https://lbots.org) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.LBots))
+ - [listmybots.com](https://listmybots.com) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.ListMyBots))
+ - [mythicalbots.xyz](https://mythicalbots.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.MythicalBots))
+ - [space-bot-list.org](https://space-bot-list.org) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.SpaceBotsList))
+ - [top.gg](https://top.gg) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.TopGG))
+ - [wonderbotlist.com](https://wonderbotlist.com) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.WonderBotList))
+ - [yabl.xyz](yabl.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.YABL))
 
 ### Adding Custom Services
 You can add custom services by extending from the base service class (`dbots.Service`) and overriding the `_post`  and `aliases` method.  
-Make sure to add the custom service class to the service keymap. (`dbots.Service.SERVICE_KEYMAP`) An example of adding a custom service can be shown [here](/examples/cUstom_service.py).
+Make sure to add the custom service class to the service keymap. (`dbots.Service.SERVICE_KEYMAP`) An example of adding a custom service can be shown [here](/examples/custom_service.py).
 
 ### Adding a custom post function
 You can add a custom post event by defining `on_custom_post` in the initialization of a Poster.  
