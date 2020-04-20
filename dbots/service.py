@@ -1058,18 +1058,18 @@ class DiscordBoats(Service):
 
 class DiscordBotList(Service):
     """
-    Represents the Discord Boats service.
+    Represents the Discord Bot List service.
     
     .. seealso::
-        - `Discord Boats Website <https://discord.boats/>`_
-        - `Discord Boats API Documentation <https://discord.boats/api/docs/>`_
+        - `Discord Bot List Website <https://discordbotlist.com/>`_
+        - `Discord Bot List API Documentation <https://discordbotlist.com/api-docs/>`_
     """
 
-    BASE_URL = 'https://discord.boats/api/v2'
+    BASE_URL = 'https://discordbotlist.com/api'
 
     @staticmethod
     def aliases() -> list:
-        return ['discordboats', 'discord.boats', 'dboats']
+        return ['discordbotlist', 'discordbotlist.com', 'dbotlist']
 
     @staticmethod
     def _post(
