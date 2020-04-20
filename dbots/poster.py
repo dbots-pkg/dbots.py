@@ -234,7 +234,7 @@ class Poster(EventHandler):
         if len(self.api_keys) == 0:
             raise APIKeyException('No API Keys available')
         if not service or len(service) == 0:
-            responses = {}
+            responses = []
             keys = list(self.api_keys.keys())
             if hasattr(self, 'on_custom_post'):
                 keys.append('custom')
@@ -251,8 +251,10 @@ class Poster(EventHandler):
             raise APIKeyException(f'Service {service} has no API key')
         try:
             response = await _service._post(
-                self.http, self.client_id, key, server_count, user_count,
-                voice_connections, self.shard_id, self.shard_count
+                self.http, self.client_id, key,
+                server_count=server_count, user_count=user_count,
+                voice_connections=voice_connections,
+                shard_id=self.shard_id, shard_count=self.shard_count
             )
             log.debug('Posted to %s: %s', response.raw.url, response.body)
             self.dispatch('post', response)
@@ -324,5 +326,3 @@ class ClientPoster(Poster):
     @property
     def shard_count(self) -> int or None:
         return self._shard_count or self.filler.shard_count if self._sharding else None
-    
-    

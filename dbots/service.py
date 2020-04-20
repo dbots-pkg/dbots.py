@@ -119,7 +119,8 @@ class Arcane(Service):
     def _post(
         http_client: HTTPClient, bot_id: str, token: str,
         server_count = 0, user_count = 0,
-        shard_count: int = None, shard_id: int = None
+        voice_connections = 0, shard_count: int = None,
+        shard_id: int = None
     ) -> HTTPResponse:
         payload = {
             'server_count': server_count,
@@ -152,7 +153,9 @@ class BotListSpace(Service):
     @staticmethod
     def _post(
         http_client: HTTPClient, bot_id: str, token: str,
-        server_count = 0
+        server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count: int = None,
+        shard_id: int = None
     ) -> HTTPResponse:
         return http_client.request(
             method = 'POST',
@@ -279,7 +282,9 @@ class BotsForDiscord(Service):
     @staticmethod
     def _post(
         http_client: HTTPClient, bot_id: str, token: str,
-        server_count = 0
+        server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count: int = None,
+        shard_id: int = None
     ) -> HTTPResponse:
         return http_client.request(
             method = 'POST',
@@ -375,7 +380,8 @@ class BotsOfDiscord(Service):
     @staticmethod
     def _post(
         http_client: HTTPClient, bot_id: str, token: str,
-        server_count = 0, shard_count: int = None,
+        server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count: int = None,
         shard_id: int = None
     ) -> HTTPResponse:
         payload = { 'server_count': server_count }
@@ -444,7 +450,9 @@ class BotsOnDiscord(Service):
     @staticmethod
     def _post(
         http_client: HTTPClient, bot_id: str, token: str,
-        server_count = 0
+        server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count: int = None,
+        shard_id: int = None
     ) -> HTTPResponse:
         return http_client.request(
             method = 'POST',
@@ -502,7 +510,9 @@ class Carbon(Service):
     @staticmethod
     def _post(
         http_client: HTTPClient, bot_id: str, token: str,
-        server_count = 0
+        server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count: int = None,
+        shard_id: int = None
     ) -> HTTPResponse:
         return http_client.request(
             method = 'POST',
@@ -541,6 +551,8 @@ class CloudBotList(Service):
     def _post(
         http_client: HTTPClient, bot_id: str, token: str,
         server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count: int = None,
+        shard_id: int = None
     ) -> HTTPResponse:
         return http_client.request(
             method = 'POST',
@@ -584,7 +596,9 @@ class CloudList(Service):
     @staticmethod
     def _post(
         http_client: HTTPClient, bot_id: str, token: str,
-        server_count = 0,
+        server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count: int = None,
+        shard_id: int = None
     ) -> HTTPResponse:
         return http_client.request(
             method = 'POST',
@@ -642,7 +656,10 @@ class DBLista(Service):
 
     @staticmethod
     def _post(
-        http_client: HTTPClient, bot_id: str, token: str
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count: int = None,
+        shard_id: int = None
     ) -> HTTPResponse:
         raise PostingUnsupported()
 
@@ -810,7 +827,8 @@ class DiscordBotsGG(Service):
     @staticmethod
     def _post(
         http_client: HTTPClient, bot_id: str, token: str,
-        server_count = 0, shard_count: int = None,
+        server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count: int = None,
         shard_id: int = None
     ) -> HTTPResponse:
         payload = { 'guildCount': server_count }
@@ -878,7 +896,9 @@ class DiscordAppsDev(Service):
     @staticmethod
     def _post(
         http_client: HTTPClient, bot_id: str, token: str,
-        server_count = 0
+        server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count: int = None,
+        shard_id: int = None
     ) -> HTTPResponse:
         return http_client.request(
             method = 'POST',
@@ -965,7 +985,9 @@ class DiscordBoats(Service):
     @staticmethod
     def _post(
         http_client: HTTPClient, bot_id: str, token: str,
-        server_count = 0
+        server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count: int = None,
+        shard_id: int = None
     ) -> HTTPResponse:
         return http_client.request(
             method = 'POST',
@@ -1099,7 +1121,9 @@ class DiscordBotWorld(Service):
     @staticmethod
     def _post(
         http_client: HTTPClient, bot_id: str, token: str,
-        server_count = 0
+        server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count: int = None,
+        shard_id: int = None
     ) -> HTTPResponse:
         return http_client.request(
             method = 'POST',
@@ -1193,7 +1217,9 @@ class DiscordExtremeList(Service):
     @staticmethod
     def _post(
         http_client: HTTPClient, bot_id: str, token: str,
-        server_count = 0
+        server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count: int = None,
+        shard_id: int = None
     ) -> HTTPResponse:
         return http_client.request(
             method = 'POST',
@@ -1306,7 +1332,9 @@ class DivineDiscordBots(Service):
     @staticmethod
     def _post(
         http_client: HTTPClient, bot_id: str, token: str,
-        server_count = 0
+        server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count: int = None,
+        shard_id: int = None
     ) -> HTTPResponse:
         return http_client.request(
             method = 'POST',
@@ -1374,7 +1402,9 @@ class GlennBotList(Service):
     @staticmethod
     def _post(
         http_client: HTTPClient, bot_id: str, token: str,
-        server_count = 0
+        server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count: int = None,
+        shard_id: int = None
     ) -> HTTPResponse:
         return http_client.request(
             method = 'POST',
@@ -1458,7 +1488,8 @@ class LBots(Service):
     @staticmethod
     def _post(
         http_client: HTTPClient, bot_id: str, token: str,
-        server_count = 0, shard_count: int = None,
+        server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count: int = None,
         shard_id: int = None
     ) -> HTTPResponse:
         payload = { 'guild_count': server_count }
@@ -1597,7 +1628,9 @@ class ListMyBots(Service):
     @staticmethod
     def _post(
         http_client: HTTPClient, bot_id: str, token: str,
-        server_count = 0
+        server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count: int = None,
+        shard_id: int = None
     ) -> HTTPResponse:
         return http_client.request(
             method = 'POST',
@@ -1695,7 +1728,9 @@ class MythicalBots(Service):
     @staticmethod
     def _post(
         http_client: HTTPClient, bot_id: str, token: str,
-        server_count = 0
+        server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count: int = None,
+        shard_id: int = None
     ) -> HTTPResponse:
         return http_client.request(
             method = 'POST',
@@ -1763,7 +1798,9 @@ class SpaceBotsList(Service):
     @staticmethod
     def _post(
         http_client: HTTPClient, bot_id: str, token: str,
-        server_count = 0, user_count = 0
+        server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count: int = None,
+        shard_id: int = None
     ) -> HTTPResponse:
         return http_client.request(
             method = 'POST',
@@ -1956,7 +1993,8 @@ class WonderBotList(Service):
     @staticmethod
     def _post(
         http_client: HTTPClient, bot_id: str, token: str,
-        server_count = 0, shard_count: int = None,
+        server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count: int = None,
         shard_id: int = None
     ) -> HTTPResponse:
         payload = { 'serveurs': server_count }
@@ -2015,7 +2053,9 @@ class YABL(Service):
     @staticmethod
     def _post(
         http_client: HTTPClient, bot_id: str, token: str,
-        server_count = 0
+        server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count: int = None,
+        shard_id: int = None
     ) -> HTTPResponse:
         return http_client.request(
             method = 'POST',
