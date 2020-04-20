@@ -113,7 +113,7 @@ See more examples [here](/examples).
  - [bots.ondiscord.xyz](https://bots.ondiscord.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.BotsOnDiscord))
  - [carbonitex.net](https://www.carbonitex.net/Discord/bots) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.Carbon))
  - [cloud-botlist.xyz](https://cloud-botlist.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.CloudBotList))
- - [cloudlist.xyz](https://cloudlist.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.CloudList))
+ - *[cloudlist.xyz](https://cloudlist.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.CloudList))
  - [dblista.pl](https://dblista.pl) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.DBLista))
  - [discord.bots.gg](https://discord.bots.gg) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.DiscordBotsGG))
  - [discordapps.dev](https://discordapps.dev) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.DiscordAppsDev))
@@ -121,7 +121,7 @@ See more examples [here](/examples).
  - [discordbotlist.com](https://discordbotlist.com) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.DiscordBotList))
  - [discordbot.world](https://discordbot.world) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.DiscordBotWorld))
  - [discordextremelist.xyz](https://discordextremelist.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.DiscordExtremeList))
- - [divinediscordbots.com](https://divinediscordbots.com) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.DivineDiscordBots))
+ - *[divinediscordbots.com](https://divinediscordbots.com) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.DivineDiscordBots))
  - [glennbotlist.xyz](https://glennbotlist.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.GlennBotList))
  - [lbots.org](https://lbots.org) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.LBots))
  - [listmybots.com](https://listmybots.com) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.ListMyBots))
@@ -130,6 +130,8 @@ See more examples [here](/examples).
  - [top.gg](https://top.gg) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.TopGG))
  - [wonderbotlist.com](https://wonderbotlist.com) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.WonderBotList))
  - [yabl.xyz](yabl.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.YABL))
+
+*These services (cloudlist & divinediscordbots) are shutting down. Any service objects and functions towards these services will be removed in the next major release.
 
 ### Adding Custom Services
 You can add custom services by extending from the base service class (`dbots.Service`) and overriding the `_post`  and `aliases` method.  

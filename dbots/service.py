@@ -581,6 +581,8 @@ class CloudBotList(Service):
 class CloudList(Service):
     """
     Represents the Cloud List service.
+
+    .. warning:: This service is deprecated and will be removed in the next major release.
     
     .. seealso::
         - `Cloud List Website <https://www.cloudlist.xyz/>`_
@@ -1317,6 +1319,8 @@ class DiscordExtremeList(Service):
 class DivineDiscordBots(Service):
     """
     Represents the Divine Discord Bots service.
+
+    .. warning:: This service is deprecated and will be removed in the next major release.
     
     .. seealso::
         - `Divine Discord Bots Website <https://divinediscordbots.com/>`_
