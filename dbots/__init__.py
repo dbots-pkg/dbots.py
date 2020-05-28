@@ -2,7 +2,7 @@ __title__ = 'dbots'
 __author__ = 'Snazzah'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2020 Snazzah'
-__version__ = '1.2.2'
+__version__ = '2.0.0'
 
 from collections import namedtuple
 import logging
@@ -15,7 +15,7 @@ from .poster import Poster, ClientPoster, AsyncLoop
 
 VersionInfo = namedtuple('VersionInfo', 'major minor micro releaselevel serial')
 version_info = VersionInfo(
-    major = 1, minor = 2, micro = 2,
+    major = 2, minor = 0, micro = 0,
     releaselevel = 'final', serial = 0
 )
 
