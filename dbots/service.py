@@ -1065,7 +1065,7 @@ class DiscordBotList(Service):
         - `Discord Bot List API Documentation <https://discordbotlist.com/api-docs/>`_
     """
 
-    BASE_URL = 'https://discordbotlist.com/api'
+    BASE_URL = 'https://discordbotlist.com/api/v1'
 
     @staticmethod
     def aliases() -> list:
@@ -1091,19 +1091,6 @@ class DiscordBotList(Service):
             headers = { 'Authorization': f'Bot {token}' },
             json = payload
         )
-
-    def get_widget_url(self, bot_id: str, **query) -> str:
-        """
-        Gets the widget URL for this bot.
-
-        Parameters
-        -----------
-        bot_id: :class:`str`
-            The bot's ID.
-        **query
-            The query string to append to the URL.
-        """
-        return f'https://discordbotlist.com/bots/{bot_id}/widget?{_encode_query(query)}'
 
 class DiscordBotWorld(Service):
     """
@@ -1397,7 +1384,7 @@ class GlennBotList(Service):
         - `Glenn Bot List API Documentation <https://docs.glennbotlist.xyz/>`_
     """
 
-    BASE_URL = 'https://glennbotlist.xyz/api/v2'
+    BASE_URL = 'https://glennbotlist.xyz/api'
 
     @staticmethod
     def aliases() -> list:
@@ -1410,11 +1397,14 @@ class GlennBotList(Service):
         voice_connections = 0, shard_count: int = None,
         shard_id: int = None
     ) -> HTTPResponse:
+        payload = { 'serverCount': server_count }
+        if shard_id and shard_count:
+            payload['shardCount'] = shard_count
         return http_client.request(
             method = 'POST',
             path = f'{GlennBotList.BASE_URL}/bot/{bot_id}/stats',
             headers = { 'Authorization': token },
-            json = { 'serverCount': server_count }
+            json = payload
         )
 
     def get_bot(self, bot_id: str) -> HTTPResponse:
@@ -1447,9 +1437,9 @@ class GlennBotList(Service):
             requires_token = True
         )
 
-    def get_profile(self, user_id: str) -> HTTPResponse:
+    def get_user(self, user_id: str) -> HTTPResponse:
         """|httpres|\n
-        Get a user's profile listed on this service.
+        Get a user listed on this service.
 
         Parameters
         -----------
@@ -1458,7 +1448,7 @@ class GlennBotList(Service):
         """
         return self._request(
             method = 'GET',
-            path = f'/profile/{user_id}'
+            path = f'/user/{user_id}'
         )
 
     def get_widget_url(self, bot_id: str, **query) -> str:
@@ -1623,7 +1613,7 @@ class ListMyBots(Service):
         - `List My Bots Website <https://listmybots.com/>`_
     """
 
-    BASE_URL = 'https://listmybots.com/api/public'
+    BASE_URL = 'https://listmybots.com/api'
 
     @staticmethod
     def aliases() -> list:
@@ -1638,31 +1628,9 @@ class ListMyBots(Service):
     ) -> HTTPResponse:
         return http_client.request(
             method = 'POST',
-            path = f'{ListMyBots.BASE_URL}/bot/stats',
+            path = f'{ListMyBots.BASE_URL}/bot/{bot_id}',
             headers = { 'Authorization': token },
-            json = { 'server_count': server_count }
-        )
-
-    def get_statistics(self) -> HTTPResponse:
-        """|httpres|\n
-        Gets the statistics of this service.
-        """
-        return self._request(
-            method = 'GET',
-            path = '/stats',
-            headers = { 'Authorization': self.token },
-            requires_token = True
-        )
-
-    def get_current_bot(self) -> HTTPResponse:
-        """|httpres|\n
-        Gets the bot's info based on the token.
-        """
-        return self._request(
-            method = 'GET',
-            path = '/bot/me',
-            headers = { 'Authorization': self.token },
-            requires_token = True
+            json = { 'count': server_count }
         )
 
     def get_bot(self, bot_id: str) -> HTTPResponse:
@@ -1676,14 +1644,12 @@ class ListMyBots(Service):
         """
         return self._request(
             method = 'GET',
-            path = f'/bot/{bot_id}',
-            headers = { 'Authorization': self.token },
-            requires_token = True
+            path = f'/bot/{bot_id}'
         )
 
-    def get_user(self, user_id: str) -> HTTPResponse:
+    def get_user_bots(self, user_id: str) -> HTTPResponse:
         """|httpres|\n
-        Gets the user listed on this service.
+        Gets the user's bots listed on this service.
 
         Parameters
         -----------
@@ -1692,27 +1658,34 @@ class ListMyBots(Service):
         """
         return self._request(
             method = 'GET',
-            path = f'/user/{user_id}',
-            headers = { 'Authorization': self.token },
-            requires_token = True
+            path = f'/bots/{user_id}'
         )
 
-    def user_voted(self, user_id: str) -> HTTPResponse:
-        """|httpres|\n
-        Checks whether or not a user has liked the current bot based on your token on this service.
+    def get_status_widget_url(self, bot_id: str, **query) -> str:
+        """
+        Gets the status widget URL for this bot.
 
         Parameters
         -----------
-        user_id: :class:`str`
-            The user's ID.
+        bot_id: :class:`str`
+            The bot's ID.
+        **query
+            The query string to append to the URL.
         """
-        return self._request(
-            method = 'GET',
-            path = f'/bot/me/liked/{user_id}',
-            headers = { 'Authorization': self.token },
-            query = { 'id': user_id },
-            requires_token = True
-        )
+        return f'https://listmybots.com/api/bot/{bot_id}/widget/status?{_encode_query(query)}'
+
+    def get_widget_url(self, bot_id: str, **query) -> str:
+        """
+        Gets the widget URL for this bot.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        **query
+            The query string to append to the URL.
+        """
+        return f'https://listmybots.com/api/bot/{bot_id}/widget?{_encode_query(query)}'
 
 class MythicalBots(Service):
     """
