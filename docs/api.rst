@@ -64,12 +64,6 @@ Services
 .. autoclass:: Carbon
     :members:
 
-.. autoclass:: CloudBotList
-    :members:
-
-.. autoclass:: CloudList
-    :members:
-
 .. autoclass:: DBLista
     :members:
 
@@ -89,9 +83,6 @@ Services
     :members:
 
 .. autoclass:: DiscordExtremeList
-    :members:
-
-.. autoclass:: DivineDiscordBots
     :members:
 
 .. autoclass:: GlennBotList

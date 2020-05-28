@@ -532,115 +532,6 @@ class Carbon(Service):
             path = '/api/listedbots'
         )
 
-class CloudBotList(Service):
-    """
-    Represents the Cloud Botlist service.
-    
-    .. seealso::
-        - `Cloud Botlist Website <https://cloud-botlist.xyz/>`_
-        - `Cloud Botlist API Documentation <https://apollos.gitbook.io/cloud-botlist/>`_
-    """
-
-    BASE_URL = 'https://cloud-botlist.xyz/api'
-
-    @staticmethod
-    def aliases() -> list:
-        return ['cloudbotList', 'cloud-botlist.xyz', 'cloudbotList.xyz', 'cloudbl', 'cbl']
-
-    @staticmethod
-    def _post(
-        http_client: HTTPClient, bot_id: str, token: str,
-        server_count = 0, user_count = 0,
-        voice_connections = 0, shard_count: int = None,
-        shard_id: int = None
-    ) -> HTTPResponse:
-        return http_client.request(
-            method = 'POST',
-            path = f'{CloudBotList.BASE_URL}/bots/{bot_id}',
-            headers = { 'Authorization': token },
-            json = {
-                'guilds': server_count,
-                'users': user_count
-            }
-        )
-
-    def get_bot(self, bot_id: str) -> HTTPResponse:
-        """|httpres|\n
-        Gets the bot's stats on this service.
-
-        Parameters
-        -----------
-        bot_id: :class:`str`
-            The bot's ID.
-        """
-        return self._request(
-            method = 'GET',
-            path = f'/bots/{bot_id}'
-        )
-
-class CloudList(Service):
-    """
-    Represents the Cloud List service.
-
-    .. warning:: This service is deprecated and will be removed in the next major release.
-    
-    .. seealso::
-        - `Cloud List Website <https://www.cloudlist.xyz/>`_
-        - `Cloud List API Documentation <https://www.cloudlist.xyz/apidocs/>`_
-    """
-
-    BASE_URL = 'https://www.cloudlist.xyz/api'
-
-    @staticmethod
-    def aliases() -> list:
-        return ['cloudlist', 'cloudlistxyz', 'cloudlist.xyz']
-
-    @staticmethod
-    def _post(
-        http_client: HTTPClient, bot_id: str, token: str,
-        server_count = 0, user_count = 0,
-        voice_connections = 0, shard_count: int = None,
-        shard_id: int = None
-    ) -> HTTPResponse:
-        return http_client.request(
-            method = 'POST',
-            path = f'{CloudList.BASE_URL}/stats/{bot_id}',
-            headers = { 'Authorization': token },
-            json = { 'count': server_count }
-        )
-
-    def get_bot(self, bot_id: str) -> HTTPResponse:
-        """|httpres|\n
-        Gets the bot's stats on this service.
-
-        Parameters
-        -----------
-        bot_id: :class:`str`
-            The bot's ID.
-        """
-        return self._request(
-            method = 'GET',
-            path = f'/bot/{bot_id}',
-            headers = { 'Authorization': self.token },
-            requires_token = True
-        )
-
-    def get_bot_votes(self, bot_id: str) -> HTTPResponse:
-        """|httpres|\n
-        Gets the list of people who voted this bot on this service.
-
-        Parameters
-        -----------
-        bot_id: :class:`str`
-            The bot's ID.
-        """
-        return self._request(
-            method = 'GET',
-            path = f'/bot/vote/{bot_id}',
-            headers = { 'Authorization': self.token },
-            requires_token = True
-        )
-
 class DBLista(Service):
     """
     Represents the DBLista service.
@@ -1302,78 +1193,6 @@ class DiscordExtremeList(Service):
             The query string to append to the URL.
         """
         return f'{DiscordExtremeList.BASE_URL}/bot/{bot_id}/widget?{_encode_query(query)}'
-
-class DivineDiscordBots(Service):
-    """
-    Represents the Divine Discord Bots service.
-
-    .. warning:: This service is deprecated and will be removed in the next major release.
-    
-    .. seealso::
-        - `Divine Discord Bots Website <https://divinediscordbots.com/>`_
-        - `Divine Discord Bots API Documentation <https://divinediscordbots.com/api/>`_
-    """
-
-    BASE_URL = 'https://divinediscordbots.com'
-
-    @staticmethod
-    def aliases() -> list:
-        return ['divinediscordbots', 'divinediscordbots.com', 'divinedbots', 'divine', 'ddb']
-
-    @staticmethod
-    def _post(
-        http_client: HTTPClient, bot_id: str, token: str,
-        server_count = 0, user_count = 0,
-        voice_connections = 0, shard_count: int = None,
-        shard_id: int = None
-    ) -> HTTPResponse:
-        return http_client.request(
-            method = 'POST',
-            path = f'{DivineDiscordBots.BASE_URL}/bot/{bot_id}',
-            headers = { 'Authorization': token },
-            json = { 'server_count': server_count }
-        )
-
-    def get_bot_stats(self, bot_id: str) -> HTTPResponse:
-        """|httpres|\n
-        Gets the statistics of your bot on this service.
-
-        Parameters
-        -----------
-        bot_id: :class:`str`
-            The bot's ID.
-        """
-        return self._request(
-            method = 'GET',
-            path = f'/bot/{bot_id}/stats'
-        )
-
-    def get_bot_votes(self, bot_id: str) -> HTTPResponse:
-        """|httpres|\n
-        Gets the list of people who voted this bot on this service.
-
-        Parameters
-        -----------
-        bot_id: :class:`str`
-            The bot's ID.
-        """
-        return self._request(
-            method = 'GET',
-            path = f'/bots/{bot_id}/votes'
-        )
-
-    def get_widget_url(self, bot_id: str, **query) -> str:
-        """
-        Gets the widget URL for this bot.
-
-        Parameters
-        -----------
-        bot_id: :class:`str`
-            The bot's ID.
-        **query
-            The query string to append to the URL.
-        """
-        return f'{DivineDiscordBots.BASE_URL}/api/widget/{bot_id}.svg?{_encode_query(query)}'
 
 class GlennBotList(Service):
     """
@@ -2130,7 +1949,7 @@ class YABL(Service):
 
 Service.SERVICES = [
     Arcane, BotListSpace, BotsForDiscord, BotsOfDiscord, BotsOnDiscord, Carbon,
-    CloudBotList, CloudList, DBLista, DiscordBotsGG, DiscordAppsDev, DiscordBoats,
-    DiscordBotList, DiscordBotWorld, DiscordExtremeList, DivineDiscordBots, GlennBotList,
+    DBLista, DiscordBotsGG, DiscordAppsDev, DiscordBoats,
+    DiscordBotList, DiscordBotWorld, DiscordExtremeList, GlennBotList,
     LBots, ListMyBots, MythicalBots, SpaceBotsList, TopGG, WonderBotList, YABL
 ]
