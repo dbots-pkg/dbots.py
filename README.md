@@ -122,7 +122,7 @@ See more examples [here](/examples).
  - [lbots.org](https://lbots.org) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.LBots))
  - [listmybots.com](https://listmybots.com) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.ListMyBots))
  - [mythicalbots.xyz](https://mythicalbots.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.MythicalBots))
- - [space-bot-list.org](https://space-bot-list.org) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.SpaceBotsList))
+ - [space-bot-list.xyz](https://space-bot-list.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.SpaceBotsList))
  - [top.gg](https://top.gg) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.TopGG))
  - [wonderbotlist.com](https://wonderbotlist.com) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.WonderBotList))
  - [yabl.xyz](yabl.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.YABL))

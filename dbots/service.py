@@ -1502,11 +1502,11 @@ class SpaceBotsList(Service):
     Represents the Space Bots List service.
     
     .. seealso::
-        - `Space Bots List Website <https://space-bot-list.org/>`_
+        - `Space Bots List Website <https://space-bot-list.xyz/>`_
         - `Space Bots List API Documentation <https://spacebots.gitbook.io/tutorial-en/>`_
     """
 
-    BASE_URL = 'https://space-bot-list.org/api'
+    BASE_URL = 'https://space-bot-list.xyz/api'
 
     @staticmethod
     def aliases() -> list:
