@@ -55,9 +55,6 @@ Services
 .. autoclass:: BotsForDiscord
     :members:
 
-.. autoclass:: BotsOfDiscord
-    :members:
-
 .. autoclass:: BotsOnDiscord
     :members:
 

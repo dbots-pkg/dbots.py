@@ -363,75 +363,6 @@ class BotsForDiscord(Service):
         """
         return f'{BotsForDiscord.BASE_URL}/bot/{bot_id}/widget?{_encode_query(query)}'
 
-class BotsOfDiscord(Service):
-    """
-    Represents the Bots Of Discord service.
-    
-    .. seealso::
-        - `Bots Of Discord Website <https://b-o-d.cf/>`_
-    """
-
-    BASE_URL = 'https://www.b-o-d.cf/api'
-
-    @staticmethod
-    def aliases() -> list:
-        return ['botsofdiscord', 'b-o-d', 'b-o-d.cf']
-
-    @staticmethod
-    def _post(
-        http_client: HTTPClient, bot_id: str, token: str,
-        server_count = 0, user_count = 0,
-        voice_connections = 0, shard_count: int = None,
-        shard_id: int = None
-    ) -> HTTPResponse:
-        payload = { 'server_count': server_count }
-        if shard_id and shard_count:
-            payload['shard_count'] = shard_count
-        return http_client.request(
-            method = 'POST',
-            path = f'{BotsOfDiscord.BASE_URL}/bots/stats',
-            headers = { 'Authorization': token },
-            json = payload
-        )
-
-    def get_bot_stats(self, bot_id: str) -> HTTPResponse:
-        """|httpres|\n
-        Gets the bot's stats on this service.
-
-        Parameters
-        -----------
-        bot_id: :class:`str`
-            The bot's ID.
-        """
-        return self._request(
-            method = 'GET',
-            path = f'/bot/{bot_id}/stats'
-        )
-
-    def get_bot_votes(self) -> HTTPResponse:
-        """|httpres|\n
-        Gets the list of people who voted this bot on this service.
-        """
-        return self._request(
-            method = 'GET',
-            path = f'/bot/votes',
-            requires_token = True
-        )
-
-    def get_user(self, user_id: str) -> HTTPResponse:
-        """|httpres|\n
-        Gets the user listed on this service.
-
-        Parameters
-        -----------
-        user_id: :class:`str`
-            The user's ID.
-        """
-        return self._request(
-            method = 'GET',
-            path = f'/users/{user_id}'
-        )
-
 class BotsOnDiscord(Service):
     """
     Represents the Bots On Discord service.
@@ -1948,7 +1879,7 @@ class YABL(Service):
         )
 
 Service.SERVICES = [
-    Arcane, BotListSpace, BotsForDiscord, BotsOfDiscord, BotsOnDiscord, Carbon,
+    Arcane, BotListSpace, BotsForDiscord, BotsOnDiscord, Carbon,
     DBLista, DiscordBotsGG, DiscordAppsDev, DiscordBoats,
     DiscordBotList, DiscordBotWorld, DiscordExtremeList, GlennBotList,
     LBots, ListMyBots, MythicalBots, SpaceBotsList, TopGG, WonderBotList, YABL

@@ -109,7 +109,6 @@ See more examples [here](/examples).
  - [arcane-center.xyz](https://arcane-center.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.Arcane))
  - [botlist.space](https://botlist.space) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.BotListSpace))
  - [botsfordiscord.com](https://botsfordiscord.com) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.BotsForDiscord))
- - [b-o-d.cf](https://b-o-d.cf) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.BotsOfDiscord))
  - [bots.ondiscord.xyz](https://bots.ondiscord.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.BotsOnDiscord))
  - [carbonitex.net](https://www.carbonitex.net/Discord/bots) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.Carbon))
  - [dblista.pl](https://dblista.pl) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.DBLista))
