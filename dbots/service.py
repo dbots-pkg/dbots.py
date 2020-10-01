@@ -135,6 +135,98 @@ class Arcane(Service):
             json = payload
         )
 
+class Blist(Service):
+    """
+    Represents the Blist service.
+    
+    .. seealso::
+        - `Blist Website <https://blist.xyz/>`_
+        - `Blist API Documentation <https://blist.xyz/docs/>`_
+    """
+
+    BASE_URL = 'https://blist.xyz/api'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['blist', 'blist.xyz']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        payload = { 'server_count': server_count }
+        if shard_id and shard_count:
+            payload['shard_count'] = shard_count
+        return http_client.request(
+            method = 'POST',
+            path = f'{Blist.BASE_URL}/bot/{bot_id}/stats',
+            headers = { 'Authorization': token },
+            json = payload
+        )
+
+    def get_user(self, user_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the user listed on this service.
+
+        Parameters
+        -----------
+        user_id: :class:`str`
+            The user's ID.
+        """
+        return self._request(
+            method = 'GET',
+            path = f'/user/{user_id}'
+        )
+
+    def get_bot(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the bot listed on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method = 'GET',
+            path = f'/bot/{bot_id}/stats'
+        )
+
+    def get_bot_votes(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the list of people who voted this bot on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method = 'GET',
+            path = f'/bot/{bot_id}/votes',
+            headers = { 'Authorization': self.token },
+            requires_token = True
+        )
+
+    def get_widget_url(self, bot_id: str, widget_type: str = 'normal', **query) -> str:
+        """
+        Gets the widget URL for this bot.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        widget_type: Optional[:class:`str`]
+            The type of widget to show.
+        **query
+            The query string to append to the URL.
+        """
+        query['type'] = widget_type
+        return f'{Blist.BASE_URL}/widget/{subpath}{bot_id}.svg?{_encode_query(query)}'
+
 class BotListSpace(Service):
     """
     Represents the botlist.space service.
@@ -1869,7 +1961,7 @@ class YABL(Service):
         )
 
 Service.SERVICES = [
-    Arcane, BotListSpace, BotsForDiscord, BotsOnDiscord, Carbon,
+    Arcane, Blist, BotListSpace, BotsForDiscord, BotsOnDiscord, Carbon,
     DBLista, DiscordBotsGG, DiscordAppsDev, DiscordBoats,
     DiscordBotList, DiscordBotWorld, DiscordExtremeList, GlennBotList,
     LBots, ListMyBots, MythicalBots, SpaceBotsList, TopGG, WonderBotList, YABL
