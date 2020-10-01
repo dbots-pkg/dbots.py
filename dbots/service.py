@@ -1019,7 +1019,7 @@ class DiscordExtremeList(Service):
         - `Discord Extreme List API Documentation <https://docs.discordextremelist.xyz/>`_
     """
 
-    BASE_URL = 'https://api.discordextremelist.xyz/v1'
+    BASE_URL = 'https://api.discordextremelist.xyz/v2'
 
     @staticmethod
     def aliases() -> list:
@@ -1032,11 +1032,14 @@ class DiscordExtremeList(Service):
         voice_connections = 0, shard_count: int = None,
         shard_id: int = None
     ) -> HTTPResponse:
+        payload = { 'guildCount': server_count }
+        if shard_id and shard_count:
+            payload['shardCount'] = shard_count
         return http_client.request(
             method = 'POST',
-            path = f'{DiscordExtremeList.BASE_URL}/bot/{bot_id}',
+            path = f'{DiscordExtremeList.BASE_URL}/bot/{bot_id}/stats',
             headers = { 'Authorization': token },
-            json = { 'guildCount': server_count }
+            json = payload
         )
 
     def get_statistics(self) -> HTTPResponse:
@@ -1111,19 +1114,6 @@ class DiscordExtremeList(Service):
             headers = { 'Authorization': self.token },
             requires_token = True
         )
-
-    def get_widget_url(self, bot_id: str, **query) -> str:
-        """
-        Gets the widget URL for this bot.
-
-        Parameters
-        -----------
-        bot_id: :class:`str`
-            The bot's ID.
-        **query
-            The query string to append to the URL.
-        """
-        return f'{DiscordExtremeList.BASE_URL}/bot/{bot_id}/widget?{_encode_query(query)}'
 
 class GlennBotList(Service):
     """
