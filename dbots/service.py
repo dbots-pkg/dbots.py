@@ -264,6 +264,82 @@ class BotListSpace(Service):
         """
         return f'https://api.botlist.space/widget/{bot_id}/{style}?{_encode_query(query)}'
 
+class BotsDataBase(Service):
+    """
+    Represents the BotsDataBase service.
+    
+    .. seealso::
+        - `BotsDataBase Website <https://botsdatabase.com/>`_
+        - `BotsDataBase API Documentation <https://docs.botsdatabase.com/>`_
+    """
+
+    BASE_URL = 'https://api.botsdatabase.com/v1'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['botsdatabase', 'bdb']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        return http_client.request(
+            method = 'POST',
+            path = f'{BotsDataBase.BASE_URL}/bots/{bot_id}',
+            headers = {
+                'Authorization': token,
+                'Content-Type': 'application/json'
+            },
+            json = { 'servers': server_count }
+        )
+
+    def get_user(self, user_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the user listed on this service.
+
+        Parameters
+        -----------
+        user_id: :class:`str`
+            The user's ID.
+        """
+        return self._request(
+            method = 'GET',
+            path = f'/users/{user_id}'
+        )
+
+    def get_bot(self, user_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the bot listed on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method = 'GET',
+            path = f'/bots/{user_id}'
+        )
+
+    def get_bot_votes(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the list of people who voted this bot on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method = 'GET',
+            path = f'/bots/{bot_id}/votes',
+            headers = { 'Authorization': self.token },
+            requires_token = True
+        )
+
 class BotsForDiscord(Service):
     """
     Represents the Bots For Discord service.
@@ -1879,7 +1955,7 @@ class YABL(Service):
         )
 
 Service.SERVICES = [
-    Arcane, BotListSpace, BotsForDiscord, BotsOnDiscord, Carbon,
+    Arcane, BotListSpace, BotsDataBase, BotsForDiscord, BotsOnDiscord, Carbon,
     DBLista, DiscordBotsGG, DiscordAppsDev, DiscordBoats,
     DiscordBotList, DiscordBotWorld, DiscordExtremeList, GlennBotList,
     LBots, ListMyBots, MythicalBots, SpaceBotsList, TopGG, WonderBotList, YABL
