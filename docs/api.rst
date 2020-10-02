@@ -49,6 +49,9 @@ Services
 .. autoclass:: Arcane
     :members:
 
+.. autoclass:: Blist
+    :members:
+
 .. autoclass:: BotListSpace
     :members:
 
