@@ -1331,6 +1331,51 @@ class DiscordExtremeList(Service):
             requires_token = True
         )
 
+class DiscordLabs(Service):
+    """
+    Represents the Discord Labs service.
+    
+    .. seealso::
+        - `Discord Labs Website <https://bots.discordlabs.org/>`_
+        - `Discord Labs API Documentation <https://docs.discordlabs.org/docs/api/api>`_
+    """
+
+    BASE_URL = 'https://bots.discordlabs.org/v2'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['discordlabs', 'discord-labs', 'discordlabs.org', 'bots.discordlabs.org']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        payload = { 'server_count': server_count, 'token': token }
+        if shard_id and shard_count:
+            payload['shard_count'] = shard_count
+        return http_client.request(
+            method = 'POST',
+            path = f'{DiscordLabs.BASE_URL}/bot/{bot_id}/stats',
+            json = payload
+        )
+
+    def get_bot(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the bot listed on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method = 'GET',
+            path = f'/bot/{bot_id}',
+        )
+
 class GlennBotList(Service):
     """
     Represents the Glenn Bot List service.
@@ -2087,6 +2132,6 @@ class YABL(Service):
 Service.SERVICES = [
     Arcane, Blist, BotListSpace, BotsDataBase, BotsForDiscord, BotsOnDiscord, Carbon,
     DBLista, DiscordBotsCo, DiscordBotsGG, DiscordAppsDev, DiscordBoats,
-    DiscordBotList, DiscordBotWorld, DiscordExtremeList, GlennBotList,
+    DiscordBotList, DiscordBotWorld, DiscordExtremeList, DiscordLabs, GlennBotList,
     LBots, ListMyBots, MythicalBots, SpaceBotsList, TopGG, WonderBotList, YABL
 ]

@@ -91,6 +91,9 @@ Services
 .. autoclass:: DiscordExtremeList
     :members:
 
+.. autoclass:: DiscordLabs
+    :members:
+
 .. autoclass:: GlennBotList
     :members:
 
