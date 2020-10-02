@@ -52,6 +52,9 @@ Services
 .. autoclass:: BotListSpace
     :members:
 
+.. autoclass:: BotsDataBase
+    :members:
+
 .. autoclass:: BotsForDiscord
     :members:
 
