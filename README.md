@@ -123,7 +123,6 @@ See more examples [here](/examples).
  - [discordextremelist.xyz](https://discordextremelist.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.DiscordExtremeList))
  - [bots.discordlabs.org](https://bots.discordlabs.org) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.DiscordLabs))
  - [discordlistology.com](https://discordlistology.com) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.DiscordListology))
- - [glennbotlist.xyz](https://glennbotlist.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.GlennBotList))
  - [lbots.org](https://lbots.org) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.LBots))
  - [listmybots.com](https://listmybots.com) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.ListMyBots))
  - [mythicalbots.xyz](https://mythicalbots.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.MythicalBots))

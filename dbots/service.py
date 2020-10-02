@@ -1464,95 +1464,6 @@ class DiscordListology(Service):
             path = f'/guilds/{bot_id}/hasvoted/{user_id}'
         )
 
-class GlennBotList(Service):
-    """
-    Represents the Glenn Bot List service.
-    
-    .. seealso::
-        - `Glenn Bot List Website <https://glennbotlist.xyz/>`_
-        - `Glenn Bot List API Documentation <https://docs.glennbotlist.xyz/>`_
-    """
-
-    BASE_URL = 'https://glennbotlist.xyz/api'
-
-    @staticmethod
-    def aliases() -> list:
-        return ['glennbotlist', 'glennbotlist.xyz', 'glennbotlist.gg', 'glenn']
-
-    @staticmethod
-    def _post(
-        http_client: HTTPClient, bot_id: str, token: str,
-        server_count = 0, user_count = 0,
-        voice_connections = 0, shard_count: int = None,
-        shard_id: int = None
-    ) -> HTTPResponse:
-        payload = { 'serverCount': server_count }
-        if shard_id and shard_count:
-            payload['shardCount'] = shard_count
-        return http_client.request(
-            method = 'POST',
-            path = f'{GlennBotList.BASE_URL}/bot/{bot_id}/stats',
-            headers = { 'Authorization': token },
-            json = payload
-        )
-
-    def get_bot(self, bot_id: str) -> HTTPResponse:
-        """|httpres|\n
-        Gets the bot listed on this service.
-
-        Parameters
-        -----------
-        bot_id: :class:`str`
-            The bot's ID.
-        """
-        return self._request(
-            method = 'GET',
-            path = f'/bot/{bot_id}'
-        )
-
-    def get_bot_votes(self, bot_id: str) -> HTTPResponse:
-        """|httpres|\n
-        Gets the list of people who voted this bot on this service.
-
-        Parameters
-        -----------
-        bot_id: :class:`str`
-            The bot's ID.
-        """
-        return self._request(
-            method = 'GET',
-            path = f'/bots/{bot_id}/votes',
-            headers = { 'Authorization': self.token },
-            requires_token = True
-        )
-
-    def get_user(self, user_id: str) -> HTTPResponse:
-        """|httpres|\n
-        Get a user listed on this service.
-
-        Parameters
-        -----------
-        user_id: :class:`str`
-            The user's ID.
-        """
-        return self._request(
-            method = 'GET',
-            path = f'/user/{user_id}'
-        )
-
-    def get_widget_url(self, bot_id: str, **query) -> str:
-        """
-        Gets the widget URL for this bot.
-
-        Parameters
-        -----------
-        bot_id: :class:`str`
-            The bot's ID.
-        **query
-            The query string to append to the URL.
-        """
-        return f'https://glennbotlist.xyz/bot/{bot_id}/widget?{_encode_query(query)}'
-
 class LBots(Service):
     """
     Represents the LBots service.
@@ -2267,5 +2178,5 @@ Service.SERVICES = [
     Arcane, Blist, BotListSpace, BotsDataBase, BotsForDiscord, BotsOnDiscord, Carbon,
     DBLista, DiscordBotsCo, DiscordBotsGG, DiscordAppsDev, DiscordBoats,
     DiscordBotList, DiscordBotWorld, DiscordExtremeList, DiscordLabs, DiscordListology,
-    GlennBotList, LBots, ListMyBots, MythicalBots, SpaceBotsList, TopCord, TopGG, WonderBotList, YABL
+    LBots, ListMyBots, MythicalBots, SpaceBotsList, TopCord, TopGG, WonderBotList, YABL
 ]
