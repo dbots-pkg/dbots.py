@@ -94,6 +94,9 @@ Services
 .. autoclass:: DiscordLabs
     :members:
 
+.. autoclass:: DiscordListology
+    :members:
+
 .. autoclass:: GlennBotList
     :members:
 
