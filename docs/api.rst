@@ -49,7 +49,13 @@ Services
 .. autoclass:: Arcane
     :members:
 
+.. autoclass:: Blist
+    :members:
+
 .. autoclass:: BotListSpace
+    :members:
+
+.. autoclass:: BotsDataBase
     :members:
 
 .. autoclass:: BotsForDiscord
@@ -62,6 +68,9 @@ Services
     :members:
 
 .. autoclass:: DBLista
+    :members:
+
+.. autoclass:: DiscordBotsCo
     :members:
 
 .. autoclass:: DiscordBotsGG
@@ -80,6 +89,12 @@ Services
     :members:
 
 .. autoclass:: DiscordExtremeList
+    :members:
+
+.. autoclass:: DiscordLabs
+    :members:
+
+.. autoclass:: DiscordListology
     :members:
 
 .. autoclass:: GlennBotList
