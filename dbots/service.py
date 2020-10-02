@@ -1115,6 +1115,98 @@ class DiscordExtremeList(Service):
             requires_token = True
         )
 
+class DiscordListology(Service):
+    """
+    Represents the DiscordListology service.
+    
+    .. seealso::
+        - `DiscordListology Website <https://discordlistology.com/>`_
+        - `DiscordListology API Documentation <https://discordlistology.com/developer/documentation/>`_
+    """
+
+    BASE_URL = 'https://discordlistology.com/api/v1'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['discordlistology']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        payload = { 'servers': server_count }
+        if shard_id and shard_count:
+            payload['shards'] = shard_count
+        return http_client.request(
+            method = 'POST',
+            path = f'{DiscordListology.BASE_URL}/bots/{bot_id}/stats',
+            headers = { 'Authorization': token },
+            json = payload
+        )
+
+    def get_bot_stats(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the bot's stats listed on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method = 'GET',
+            path = f'/bots/{bot_id}/stats',
+        )
+
+    def user_voted_bot(self, bot_id: str, user_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Checks whether or not a user has voted for a bot on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        user_id: :class:`str`
+            The user's ID.
+        """
+        return self._request(
+            method = 'GET',
+            path = f'/bots/{bot_id}/hasvoted/{user_id}'
+        )
+
+    def get_guild_stats(self, guild_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the guild's stats listed on this service.
+
+        Parameters
+        -----------
+        guild_id: :class:`str`
+            The guild's ID.
+        """
+        return self._request(
+            method = 'GET',
+            path = f'/guilds/{bot_id}/stats',
+        )
+
+    def user_voted_guild(self, guild_id: str, user_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Checks whether or not a user has voted for a guild on this service.
+
+        Parameters
+        -----------
+        guild_id: :class:`str`
+            The guild's ID.
+        user_id: :class:`str`
+            The user's ID.
+        """
+        return self._request(
+            method = 'GET',
+            path = f'/guilds/{bot_id}/hasvoted/{user_id}'
+        )
+
 class GlennBotList(Service):
     """
     Represents the Glenn Bot List service.
@@ -1871,6 +1963,6 @@ class YABL(Service):
 Service.SERVICES = [
     Arcane, BotListSpace, BotsForDiscord, BotsOnDiscord, Carbon,
     DBLista, DiscordBotsGG, DiscordAppsDev, DiscordBoats,
-    DiscordBotList, DiscordBotWorld, DiscordExtremeList, GlennBotList,
+    DiscordBotList, DiscordBotWorld, DiscordExtremeList, DiscordListology, GlennBotList,
     LBots, ListMyBots, MythicalBots, SpaceBotsList, TopGG, WonderBotList, YABL
 ]

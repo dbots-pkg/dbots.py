@@ -82,6 +82,9 @@ Services
 .. autoclass:: DiscordExtremeList
     :members:
 
+.. autoclass:: DiscordListology
+    :members:
+
 .. autoclass:: GlennBotList
     :members:
 
