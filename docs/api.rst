@@ -112,6 +112,9 @@ Services
 .. autoclass:: SpaceBotsList
     :members:
 
+.. autoclass:: TopCord
+    :members:
+
 .. autoclass:: TopGG
     :members:
 

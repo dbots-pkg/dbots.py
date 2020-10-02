@@ -1892,6 +1892,52 @@ class SpaceBotsList(Service):
             path = f'/bots/{bot_id}'
         )
 
+class TopCord(Service):
+    """
+    Represents the TopCord service.
+    
+    .. seealso::
+        - `TopCord Website <https://topcord.xyz/>`_
+        - `TopCord API Documentation <https://docs.topcord.xyz/#/API>`_
+    """
+
+    BASE_URL = 'https://topcord.xyz/api'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['topcord', 'topcord.xyz']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        payload = { 'guilds': server_count }
+        if shard_id and shard_count:
+            payload['shards'] = shard_count
+        return http_client.request(
+            method = 'POST',
+            path = f'{TopCord.BASE_URL}/bot/stats/{bot_id}',
+            headers = { 'Authorization': token },
+            json = payload
+        )
+
+    def get_bot(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the bot listed on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method = 'GET',
+            path = f'/bot/{bot_id}',
+        )
+
 class TopGG(Service):
     """
     Represents the Top.gg service.
@@ -2221,5 +2267,5 @@ Service.SERVICES = [
     Arcane, Blist, BotListSpace, BotsDataBase, BotsForDiscord, BotsOnDiscord, Carbon,
     DBLista, DiscordBotsCo, DiscordBotsGG, DiscordAppsDev, DiscordBoats,
     DiscordBotList, DiscordBotWorld, DiscordExtremeList, DiscordLabs, DiscordListology,
-    GlennBotList, LBots, ListMyBots, MythicalBots, SpaceBotsList, TopGG, WonderBotList, YABL
+    GlennBotList, LBots, ListMyBots, MythicalBots, SpaceBotsList, TopCord, TopGG, WonderBotList, YABL
 ]
