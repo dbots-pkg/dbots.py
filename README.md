@@ -107,7 +107,9 @@ See more examples [here](/examples).
 
 ### Supported Services
  - [arcane-center.xyz](https://arcane-center.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.Arcane))
+ - [blist.xyz](https://blist.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.Blist))
  - [botlist.space](https://botlist.space) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.BotListSpace))
+ - [botsdatabase.com](https://botsdatabase.com/) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.BotsDataBase))
  - [botsfordiscord.com](https://botsfordiscord.com) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.BotsForDiscord))
  - [bots.ondiscord.xyz](https://bots.ondiscord.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.BotsOnDiscord))
  - [carbonitex.net](https://www.carbonitex.net/Discord/bots) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.Carbon))
@@ -123,7 +125,7 @@ See more examples [here](/examples).
  - [lbots.org](https://lbots.org) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.LBots))
  - [listmybots.com](https://listmybots.com) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.ListMyBots))
  - [mythicalbots.xyz](https://mythicalbots.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.MythicalBots))
- - [space-bot-list.org](https://space-bot-list.org) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.SpaceBotsList))
+ - [space-bot-list.xyz](https://space-bot-list.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.SpaceBotsList))
  - [top.gg](https://top.gg) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.TopGG))
  - [wonderbotlist.com](https://wonderbotlist.com) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.WonderBotList))
  - [yabl.xyz](yabl.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.YABL))

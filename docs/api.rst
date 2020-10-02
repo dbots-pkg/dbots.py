@@ -49,7 +49,13 @@ Services
 .. autoclass:: Arcane
     :members:
 
+.. autoclass:: Blist
+    :members:
+
 .. autoclass:: BotListSpace
+    :members:
+
+.. autoclass:: BotsDataBase
     :members:
 
 .. autoclass:: BotsForDiscord
