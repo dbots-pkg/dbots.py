@@ -114,6 +114,7 @@ See more examples [here](/examples).
  - [bots.ondiscord.xyz](https://bots.ondiscord.xyz) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.BotsOnDiscord))
  - [carbonitex.net](https://www.carbonitex.net/Discord/bots) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.Carbon))
  - [dblista.pl](https://dblista.pl) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.DBLista))
+ - [discordbots.co](https://discordbots.co) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.DiscordBotsCo))
  - [discord.bots.gg](https://discord.bots.gg) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.DiscordBotsGG))
  - [discordapps.dev](https://discordapps.dev) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.DiscordAppsDev))
  - [discord.boats](https://discord.boats) ([docs](https://dbots.readthedocs.io/en/latest/api.html#dbots.DiscordBoats))

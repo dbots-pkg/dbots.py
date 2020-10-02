@@ -801,6 +801,54 @@ class DBLista(Service):
             path = f'/bots/search/{uri}'
         )
 
+class DiscordBotsCo(Service):
+    """
+    Represents the DiscordBots.co service.
+    
+    .. seealso::
+        - `DiscordBots.co Website <https://discordbots.co/>`_
+        - `DiscordBots.co API Documentation <https://discordbots.co/api/>`_
+    """
+
+    BASE_URL = 'https://api.discordbots.co/v1/public'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['discordbotsco']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count = 0, user_count = 0,
+        voice_connections = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        payload = { 'serverCount': server_count }
+        if shard_id and shard_count:
+            payload['shardCount'] = shard_count
+        return http_client.request(
+            method = 'POST',
+            path = f'{DiscordBotsCo.BASE_URL}/bot/{bot_id}',
+            headers = { 'Authorization': token },
+            json = payload
+        )
+
+    def get_bot(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the bot listed on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method = 'GET',
+            path = f'/bot/{bot_id}',
+            headers = { 'Authorization': self.token },
+            requires_token = True
+        )
+
 class DiscordBotsGG(Service):
     """
     Represents the Discord Bots service.
@@ -2038,7 +2086,7 @@ class YABL(Service):
 
 Service.SERVICES = [
     Arcane, Blist, BotListSpace, BotsDataBase, BotsForDiscord, BotsOnDiscord, Carbon,
-    DBLista, DiscordBotsGG, DiscordAppsDev, DiscordBoats,
+    DBLista, DiscordBotsCo, DiscordBotsGG, DiscordAppsDev, DiscordBoats,
     DiscordBotList, DiscordBotWorld, DiscordExtremeList, GlennBotList,
     LBots, ListMyBots, MythicalBots, SpaceBotsList, TopGG, WonderBotList, YABL
 ]

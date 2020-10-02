@@ -70,6 +70,9 @@ Services
 .. autoclass:: DBLista
     :members:
 
+.. autoclass:: DiscordBotsCo
+    :members:
+
 .. autoclass:: DiscordBotsGG
     :members:
 
