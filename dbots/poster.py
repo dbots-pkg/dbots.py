@@ -239,11 +239,14 @@ class Poster(EventHandler):
             if hasattr(self, 'on_custom_post'):
                 keys.append('custom')
             for key in keys:
-                responses.append(await self.manual_post(
-                    server_count = server_count,
-                    service = key, user_count = user_count,
-                    voice_connections = voice_connections
-                ))
+                try:
+                    responses.append(await self.manual_post(
+                        server_count = server_count,
+                        service = key, user_count = user_count,
+                        voice_connections = voice_connections
+                    ))
+                except Exception as error:
+                    responses.append(error)
             return responses
         _service = Service.get(service)
         key = self.get_key(service)
