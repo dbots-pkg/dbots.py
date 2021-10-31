@@ -1201,7 +1201,7 @@ class TopCord(Service):
         - `TopCord API Documentation <https://docs.topcord.xyz/#/API>`_
     """
 
-    BASE_URL = 'https://topcord.xyz/api'
+    BASE_URL = 'https://api.topcord.xyz'
 
     @staticmethod
     def aliases() -> list:
@@ -1219,7 +1219,7 @@ class TopCord(Service):
             payload['shards'] = shard_count
         return http_client.request(
             method='POST',
-            path=f'{TopCord.BASE_URL}/bot/stats/{bot_id}',
+            path=f'{TopCord.BASE_URL}/bot/{bot_id}/stats',
             headers={'Authorization': token},
             json=payload
         )
@@ -1236,6 +1236,13 @@ class TopCord(Service):
         return self._request(
             method='GET',
             path=f'/bot/{bot_id}',
+        )
+
+    def get_bots(self) -> HTTPResponse:
+        """|httpres|\n\nLists every bot on this service."""
+        return self._request(
+            method='GET',
+            path='/bots',
         )
 
 
