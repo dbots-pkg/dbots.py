@@ -1105,7 +1105,7 @@ class SpaceBotsList(Service):
 
     @staticmethod
     def aliases() -> list:
-        return ['spacebotslist', 'spacebotlist', 'spacebots', 'space-bot-list.org', 'space', 'sbl']
+        return ['spacebotslist', 'space-bot-list.xyz']
 
     @staticmethod
     def _post(
