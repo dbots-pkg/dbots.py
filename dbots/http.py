@@ -9,6 +9,7 @@ from . import __version__
 
 log = logging.getLogger(__name__)
 
+
 class HTTPClient:
     """Represents an HTTP client that can send requests."""
 
@@ -35,7 +36,7 @@ class HTTPClient:
     async def request(self, method, path, **kwargs):
         # Evaluate kwargs
 
-        if not 'headers' in kwargs:
+        if 'headers' not in kwargs:
             kwargs['headers'] = {
                 'User-Agent': self.user_agent,
             }
@@ -45,7 +46,7 @@ class HTTPClient:
         if 'json' in kwargs:
             kwargs['headers']['Content-Type'] = 'application/json'
             kwargs['data'] = HTTPClient.to_json(kwargs.pop('json'))
-        
+
         if self.proxy is not None:
             kwargs['proxy'] = self.proxy
         if self.proxy_auth is not None:
@@ -54,7 +55,7 @@ class HTTPClient:
         url = path
         if self.base_url:
             url = self.base_url + path
-        
+
         if 'query' in kwargs:
             url = url + '?' + _encode_query(kwargs['query'])
             del kwargs['query']
@@ -63,7 +64,7 @@ class HTTPClient:
             log.debug('%s %s with %s has returned %s', method, url, kwargs.get('data'), r.status)
 
             response = HTTPResponse(r, await r.text(encoding='utf-8'))
-            
+
             if 300 > r.status >= 200:
                 log.debug('%s %s has received %s', method, url, response.body)
                 return response

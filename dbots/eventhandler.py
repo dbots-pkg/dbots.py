@@ -6,6 +6,7 @@ import logging
 
 log = logging.getLogger(__name__)
 
+
 class _ClientEventTask(asyncio.Task):
     def __init__(self, original_coro, event_name, coro, *, loop):
         super().__init__(coro, loop=loop)
@@ -22,8 +23,9 @@ class _ClientEventTask(asyncio.Task):
             info.append(('exception', repr(self._exception)))
         return '<ClientEventTask {}>'.format(' '.join('%s=%s' % t for t in info))
 
+
 class EventHandler:
-    def __init__(self, loop = None):
+    def __init__(self, loop=None):
         self.loop = asyncio.get_event_loop() if loop is None else loop
         self._listeners = {}
 
@@ -41,7 +43,7 @@ class EventHandler:
             log.debug('%s has successfully been registered as an event', event_name)
             return name_or_coro
         else:
-            def inner(coro): 
+            def inner(coro):
                 if not asyncio.iscoroutinefunction(coro):
                     raise TypeError('event registered must be a coroutine function')
                 if name_or_coro in self._listeners:
@@ -50,7 +52,7 @@ class EventHandler:
                     self._listeners[name_or_coro] = [coro]
                 log.debug('%s has successfully been registered as an event using named decorator', name_or_coro)
                 return coro
-            return inner 
+            return inner
         return
 
     async def _run_event(self, coro, event_name, *args, **kwargs):

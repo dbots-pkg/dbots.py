@@ -9,6 +9,7 @@ from .errors import APIKeyException
 
 log = logging.getLogger(__name__)
 
+
 class AsyncLoop:
     def __init__(self, timeout, callback):
         self._timeout = timeout
@@ -23,10 +24,12 @@ class AsyncLoop:
     def cancel(self):
         self._task.cancel()
 
+
 def _ensure_coro(func):
     if not asyncio.iscoroutinefunction(func):
         func = asyncio.coroutine(func)
     return func
+
 
 class Poster(EventHandler):
     """
@@ -66,9 +69,9 @@ class Poster(EventHandler):
 
     def __init__(
         self, client_id, server_count, user_count,
-        voice_connections, on_custom_post = None, **options
+        voice_connections, on_custom_post=None, **options
     ):
-        super().__init__(loop = options.pop('loop', None))
+        super().__init__(loop=options.pop('loop', None))
 
         self._loop = None
         self._client_id = client_id
@@ -81,7 +84,7 @@ class Poster(EventHandler):
 
         proxy = options.pop('proxy', None)
         proxy_auth = options.pop('proxy_auth', None)
-        self.http = HTTPClient(proxy = proxy, proxy_auth = proxy_auth)
+        self.http = HTTPClient(proxy=proxy, proxy_auth=proxy_auth)
         self.api_keys = options.pop('api_keys', {})
 
         setattr(self, 'server_count', _ensure_coro(server_count))
@@ -98,26 +101,26 @@ class Poster(EventHandler):
             ('shard_count', self.shard_count),
         ]
         return '<%s %s>' % (self.__class__.__name__, ' '.join('%s=%r' % t for t in attrs))
-    
+
     # property fill-ins
-    
+
     @property
     def client_id(self) -> str or None:
         """The client ID of the poster."""
         return self._client_id
-    
+
     @property
     def shard_id(self) -> int or None:
         """The shard ID of the poster."""
         return self._shard_id
-    
+
     @property
     def shard_count(self) -> int or None:
         """The shard count of the poster."""
         return self._shard_count
 
     # api key management
-    
+
     def set_key(self, service: str, key: str) -> str:
         """
         Sets an API key.
@@ -155,10 +158,10 @@ class Poster(EventHandler):
         key = self.api_keys[service]
         del self.api_keys[service]
         return key
-    
+
     # loop management
-    
-    def start_loop(self, interval = 1800) -> AsyncLoop:
+
+    def start_loop(self, interval=1800) -> AsyncLoop:
         """
         Creates a loop that posts to all services every `n` seconds.
 
@@ -171,14 +174,14 @@ class Poster(EventHandler):
         self._loop = AsyncLoop(interval, self.__on_loop)
         log.debug('Started loop %s', interval)
         return self._loop
-    
+
     def kill_loop(self):
         """Cancels the current posting loop."""
         if self._loop:
             log.debug('Ending loop')
             self._loop.cancel()
             self._loop = None
-    
+
     async def __on_loop(self):
         log.debug('Loop ran')
         try:
@@ -193,7 +196,7 @@ class Poster(EventHandler):
 
     # post management
 
-    async def post(self, service = None) -> HTTPResponse:
+    async def post(self, service=None) -> HTTPResponse:
         """
         Posts the current clients server count to a service.
 
@@ -206,10 +209,10 @@ class Poster(EventHandler):
         users = await self.user_count()
         connections = await self.voice_connections()
         return await self.manual_post(servers, service, users, connections)
-    
+
     async def manual_post(
-        self, server_count, service = None,
-        user_count = None, voice_connections = None
+        self, server_count, service=None,
+        user_count=None, voice_connections=None
     ) -> HTTPResponse:
         """
         Manually posts a server count to a service.
@@ -227,9 +230,9 @@ class Poster(EventHandler):
         """
         if service == 'custom' and hasattr(self, 'on_custom_post'):
             return await self.on_custom_post(
-                self, server_count = server_count,
-                user_count = user_count,
-                voice_connections = voice_connections
+                self, server_count=server_count,
+                user_count=user_count,
+                voice_connections=voice_connections
             )
         if len(self.api_keys) == 0:
             raise APIKeyException('No API Keys available')
@@ -241,9 +244,9 @@ class Poster(EventHandler):
             for key in keys:
                 try:
                     responses.append(await self.manual_post(
-                        server_count = server_count,
-                        service = key, user_count = user_count,
-                        voice_connections = voice_connections
+                        server_count=server_count,
+                        service=key, user_count=user_count,
+                        voice_connections=voice_connections
                     ))
                 except Exception as error:
                     responses.append(error)
@@ -269,6 +272,7 @@ class Poster(EventHandler):
             )
             self.dispatch('post_fail', error)
             raise error
+
 
 class ClientPoster(Poster):
     """
@@ -317,15 +321,15 @@ class ClientPoster(Poster):
             ('sharding', self._sharding),
         ]
         return '<%s %s>' % (self.__class__.__name__, ' '.join('%s=%r' % t for t in attrs))
-    
+
     @property
     def client_id(self) -> str or None:
         return self.filler.client_id
-    
+
     @property
     def shard_id(self) -> int or None:
         return self._shard_id or self.filler.shard_id if self._sharding else None
-    
+
     @property
     def shard_count(self) -> int or None:
         return self._shard_count or self.filler.shard_count if self._sharding else None

@@ -13,10 +13,11 @@ from .errors import *
 from .service import *
 from .poster import Poster, ClientPoster, AsyncLoop
 
-VersionInfo = namedtuple('VersionInfo', 'major minor micro releaselevel serial')
+VersionInfo = namedtuple(
+    'VersionInfo', 'major minor micro releaselevel serial')
 version_info = VersionInfo(
-    major = 3, minor = 0, micro = 0,
-    releaselevel = 'final', serial = 0
+    major=3, minor=0, micro=0,
+    releaselevel='final', serial=0
 )
 
 try:

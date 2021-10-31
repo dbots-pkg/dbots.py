@@ -1,5 +1,6 @@
 from .errors import ClientException
 
+
 class ClientFiller:
     """A class that gets certain values from a client."""
 
@@ -54,6 +55,7 @@ class ClientFiller:
         """
         return None
 
+
 class DiscordPy(ClientFiller):
     """Represents the client filler for discord.py clients."""
 
@@ -84,6 +86,7 @@ class DiscordPy(ClientFiller):
             return None
         else:
             return self.client.shard_count
+
 
 ClientFiller.CLIENT_KEYMAP = {
     'discord.py': DiscordPy,

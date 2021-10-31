@@ -1,5 +1,4 @@
-test.py
-upload.sh
+etc
 dbots/__pycache__/**
 dist
 build

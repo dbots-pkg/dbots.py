@@ -5,12 +5,13 @@ except ModuleNotFoundError:
     quit()
 import dbots
 
+
 # Go to https://requestbin.net and replace the path with the given URL
 class TestService(dbots.Service):
     @staticmethod
     def _post(
-        http_client, bot_id, token, server_count = 0, user_count = 0,
-        voice_connections = 0, shard_count = None, shard_id = None
+        http_client, bot_id, token, server_count=0, user_count=0,
+        voice_connections=0, shard_count=None, shard_id=None
     ):
         payload = {
             'server_count': server_count,
@@ -21,41 +22,49 @@ class TestService(dbots.Service):
             payload['shard_id'] = shard_id
             payload['shard_count'] = shard_count
         return http_client.request(
-            method = 'POST',
-            path = 'http://requestbin.net/r/XXXXXX',
-            query = { 'id': bot_id },
-            headers = { 'Authorization': token },
-            json = payload
+            method='POST',
+            path='http://requestbin.net/r/XXXXXX',
+            query={'id': bot_id},
+            headers={'Authorization': token},
+            json=payload
         )
+
 
 dbots.Service.SERVICE_KEYMAP['test'] = TestService
 
+
 client = discord.Client()
-poster = dbots.ClientPoster(client, 'discord.py', api_keys = {
+poster = dbots.ClientPoster(client, 'discord.py', api_keys={
     'test': 'token'
 })
+
 
 @poster.event
 async def on_post(response):
     print('Post:', response)
 
+
 @poster.event
 async def on_post_fail(error):
     print('Post Fail:', error)
+
 
 @poster.event
 async def on_auto_post(response):
     print('Auto-Post:', response)
 
+
 @poster.event
 async def on_auto_post_fail(error):
     print('Auto-Post Fail:', error)
+
 
 @client.event
 async def on_ready():
     print('Logged on as', client.user)
     await poster.post()
     poster.start_loop(10)
+
 
 @client.event
 async def on_message(message):
@@ -74,5 +83,6 @@ async def on_message(message):
 
     if message.content.startswith('p>'):
         await poster.post()
+
 
 client.run('XXX')

@@ -3,7 +3,7 @@ import re
 
 requirements = []
 with open('requirements.txt') as f:
-  requirements = f.read().splitlines()
+    requirements = f.read().splitlines()
 
 version = ''
 with open('dbots/__init__.py') as f:
