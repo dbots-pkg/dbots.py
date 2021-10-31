@@ -106,7 +106,7 @@ class Blist(Service):
         - `Blist API Documentation <https://blist.xyz/docs/>`_
     """
 
-    BASE_URL = 'https://blist.xyz/api'
+    BASE_URL = 'https://blist.xyz/api/v2'
 
     @staticmethod
     def aliases() -> list:
@@ -143,6 +143,48 @@ class Blist(Service):
             path=f'/user/{user_id}'
         )
 
+    def get_user_bots(self, user_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the user's bots listed on this service.
+
+        Parameters
+        -----------
+        user_id: :class:`str`
+            The user's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/user/{user_id}/bots'
+        )
+
+    def get_user_servers(self, user_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the user's servers listed on this service.
+
+        Parameters
+        -----------
+        user_id: :class:`str`
+            The user's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/user/{user_id}/servers'
+        )
+
+    def get_server(self, server_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the server listed on this service.
+
+        Parameters
+        -----------
+        server_id: :class:`str`
+            The server's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/server/{server_id}'
+        )
+
     def get_bot(self, bot_id: str) -> HTTPResponse:
         """|httpres|\n
         Gets the bot listed on this service.
@@ -169,6 +211,22 @@ class Blist(Service):
         return self._request(
             method='GET',
             path=f'/bot/{bot_id}/votes',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def get_bot_reviews(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the bot's reviews on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bot/{bot_id}/reviews',
             headers={'Authorization': self.token},
             requires_token=True
         )
