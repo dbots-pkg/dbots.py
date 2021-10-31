@@ -46,16 +46,10 @@ HTTP Classes
 Services
 --------
 
-.. autoclass:: Arcane
-    :members:
-
 .. autoclass:: Blist
     :members:
 
 .. autoclass:: BotListSpace
-    :members:
-
-.. autoclass:: BotsDataBase
     :members:
 
 .. autoclass:: BotsForDiscord
@@ -67,25 +61,13 @@ Services
 .. autoclass:: Carbon
     :members:
 
-.. autoclass:: DBLista
-    :members:
-
-.. autoclass:: DiscordBotsCo
-    :members:
-
 .. autoclass:: DiscordBotsGG
-    :members:
-
-.. autoclass:: DiscordAppsDev
     :members:
 
 .. autoclass:: DiscordBoats
     :members:
 
 .. autoclass:: DiscordBotList
-    :members:
-
-.. autoclass:: DiscordBotWorld
     :members:
 
 .. autoclass:: DiscordExtremeList
@@ -95,15 +77,6 @@ Services
     :members:
 
 .. autoclass:: DiscordListology
-    :members:
-
-.. autoclass:: LBots
-    :members:
-
-.. autoclass:: ListMyBots
-    :members:
-
-.. autoclass:: MythicalBots
     :members:
 
 .. autoclass:: SpaceBotsList
