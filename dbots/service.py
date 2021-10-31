@@ -248,106 +248,6 @@ class Blist(Service):
         return f'{Blist.BASE_URL}/widget/{bot_id}.svg?{_encode_query(query)}'
 
 
-class BotsForDiscord(Service):
-    """
-    Represents the Bots For Discord service.
-
-    .. seealso::
-        - `Bots For Discord Website <https://botsfordiscord.com/>`_
-        - `Bots For Discord API Documentation <https://docs.botsfordiscord.com/>`_
-    """
-
-    BASE_URL = 'https://botsfordiscord.com/api'
-
-    @staticmethod
-    def aliases() -> list:
-        return ['botsfordiscord', 'botsfordiscord.com']
-
-    @staticmethod
-    def _post(
-        http_client: HTTPClient, bot_id: str, token: str,
-        server_count: int = 0, user_count: int = 0,
-        voice_connections: int = 0, shard_count: int = None,
-        shard_id: int = None
-    ) -> HTTPResponse:
-        return http_client.request(
-            method='POST',
-            path=f'{BotsForDiscord.BASE_URL}/bot/{bot_id}',
-            headers={'Authorization': token},
-            json={'server_count': server_count}
-        )
-
-    def get_bot(self, bot_id: str) -> HTTPResponse:
-        """|httpres|\n
-        Gets the bot listed on this service.
-
-        Parameters
-        -----------
-        bot_id: :class:`str`
-            The bot's ID.
-        """
-        return self._request(
-            method='GET',
-            path=f'/bot/{bot_id}'
-        )
-
-    def get_bot_votes(self, bot_id: str) -> HTTPResponse:
-        """|httpres|\n
-        Gets the list of people who voted this bot on this service.
-
-        Parameters
-        -----------
-        bot_id: :class:`str`
-            The bot's ID.
-        """
-        return self._request(
-            method='GET',
-            path=f'/bot/{bot_id}/votes',
-            requires_token=True
-        )
-
-    def get_user(self, user_id: str) -> HTTPResponse:
-        """|httpres|\n
-        Gets the user listed on this service.
-
-        Parameters
-        -----------
-        user_id: :class:`str`
-            The user's ID.
-        """
-        return self._request(
-            method='GET',
-            path=f'/user/{user_id}'
-        )
-
-    def get_user_bots(self, user_id: str) -> HTTPResponse:
-        """|httpres|\n
-        Gets the user's bots listed for this service.
-
-        Parameters
-        -----------
-        user_id: :class:`str`
-            The user's ID.
-        """
-        return self._request(
-            method='GET',
-            path=f'/user/{user_id}/bots'
-        )
-
-    def get_widget_url(self, bot_id: str, **query) -> str:
-        """
-        Gets the widget URL for this bot.
-
-        Parameters
-        -----------
-        bot_id: :class:`str`
-            The bot's ID.
-        **query
-            The query string to append to the URL.
-        """
-        return f'{BotsForDiscord.BASE_URL}/bot/{bot_id}/widget?{_encode_query(query)}'
-
-
 class BotsOnDiscord(Service):
     """
     Represents the Bots On Discord service.
@@ -822,7 +722,7 @@ class DiscordListSpace(Service):
         return http_client.request(
             method='POST',
             path=f'{DiscordListSpace.BASE_URL}/bots/{bot_id}',
-            headers={'Authorization': token},
+            headers={'Authorization': token, 'Content-Type': 'application/json'},
             json={'server_count': server_count}
         )
 
@@ -1148,6 +1048,123 @@ class DiscordListology(Service):
             method='GET',
             path=f'/guilds/{guild_id}/hasvoted/{user_id}'
         )
+
+
+class DiscordsCom(Service):
+    """
+    Represents the Discords.com service (formerly Bots For Discord).
+
+    .. seealso::
+        - `Discords.com service Website <https://discords.com/bots>`_
+        - `Discords.com service API Documentation <https://docs.botsfordiscord.com/>`_
+    """
+
+    BASE_URL = 'https://discords.com/bots/api'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['botsfordiscord', 'botsfordiscord.com', 'discords', 'discords.com']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count: int = 0, user_count: int = 0,
+        voice_connections: int = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        return http_client.request(
+            method='POST',
+            path=f'{DiscordsCom.BASE_URL}/bot/{bot_id}',
+            headers={'Authorization': token, 'Content-Type': 'application/json'},
+            json={'server_count': server_count}
+        )
+
+    def get_bot(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the bot listed on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bot/{bot_id}'
+        )
+
+    def get_bot_votes(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the list of people who voted a bot.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bot/{bot_id}/votes',
+            headers={'Authorization': self.token, 'Content-Type': 'application/json'},
+            requires_token=True
+        )
+
+    def get_bot_votes_12h(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the list of people who voted a bot in the last 12 hours.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bot/{bot_id}/votes12h',
+            headers={'Authorization': self.token, 'Content-Type': 'application/json'},
+            requires_token=True
+        )
+
+    def get_user(self, user_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the user listed on this service.
+
+        Parameters
+        -----------
+        user_id: :class:`str`
+            The user's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/user/{user_id}'
+        )
+
+    def get_user_bots(self, user_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the user's bots listed for this service.
+
+        Parameters
+        -----------
+        user_id: :class:`str`
+            The user's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/user/{user_id}/bots'
+        )
+
+    def get_widget_url(self, bot_id: str, **query) -> str:
+        """
+        Gets the widget URL for this bot.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        **query
+            The query string to append to the URL.
+        """
+        return f'{DiscordsCom.BASE_URL}/bot/{bot_id}/widget?{_encode_query(query)}'
 
 
 class SpaceBotsList(Service):
@@ -1573,8 +1590,8 @@ class YABL(Service):
 
 
 Service.SERVICES = [
-    Blist, BotsForDiscord, BotsOnDiscord, Carbon,
+    Blist, BotsOnDiscord, Carbon,
     DiscordBotsGG, DiscordBoats, DiscordBotList,
     DiscordExtremeList, DiscordLabs, DiscordListSpace, DiscordListology,
-    SpaceBotsList, TopCord, TopGG, WonderBotList, YABL
+    DiscordsCom, SpaceBotsList, TopCord, TopGG, WonderBotList, YABL
 ]
