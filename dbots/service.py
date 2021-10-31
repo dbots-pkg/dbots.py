@@ -1439,7 +1439,9 @@ class WonderBotList(Service):
         """
         return self._request(
             method='GET',
-            path=f'/bots/{bot_id}'
+            path=f'/bots/{bot_id}',
+            headers={'Authorization': self.token},
+            requires_token=True
         )
 
     def get_user(self, user_id: str) -> HTTPResponse:
@@ -1453,7 +1455,9 @@ class WonderBotList(Service):
         """
         return self._request(
             method='GET',
-            path=f'/user/{user_id}'
+            path=f'/user/{user_id}',
+            headers={'Authorization': self.token},
+            requires_token=True
         )
 
 
