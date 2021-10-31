@@ -551,7 +551,7 @@ class DiscordExtremeList(Service):
 
     .. seealso::
         - `Discord Extreme List Website <https://discordextremelist.xyz/>`_
-        - `Discord Extreme List API Documentation <https://docs.discordextremelist.xyz/>`_
+        - `Discord Extreme List API Documentation <https://discordextremelist.xyz/docs>`_
     """
 
     BASE_URL = 'https://api.discordextremelist.xyz/v2'
@@ -583,9 +583,7 @@ class DiscordExtremeList(Service):
         """
         return self._request(
             method='GET',
-            path='/stats',
-            headers={'Authorization': self.token},
-            requires_token=True
+            path='/stats'
         )
 
     def get_bot(self, bot_id: str) -> HTTPResponse:
@@ -599,39 +597,7 @@ class DiscordExtremeList(Service):
         """
         return self._request(
             method='GET',
-            path=f'/bot/{bot_id}',
-            headers={'Authorization': self.token},
-            requires_token=True
-        )
-
-    def get_bot_stats(self, bot_id: str) -> HTTPResponse:
-        """|httpres|\n
-        Gets the bot's stats on this service.
-
-        Parameters
-        -----------
-        bot_id: :class:`str`
-            The bot's ID.
-        """
-        return self._request(
-            method='GET',
-            path=f'/bots/{bot_id}/stats'
-        )
-
-    def get_bot_likes(self, bot_id: str) -> HTTPResponse:
-        """|httpres|\n
-        Gets the list of people who liked this bot on this service.
-
-        Parameters
-        -----------
-        bot_id: :class:`str`
-            The bot's ID.
-        """
-        return self._request(
-            method='GET',
-            path=f'/bots/{bot_id}/likes',
-            headers={'Authorization': self.token},
-            requires_token=True
+            path=f'/bot/{bot_id}'
         )
 
     def get_user(self, user_id: str) -> HTTPResponse:
@@ -645,9 +611,7 @@ class DiscordExtremeList(Service):
         """
         return self._request(
             method='GET',
-            path=f'/user/{user_id}',
-            headers={'Authorization': self.token},
-            requires_token=True
+            path=f'/user/{user_id}'
         )
 
 
