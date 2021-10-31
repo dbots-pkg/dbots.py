@@ -824,7 +824,7 @@ class DiscordListSpace(Service):
 
     def get_user_upvote(self, bot_id: str, user_id: str) -> HTTPResponse:
         """|httpres|\n
-        Gets the analytics on a bot.
+        Checks if a specific user has upvoted the bot.
 
         Parameters
         -----------
