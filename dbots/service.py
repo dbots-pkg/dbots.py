@@ -621,7 +621,7 @@ class DiscordLabs(Service):
 
     .. seealso::
         - `Discord Labs Website <https://bots.discordlabs.org/>`_
-        - `Discord Labs API Documentation <https://docs.discordlabs.org/docs/api/api>`_
+        - `Discord Labs API Documentation <https://docs.discordlabs.org/#/api>`_
     """
 
     BASE_URL = 'https://bots.discordlabs.org/v2'
@@ -658,6 +658,20 @@ class DiscordLabs(Service):
         return self._request(
             method='GET',
             path=f'/bot/{bot_id}',
+        )
+
+    def get_bot_votes(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the votes for this bot.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bot/{bot_id}/votes',
         )
 
 
