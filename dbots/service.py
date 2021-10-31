@@ -420,6 +420,43 @@ class DiscordBotsGG(Service):
         )
 
 
+class DiscordBotList(Service):
+    """
+    Represents the Discord Bot List service.
+
+    .. seealso::
+        - `Discord Bot List Website <https://discordbotlist.com/>`_
+        - `Discord Bot List API Documentation <https://discordbotlist.com/api-docs/>`_
+    """
+
+    BASE_URL = 'https://discordbotlist.com/api/v1'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['discordbotlist', 'discordbotlist.com']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count: int = 0, user_count: int = 0,
+        voice_connections: int = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        payload = {'guilds': server_count}
+        if shard_id and shard_count:
+            payload['shard_id'] = shard_id
+        if user_count:
+            payload['users'] = user_count
+        if voice_connections:
+            payload['voice_connections'] = voice_connections
+        return http_client.request(
+            method='POST',
+            path=f'{DiscordBotList.BASE_URL}/bots/{bot_id}/stats',
+            headers={'Authorization': f'Bot {token}'},
+            json=payload
+        )
+
+
 class DiscordBoats(Service):
     """
     Represents the Discord Boats service.
@@ -506,43 +543,6 @@ class DiscordBoats(Service):
             The query string to append to the URL.
         """
         return f'{DiscordBoats.BASE_URL}/widget/{bot_id}.svg?{_encode_query(query)}'
-
-
-class DiscordBotList(Service):
-    """
-    Represents the Discord Bot List service.
-
-    .. seealso::
-        - `Discord Bot List Website <https://discordbotlist.com/>`_
-        - `Discord Bot List API Documentation <https://discordbotlist.com/api-docs/>`_
-    """
-
-    BASE_URL = 'https://discordbotlist.com/api/v1'
-
-    @staticmethod
-    def aliases() -> list:
-        return ['discordbotlist', 'discordbotlist.com']
-
-    @staticmethod
-    def _post(
-        http_client: HTTPClient, bot_id: str, token: str,
-        server_count: int = 0, user_count: int = 0,
-        voice_connections: int = 0, shard_count: int = None,
-        shard_id: int = None
-    ) -> HTTPResponse:
-        payload = {'guilds': server_count}
-        if shard_id and shard_count:
-            payload['shard_id'] = shard_id
-        if user_count:
-            payload['users'] = user_count
-        if voice_connections:
-            payload['voice_connections'] = voice_connections
-        return http_client.request(
-            method='POST',
-            path=f'{DiscordBotList.BASE_URL}/bots/{bot_id}/stats',
-            headers={'Authorization': f'Bot {token}'},
-            json=payload
-        )
 
 
 class DiscordExtremeList(Service):

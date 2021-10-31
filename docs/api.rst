@@ -55,13 +55,13 @@ Services
 .. autoclass:: Carbon
     :members:
 
-.. autoclass:: DiscordBotsGG
-    :members:
-
 .. autoclass:: DiscordBoats
     :members:
 
 .. autoclass:: DiscordBotList
+    :members:
+
+.. autoclass:: DiscordBotsGG
     :members:
 
 .. autoclass:: DiscordExtremeList
