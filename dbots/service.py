@@ -1279,6 +1279,22 @@ class TopGG(Service):
             json=payload
         )
 
+    def get_user(self, user_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the user listed on this service.
+
+        Parameters
+        -----------
+        user_id: :class:`str`
+            The user's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/users/{user_id}',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
     def get_bots(self, **query) -> HTTPResponse:
         """|httpres|\n
         Gets a list of bots on this service.
@@ -1308,6 +1324,22 @@ class TopGG(Service):
         return self._request(
             method='GET',
             path=f'/bots/{bot_id}',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def get_bot_stats(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the bot's stats listed on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}/stats',
             headers={'Authorization': self.token},
             requires_token=True
         )
@@ -1343,38 +1375,6 @@ class TopGG(Service):
             method='GET',
             path=f'/bots/{bot_id}/check',
             query={'userId': user_id},
-            headers={'Authorization': self.token},
-            requires_token=True
-        )
-
-    def get_bot_stats(self, bot_id: str) -> HTTPResponse:
-        """|httpres|\n
-        Gets the bot's stats listed on this service.
-
-        Parameters
-        -----------
-        bot_id: :class:`str`
-            The bot's ID.
-        """
-        return self._request(
-            method='GET',
-            path=f'/bots/{bot_id}/stats',
-            headers={'Authorization': self.token},
-            requires_token=True
-        )
-
-    def get_user(self, user_id: str) -> HTTPResponse:
-        """|httpres|\n
-        Gets the user listed on this service.
-
-        Parameters
-        -----------
-        user_id: :class:`str`
-            The user's ID.
-        """
-        return self._request(
-            method='GET',
-            path=f'/users/{user_id}',
             headers={'Authorization': self.token},
             requires_token=True
         )
