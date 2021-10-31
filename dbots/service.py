@@ -203,7 +203,7 @@ class BotsForDiscord(Service):
 
     @staticmethod
     def aliases() -> list:
-        return ['botsfordiscord', 'botsfordiscord.com', 'bfd']
+        return ['botsfordiscord', 'botsfordiscord.com']
 
     @staticmethod
     def _post(
@@ -303,7 +303,7 @@ class BotsOnDiscord(Service):
 
     @staticmethod
     def aliases() -> list:
-        return ['botsondiscord', 'bots.ondiscord.xyz', 'bod']
+        return ['botsondiscord', 'bots.ondiscord.xyz']
 
     @staticmethod
     def _post(
@@ -405,7 +405,7 @@ class DiscordBotsGG(Service):
 
     @staticmethod
     def aliases() -> list:
-        return ['discordbotsgg', 'discord.bots.gg', 'botsgg', 'bots.gg', 'dbots']
+        return ['discordbotsgg', 'discord.bots.gg']
 
     @staticmethod
     def _post(
@@ -475,7 +475,7 @@ class DiscordBoats(Service):
 
     @staticmethod
     def aliases() -> list:
-        return ['discordboats', 'discord.boats', 'dboats']
+        return ['discordboats', 'discord.boats']
 
     @staticmethod
     def _post(
@@ -563,7 +563,7 @@ class DiscordBotList(Service):
 
     @staticmethod
     def aliases() -> list:
-        return ['discordbotlist', 'discordbotlist.com', 'dbotlist']
+        return ['discordbotlist', 'discordbotlist.com']
 
     @staticmethod
     def _post(
@@ -600,7 +600,7 @@ class DiscordExtremeList(Service):
 
     @staticmethod
     def aliases() -> list:
-        return ['discordextremelist', 'discordextremelist.xyz', 'discordextremelistxyz', 'del']
+        return ['discordextremelist', 'discordextremelist.xyz']
 
     @staticmethod
     def _post(
@@ -706,7 +706,7 @@ class DiscordLabs(Service):
 
     @staticmethod
     def aliases() -> list:
-        return ['discordlabs', 'discord-labs', 'discordlabs.org', 'bots.discordlabs.org']
+        return ['discordlabs', 'discordlabs.org']
 
     @staticmethod
     def _post(
@@ -1016,7 +1016,7 @@ class DiscordListology(Service):
 
     @staticmethod
     def aliases() -> list:
-        return ['discordlistology']
+        return ['discordlistology', 'discordlistology.com']
 
     @staticmethod
     def _post(
@@ -1199,7 +1199,7 @@ class TopGG(Service):
 
     @staticmethod
     def aliases() -> list:
-        return ['topgg', 'top.gg', 'top']
+        return ['topgg', 'top.gg']
 
     @staticmethod
     def _post(
@@ -1349,7 +1349,7 @@ class WonderBotList(Service):
 
     @staticmethod
     def aliases() -> list:
-        return ['wonderbotlist', 'wonderbotlist.com', 'wonderbotlistcom', 'wonder', 'wbl']
+        return ['wonderbotlist', 'wonderbotlist.com']
 
     @staticmethod
     def _post(
@@ -1410,7 +1410,7 @@ class YABL(Service):
 
     @staticmethod
     def aliases() -> list:
-        return ['yabl', 'yablxyz', 'yabl.xyz']
+        return ['yabl', 'yabl.xyz']
 
     @staticmethod
     def _post(
