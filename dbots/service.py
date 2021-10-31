@@ -1,7 +1,6 @@
 from .http import HTTPClient, HTTPResponse
-from .errors import EndpointRequiresToken, ServiceException, PostingUnsupported
+from .errors import EndpointRequiresToken, ServiceException
 from urllib.parse import urlencode as _encode_query
-from urllib.parse import quote as _encode_uri
 
 
 class Service:
@@ -189,136 +188,6 @@ class Blist(Service):
         """
         query['type'] = widget_type
         return f'{Blist.BASE_URL}/widget/{bot_id}.svg?{_encode_query(query)}'
-
-
-class BotListSpace(Service):
-    """
-    Represents the botlist.space service.
-
-    .. seealso::
-        - `botlist.space Website <https://botlist.space/>`_
-        - `botlist.space API Documentation <https://docs.botlist.space/>`_
-    """
-
-    BASE_URL = 'https://api.botlist.space/v1'
-
-    @staticmethod
-    def aliases() -> list:
-        return ['botlistspace', 'botlist.space', 'bls']
-
-    @staticmethod
-    def _post(
-        http_client: HTTPClient, bot_id: str, token: str,
-        server_count: int = 0, user_count: int = 0,
-        voice_connections: int = 0, shard_count: int = None,
-        shard_id: int = None
-    ) -> HTTPResponse:
-        return http_client.request(
-            method='POST',
-            path=f'{BotListSpace.BASE_URL}/bots/{bot_id}',
-            headers={'Authorization': token},
-            json={'server_count': server_count}
-        )
-
-    def get_statistics(self) -> HTTPResponse:
-        """|httpres|\n\n Gets the statistics of this service."""
-        return self._request(
-            method='GET',
-            path='/statistics'
-        )
-
-    def get_bots(self) -> HTTPResponse:
-        """|httpres|\n\n Gets a list of bots on this service."""
-        return self._request(
-            method='GET',
-            path='/bots'
-        )
-
-    def get_bot(self, bot_id: str) -> HTTPResponse:
-        """|httpres|\n
-        Gets the bot listed on this service.
-
-        Parameters
-        -----------
-        bot_id: :class:`str`
-            The bot's ID.
-        """
-        return self._request(
-            method='GET',
-            path=f'/bots/{bot_id}'
-        )
-
-    def get_bot_votes(self, bot_id: str) -> HTTPResponse:
-        """|httpres|\n
-        Gets the list of people who voted this bot on this service.
-
-        Parameters
-        -----------
-        bot_id: :class:`str`
-            The bot's ID.
-        """
-        return self._request(
-            method='GET',
-            path=f'/bots/{bot_id}/upvotes',
-            requires_token=True
-        )
-
-    def get_bot_uptime(self, bot_id: str) -> HTTPResponse:
-        """|httpres|\n
-        Gets the uptime of a bot listed on this service.
-
-        Parameters
-        -----------
-        bot_id: :class:`str`
-            The bot's ID.
-        """
-        return self._request(
-            method='GET',
-            path=f'/bots/{bot_id}/uptime'
-        )
-
-    def get_user(self, user_id: str) -> HTTPResponse:
-        """|httpres|\n
-        Gets the user listed on this service.
-
-        Parameters
-        -----------
-        user_id: :class:`str`
-            The user's ID.
-        """
-        return self._request(
-            method='GET',
-            path=f'/users/{user_id}'
-        )
-
-    def get_user_bots(self, user_id: str) -> HTTPResponse:
-        """|httpres|\n
-        Gets the user's bots listed for this service.
-
-        Parameters
-        -----------
-        user_id: :class:`str`
-            The user's ID.
-        """
-        return self._request(
-            method='GET',
-            path=f'/users/{user_id}/bots'
-        )
-
-    def get_widget_url(self, bot_id: str, style: int = 1, **query) -> str:
-        """
-        Gets the widget URL for this bot.
-
-        Parameters
-        -----------
-        bot_id: :class:`str`
-            The bot's ID.
-        style: Optional[:class:`int`]
-            The style of the widget.
-        **query
-            The query string to append to the URL.
-        """
-        return f'https://api.botlist.space/widget/{bot_id}/{style}?{_encode_query(query)}'
 
 
 class BotsForDiscord(Service):
@@ -870,6 +739,270 @@ class DiscordLabs(Service):
         )
 
 
+class DiscordListSpace(Service):
+    """
+    Represents the discordlist.space service.
+
+    .. seealso::
+        - `discordlist.space Website <https://discordlist.space/>`_
+        - `discordlist.space API Documentation <https://docs.discordlist.space/>`_
+    """
+
+    BASE_URL = 'https://api.discordlist.space/v2'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['discordlistspace', 'discordlist.space', 'botlistspace', 'botlist.space']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count: int = 0, user_count: int = 0,
+        voice_connections: int = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        return http_client.request(
+            method='POST',
+            path=f'{DiscordListSpace.BASE_URL}/bots/{bot_id}',
+            headers={'Authorization': token},
+            json={'server_count': server_count}
+        )
+
+    def get_statistics(self) -> HTTPResponse:
+        """|httpres|\n\n Gets the statistics of this service."""
+        return self._request(
+            method='GET',
+            path='/statistics'
+        )
+
+    def get_languages(self, **query) -> HTTPResponse:
+        """|httpres|\n
+        Gets all the available languages that bots or servers can set as their language.
+
+        Parameters
+        -----------
+        **query
+            The query string to append to the URL.
+        """
+        return self._request(
+            method='GET',
+            path='/statistics',
+            query=query
+        )
+
+    def get_tags(self, **query) -> HTTPResponse:
+        """|httpres|\n
+        Gets all available tags for use on bots or servers.
+
+        Parameters
+        -----------
+        **query
+            The query string to append to the URL.
+        """
+        return self._request(
+            method='GET',
+            path='/tags',
+            query=query
+        )
+
+    def get_bots(self, **query) -> HTTPResponse:
+        """|httpres|\n
+        Gets a list of bots on this service.
+
+        Parameters
+        -----------
+        **query
+            The query string to append to the URL.
+        """
+        return self._request(
+            method='GET',
+            path='/bots',
+            query=query
+        )
+
+    def get_bot(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the bot listed on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}'
+        )
+
+    def get_bot_reviews(self, bot_id: str, **query) -> HTTPResponse:
+        """|httpres|\n
+        Gets the reviews of a bot.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        **query
+            The query string to append to the URL.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}/reviews',
+            query=query
+        )
+
+    def get_bot_analytics(self, bot_id: str, **query) -> HTTPResponse:
+        """|httpres|\n
+        Gets the analytics on a bot.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        **query
+            The query string to append to the URL.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}/analytics',
+            query=query,
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def get_bot_votes(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the list of people who voted this bot on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}/upvotes',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def get_user_upvote(self, bot_id: str, user_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the analytics on a bot.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        user_id: :class:`str`
+            The user's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}/upvotes/status/{user_id}',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def get_upvote_leaderboard(self, bot_id: str, **query) -> HTTPResponse:
+        """|httpres|\n
+        Gets the top upvoters of this month.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        **query
+            The query string to append to the URL.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}/upvotes/leaderboard',
+            query=query
+        )
+
+    def get_audit_log(self, bot_id: str, **query) -> HTTPResponse:
+        """|httpres|\n
+        Gets the bot listing audit log.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        **query
+            The query string to append to the URL.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}/audit',
+            query=query,
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def get_bot_owners(self, bot_id: str, **query) -> HTTPResponse:
+        """|httpres|\n
+        Gets the owners of the bot listing.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        **query
+            The query string to append to the URL.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}/owners',
+            query=query
+        )
+
+    def get_user(self, user_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the user listed on this service.
+
+        Parameters
+        -----------
+        user_id: :class:`str`
+            The user's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/users/{user_id}'
+        )
+
+    def get_user_bots(self, user_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the user's bots listed for this service.
+
+        Parameters
+        -----------
+        user_id: :class:`str`
+            The user's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/users/{user_id}/bots',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def get_widget_url(self, bot_id: str, style: int = 1, **query) -> str:
+        """
+        Gets the widget URL for this bot.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        style: Optional[:class:`int`]
+            The style of the widget.
+        **query
+            The query string to append to the URL.
+        """
+        return f'https://api.discordlist.space/widget/{bot_id}/{style}?{_encode_query(query)}'
+
+
 class DiscordListology(Service):
     """
     Represents the DiscordListology service.
@@ -1382,8 +1515,8 @@ class YABL(Service):
 
 
 Service.SERVICES = [
-    Blist, BotListSpace, BotsForDiscord, BotsOnDiscord, Carbon,
+    Blist, BotsForDiscord, BotsOnDiscord, Carbon,
     DiscordBotsGG, DiscordBoats, DiscordBotList,
-    DiscordExtremeList, DiscordLabs, DiscordListology,
+    DiscordExtremeList, DiscordLabs, DiscordListSpace, DiscordListology,
     SpaceBotsList, TopCord, TopGG, WonderBotList, YABL
 ]

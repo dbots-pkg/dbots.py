@@ -49,9 +49,6 @@ Services
 .. autoclass:: Blist
     :members:
 
-.. autoclass:: BotListSpace
-    :members:
-
 .. autoclass:: BotsForDiscord
     :members:
 
@@ -74,6 +71,9 @@ Services
     :members:
 
 .. autoclass:: DiscordLabs
+    :members:
+
+.. autoclass:: DiscordListSpace
     :members:
 
 .. autoclass:: DiscordListology
