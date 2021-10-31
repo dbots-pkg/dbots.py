@@ -272,9 +272,9 @@ class BotsOnDiscord(Service):
     ) -> HTTPResponse:
         return http_client.request(
             method='POST',
-            path=f'{BotsOnDiscord.BASE_URL}/bots/{bot_id}/stats',
+            path=f'{BotsOnDiscord.BASE_URL}/bots/{bot_id}/guilds',
             headers={'Authorization': token},
-            json={'server_count': server_count}
+            json={'guildCount': server_count}
         )
 
     def check_review(self, bot_id: str, user_id: str) -> HTTPResponse:
