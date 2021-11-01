@@ -1855,6 +1855,68 @@ class Listcord(Service):
         )
 
 
+class MotionBotlist(Service):
+    """
+    Represents the MotionBotlist service.
+
+    .. seealso::
+        - `MotionBotlist Website <https://www.motiondevelopment.top/bot/>`_
+        - `MotionBotlist API Documentation <https://www.motiondevelopment.top/docs/api/intro/>`_
+    """
+
+    BASE_URL = 'https://www.motiondevelopment.top/api/v1.2'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['motion', 'motiondevelopment', 'motionbotlist', 'motiondevelopment.top']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count: int = 0, user_count: int = 0,
+        voice_connections: int = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        return http_client.request(
+            method='POST',
+            path=f'{Listcord.BASE_URL}/bots/{bot_id}/stats',
+            headers={'key': token, 'Content-Type': 'application/json'},
+            json={'server_count': server_count}
+        )
+
+    def get_bot(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets a bot.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}',
+            headers={'key': self.token, 'Content-Type': 'application/json'},
+            requires_token=True
+        )
+
+    def get_bot_votes(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets a bot's reviews.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}/votes',
+            headers={'key': self.token, 'Content-Type': 'application/json'},
+            requires_token=True
+        )
+
+
 class SpaceBotsList(Service):
     """
     Represents the Space Bots List service.
@@ -2292,6 +2354,6 @@ Service.SERVICES = [
     BladeList, Blist, BotsOnDiscord, Carbon, DBots,
     DiscordBoats, DiscordBotList, DiscordBotlistEU, DiscordBotsGG,
     DiscordExtremeList, DiscordLabs, DiscordListSpace, DiscordListology, DiscordServices,
-    DiscordsCom, Disforge, FatesList, InfinityBotList, Listcord,
+    DiscordsCom, Disforge, FatesList, InfinityBotList, Listcord, MotionBotlist,
     SpaceBotsList, TopCord, TopGG, WonderBotList, YABL
 ]

@@ -103,6 +103,9 @@ Services
 .. autoclass:: Listcord
     :members:
 
+.. autoclass:: MotionBotlist
+    :members:
+
 .. autoclass:: SpaceBotsList
     :members:
 
