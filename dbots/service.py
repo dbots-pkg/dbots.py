@@ -350,113 +350,6 @@ class Carbon(Service):
         )
 
 
-class DiscordBotsGG(Service):
-    """
-    Represents the Discord Bots service.
-
-    .. seealso::
-        - `Discord Bots Website <https://discord.bots.gg/>`_
-        - `Discord Bots API Documentation <https://discord.bots.gg/docs>`_
-    """
-
-    BASE_URL = 'https://discord.bots.gg/api/v1'
-
-    @staticmethod
-    def aliases() -> list:
-        return ['discordbotsgg', 'discord.bots.gg']
-
-    @staticmethod
-    def _post(
-        http_client: HTTPClient, bot_id: str, token: str,
-        server_count: int = 0, user_count: int = 0,
-        voice_connections: int = 0, shard_count: int = None,
-        shard_id: int = None
-    ) -> HTTPResponse:
-        payload = {'guildCount': server_count}
-        if shard_id and shard_count:
-            payload['shardId'] = shard_id
-            payload['shardCount'] = shard_count
-        return http_client.request(
-            method='POST',
-            path=f'{DiscordBotsGG.BASE_URL}/bots/{bot_id}/stats',
-            headers={'Authorization': token},
-            json=payload
-        )
-
-    def get_bots(self, **query) -> HTTPResponse:
-        """|httpres|\n
-        Gets a list of bots on this service.
-
-        Parameters
-        -----------
-        **query
-            The query string to append to the URL.
-        """
-        return self._request(
-            method='GET',
-            path='/bots',
-            query=query,
-            headers={'Authorization': self.token},
-            requires_token=True
-        )
-
-    def get_bot(self, bot_id: str, **query) -> HTTPResponse:
-        """|httpres|\n
-        Gets the bot listed on this service.
-
-        Parameters
-        -----------
-        bot_id: :class:`str`
-            The bot's ID.
-        **query
-            The query string to append to the URL.
-        """
-        return self._request(
-            method='GET',
-            path=f'/bots/{bot_id}',
-            query=query,
-            headers={'Authorization': self.token},
-            requires_token=True
-        )
-
-
-class DiscordBotList(Service):
-    """
-    Represents the Discord Bot List service.
-
-    .. seealso::
-        - `Discord Bot List Website <https://discordbotlist.com/>`_
-        - `Discord Bot List API Documentation <https://discordbotlist.com/api-docs/>`_
-    """
-
-    BASE_URL = 'https://discordbotlist.com/api/v1'
-
-    @staticmethod
-    def aliases() -> list:
-        return ['discordbotlist', 'discordbotlist.com']
-
-    @staticmethod
-    def _post(
-        http_client: HTTPClient, bot_id: str, token: str,
-        server_count: int = 0, user_count: int = 0,
-        voice_connections: int = 0, shard_count: int = None,
-        shard_id: int = None
-    ) -> HTTPResponse:
-        payload = {'guilds': server_count}
-        if shard_id and shard_count:
-            payload['shard_id'] = shard_id
-        if user_count:
-            payload['users'] = user_count
-        if voice_connections:
-            payload['voice_connections'] = voice_connections
-        return http_client.request(
-            method='POST',
-            path=f'{DiscordBotList.BASE_URL}/bots/{bot_id}/stats',
-            headers={'Authorization': f'Bot {token}'},
-            json=payload
-        )
-
-
 class DiscordBoats(Service):
     """
     Represents the Discord Boats service.
@@ -543,6 +436,113 @@ class DiscordBoats(Service):
             The query string to append to the URL.
         """
         return f'{DiscordBoats.BASE_URL}/widget/{bot_id}.svg?{_encode_query(query)}'
+
+
+class DiscordBotList(Service):
+    """
+    Represents the Discord Bot List service.
+
+    .. seealso::
+        - `Discord Bot List Website <https://discordbotlist.com/>`_
+        - `Discord Bot List API Documentation <https://discordbotlist.com/api-docs/>`_
+    """
+
+    BASE_URL = 'https://discordbotlist.com/api/v1'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['discordbotlist', 'discordbotlist.com']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count: int = 0, user_count: int = 0,
+        voice_connections: int = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        payload = {'guilds': server_count}
+        if shard_id and shard_count:
+            payload['shard_id'] = shard_id
+        if user_count:
+            payload['users'] = user_count
+        if voice_connections:
+            payload['voice_connections'] = voice_connections
+        return http_client.request(
+            method='POST',
+            path=f'{DiscordBotList.BASE_URL}/bots/{bot_id}/stats',
+            headers={'Authorization': f'Bot {token}'},
+            json=payload
+        )
+
+
+class DiscordBotsGG(Service):
+    """
+    Represents the Discord Bots service.
+
+    .. seealso::
+        - `Discord Bots Website <https://discord.bots.gg/>`_
+        - `Discord Bots API Documentation <https://discord.bots.gg/docs>`_
+    """
+
+    BASE_URL = 'https://discord.bots.gg/api/v1'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['discordbotsgg', 'discord.bots.gg']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count: int = 0, user_count: int = 0,
+        voice_connections: int = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        payload = {'guildCount': server_count}
+        if shard_id and shard_count:
+            payload['shardId'] = shard_id
+            payload['shardCount'] = shard_count
+        return http_client.request(
+            method='POST',
+            path=f'{DiscordBotsGG.BASE_URL}/bots/{bot_id}/stats',
+            headers={'Authorization': token},
+            json=payload
+        )
+
+    def get_bots(self, **query) -> HTTPResponse:
+        """|httpres|\n
+        Gets a list of bots on this service.
+
+        Parameters
+        -----------
+        **query
+            The query string to append to the URL.
+        """
+        return self._request(
+            method='GET',
+            path='/bots',
+            query=query,
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def get_bot(self, bot_id: str, **query) -> HTTPResponse:
+        """|httpres|\n
+        Gets the bot listed on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        **query
+            The query string to append to the URL.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}',
+            query=query,
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
 
 
 class DiscordExtremeList(Service):
