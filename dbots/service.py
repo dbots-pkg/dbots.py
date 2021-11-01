@@ -1390,6 +1390,50 @@ class DiscordsCom(Service):
         return f'{DiscordsCom.BASE_URL}/bot/{bot_id}/widget?{_encode_query(query)}'
 
 
+class Disforge(Service):
+    """
+    Represents the Disforge service.
+
+    .. seealso::
+        - `Disforge Website <https://disforge.com/bots/>`_
+        - `Disforge API Documentation <https://disforge.com/developer/>`_
+    """
+
+    BASE_URL = 'https://disforge.com/api'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['disforge', 'disforge.com']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count: int = 0, user_count: int = 0,
+        voice_connections: int = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        return http_client.request(
+            method='POST',
+            path=f'{Disforge.BASE_URL}/botstats/{bot_id}',
+            headers={'Authorization': token},
+            json={'servers': server_count}
+        )
+
+    def get_homepage(self) -> HTTPResponse:
+        """|httpres|\n\nRetreives the data shown on the homepage."""
+        return self._request(
+            method='GET',
+            path='/home'
+        )
+
+    def get_stats(self) -> HTTPResponse:
+        """|httpres|\n\nRetreives statistics about Disforge."""
+        return self._request(
+            method='GET',
+            path='/stats'
+        )
+
+
 class SpaceBotsList(Service):
     """
     Represents the Space Bots List service.
@@ -1826,6 +1870,6 @@ class YABL(Service):
 Service.SERVICES = [
     BladeList, Blist, BotsOnDiscord, Carbon, DBots,
     DiscordBoats, DiscordBotList, DiscordBotlistEU, DiscordBotsGG,
-    DiscordExtremeList, DiscordLabs, DiscordListSpace, DiscordListology,
-    DiscordServices, DiscordsCom, SpaceBotsList, TopCord, TopGG, WonderBotList, YABL
+    DiscordExtremeList, DiscordLabs, DiscordListSpace, DiscordListology, DiscordServices,
+    DiscordsCom, Disforge, SpaceBotsList, TopCord, TopGG, WonderBotList, YABL
 ]

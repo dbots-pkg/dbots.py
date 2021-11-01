@@ -91,6 +91,9 @@ Services
 .. autoclass:: DiscordsCom
     :members:
 
+.. autoclass:: Disforge
+    :members:
+
 .. autoclass:: SpaceBotsList
     :members:
 
