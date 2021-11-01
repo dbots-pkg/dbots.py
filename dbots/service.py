@@ -97,6 +97,55 @@ class Service:
 ###############################
 
 
+class BladeList(Service):
+    """
+    Represents the BladeList service.
+
+    .. seealso::
+        - `BladeList Website <https://bladelist.gg/>`_
+        - `BladeList API Documentation <https://docs.bladelist.gg/en/latest/api/index.html>`_
+    """
+
+    BASE_URL = 'https://api.bladelist.gg'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['bladebotlist', 'bladebotlist.xyz', 'bladelist', 'bladelist.gg']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count: int = 0, user_count: int = 0,
+        voice_connections: int = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        payload = {'server_count': server_count}
+        if shard_id and shard_count:
+            payload['shard_count'] = shard_count
+        return http_client.request(
+            method='PUT',
+            path=f'{BladeList.BASE_URL}/bots/{bot_id}/',
+            headers={'Authorization': token, 'Content-Type': 'application/json'},
+            json=payload
+        )
+
+    def get_bot(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets a bot listed on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+
 class Blist(Service):
     """
     Represents the Blist service.
@@ -350,6 +399,68 @@ class Carbon(Service):
         )
 
 
+class DBots(Service):
+    """
+    Represents the DBots service.
+
+    .. seealso::
+        - `DBots Website <https://dbots.co/>`_
+        - `DBots API Documentation <https://docs.dbots.co/>`_
+    """
+
+    BASE_URL = 'https://dbots.co/api/v1'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['dbots', 'dbots.co']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count: int = 0, user_count: int = 0,
+        voice_connections: int = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        return http_client.request(
+            method='POST',
+            path=f'{DBots.BASE_URL}/bots/{bot_id}/stats',
+            headers={'Authorization': token},
+            json={'guildCount': server_count}
+        )
+
+    def get_audit(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the bot's audit logs.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}/log',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def regen_token(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Regenerates the bot API token.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}/keys/regen',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+
 class DiscordBoats(Service):
     """
     Represents the Discord Boats service.
@@ -472,6 +583,63 @@ class DiscordBotList(Service):
             path=f'{DiscordBotList.BASE_URL}/bots/{bot_id}/stats',
             headers={'Authorization': f'Bot {token}'},
             json=payload
+        )
+
+
+class DiscordBotlistEU(Service):
+    """
+    Represents the DiscordBotlistEU service.
+
+    .. seealso::
+        - `DiscordBotlistEU Website <https://discord-botlist.eu/>`_
+        - `DiscordBotlistEU API Documentation <https://docs.discord-botlist.eu/>`_
+    """
+
+    BASE_URL = 'https://api.discord-botlist.eu/v1'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['dbleu', 'discordbotlisteu']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count: int = 0, user_count: int = 0,
+        voice_connections: int = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        return http_client.request(
+            method='POST',
+            path=f'{DiscordBotlistEU.BASE_URL}/update',
+            headers={'Authorization': f'Bearer {token}'},
+            json={'serverCount': server_count}
+        )
+
+    def get_bot(self) -> HTTPResponse:
+        """|httpres|\n\nGets this bot's data."""
+        return self._request(
+            method='GET',
+            path='/ping',
+            headers={'Authorization': f'Bearer {self.token}'},
+            requires_token=True
+        )
+
+    def get_analytics(self) -> HTTPResponse:
+        """|httpres|\n\nGets this bot's analytics."""
+        return self._request(
+            method='GET',
+            path='/analytics',
+            headers={'Authorization': f'Bearer {self.token}'},
+            requires_token=True
+        )
+
+    def get_votes(self) -> HTTPResponse:
+        """|httpres|\n\nGets this bot's votes."""
+        return self._request(
+            method='GET',
+            path='/votes',
+            headers={'Authorization': f'Bearer {self.token}'},
+            requires_token=True
         )
 
 
@@ -1028,13 +1196,90 @@ class DiscordListology(Service):
         )
 
 
+class DiscordServices(Service):
+    """
+    Represents the DiscordServices service.
+
+    .. seealso::
+        - `DiscordServices Website <https://discordservices.net/>`_
+        - `DiscordServices API Documentation <https://discordservices.net/docs/api/>`_
+    """
+
+    BASE_URL = 'https://api.discordservices.net'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['discordservices', 'discordservices.net']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count: int = 0, user_count: int = 0,
+        voice_connections: int = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        payload = {'servers': server_count}
+        if shard_id and shard_count:
+            payload['shards'] = shard_count
+        return http_client.request(
+            method='POST',
+            path=f'{DiscordServices.BASE_URL}/bot/{bot_id}/stats',
+            headers={'Authorization': token},
+            json=payload
+        )
+
+    def post_news(self, bot_id: str, title: str, content: str) -> HTTPResponse:
+        """|httpres|\n
+        Posts news to your bot page.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        title: :class:`str`
+            The title of the post.
+        content: :class:`str`
+            The content of the post.
+        """
+        return self._request(
+            method='POST',
+            path=f'/bot/{bot_id}/news',
+            json={
+                'title': title,
+                'content': content,
+                'error': False
+            },
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def post_commands(self, bot_id: str, commands: list) -> HTTPResponse:
+        """|httpres|\n
+        Posts commands info to your bot page.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        commands: :class:`list`
+            The command info to post.
+        """
+        return self._request(
+            method='POST',
+            path=f'/bot/{bot_id}/commands',
+            json=commands,
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+
 class DiscordsCom(Service):
     """
     Represents the Discords.com service (formerly Bots For Discord).
 
     .. seealso::
-        - `Discords.com service Website <https://discords.com/bots>`_
-        - `Discords.com service API Documentation <https://docs.botsfordiscord.com/>`_
+        - `Discords.com Website <https://discords.com/bots>`_
+        - `Discords.com API Documentation <https://docs.botsfordiscord.com/>`_
     """
 
     BASE_URL = 'https://discords.com/bots/api'
@@ -1143,6 +1388,533 @@ class DiscordsCom(Service):
             The query string to append to the URL.
         """
         return f'{DiscordsCom.BASE_URL}/bot/{bot_id}/widget?{_encode_query(query)}'
+
+
+class Disforge(Service):
+    """
+    Represents the Disforge service.
+
+    .. seealso::
+        - `Disforge Website <https://disforge.com/bots/>`_
+        - `Disforge API Documentation <https://disforge.com/developer/>`_
+    """
+
+    BASE_URL = 'https://disforge.com/api'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['disforge', 'disforge.com']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count: int = 0, user_count: int = 0,
+        voice_connections: int = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        return http_client.request(
+            method='POST',
+            path=f'{Disforge.BASE_URL}/botstats/{bot_id}',
+            headers={'Authorization': token},
+            json={'servers': server_count}
+        )
+
+    def get_homepage(self) -> HTTPResponse:
+        """|httpres|\n\nRetreives the data shown on the homepage."""
+        return self._request(
+            method='GET',
+            path='/home'
+        )
+
+    def get_stats(self) -> HTTPResponse:
+        """|httpres|\n\nRetreives statistics about Disforge."""
+        return self._request(
+            method='GET',
+            path='/stats'
+        )
+
+
+class FatesList(Service):
+    """
+    Represents the FatesList service.
+
+    .. seealso::
+        - `FatesList Website <https://fateslist.xyz/>`_
+        - `FatesList API Documentation <https://apidocs.fateslist.xyz/>`_
+    """
+
+    BASE_URL = 'https://fateslist.xyz/api'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['fateslist', 'fateslist.xyz']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count: int = 0, user_count: int = 0,
+        voice_connections: int = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        return http_client.request(
+            method='POST',
+            path=f'{FatesList.BASE_URL}/botstats/{bot_id}',
+            headers={'Authorization': token},
+            json={'servers': server_count}
+        )
+
+    def get_bot_promotion(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets a bot promotion.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}/promotions'
+        )
+
+    def add_promotion(self, bot_id: str, promotion: dict) -> HTTPResponse:
+        """|httpres|\n
+        Adds a bot promotion.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        promotion: :class:`dict`
+            The promotion payload.
+        """
+        return self._request(
+            method='POST',
+            path=f'/bots/{bot_id}/promotions',
+            headers={'Authorization': self.token},
+            json=promotion,
+            requires_token=True
+        )
+
+    def delete_promotion(self, bot_id: str, promotion_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Deletes a bot promotion.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        promotion_id: :class:`str`
+            The promotion ID.
+        """
+        return self._request(
+            method='DELETE',
+            path=f'/bots/{bot_id}/promotions',
+            json={'promo_id', promotion_id},
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def edit_promotion(self, bot_id: str, promotion: dict) -> HTTPResponse:
+        """|httpres|\n
+        Edits a bot promotion.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        promotion: :class:`dict`
+            The promotion payload.
+        """
+        return self._request(
+            method='PATCH',
+            path=f'/bots/{bot_id}/promotions',
+            headers={'Authorization': self.token},
+            json=promotion,
+            requires_token=True
+        )
+
+    def regenerate_token(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Regenerates the API token.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='PATCH',
+            path=f'/bots/{bot_id}/token',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def get_random_bot(self) -> HTTPResponse:
+        """|httpres|\n\nGets a random bot."""
+        return self._request(
+            method='GET',
+            path='/bots/random'
+        )
+
+    def get_bot(self, bot_id: str, **query) -> HTTPResponse:
+        """|httpres|\n
+        Gets a bot from the API.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        **query
+            The query string to append to the URL.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}',
+            query=query,
+            headers={'Authorization': self.token}
+        )
+
+    def get_bot_commands(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Get a bot's commands.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}/commands'
+        )
+
+    def add_bot_command(self, bot_id: str, command: dict, **query) -> HTTPResponse:
+        """|httpres|\n
+        Adds a bot promotion.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        command: :class:`dict`
+            The command payload.
+        **query
+            The query string to append to the URL.
+        """
+        return self._request(
+            method='POST',
+            path=f'/bots/{bot_id}/commands',
+            headers={'Authorization': self.token},
+            query=query,
+            json=command,
+            requires_token=True
+        )
+
+    def delete_bot_command(self, bot_id: str, command_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Deletes a bot's command.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        command_id: :class:`str`
+            The command ID.
+        """
+        return self._request(
+            method='DELETE',
+            path=f'/bots/{bot_id}/commands',
+            json={'id', command_id},
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def edit_bot_command(self, bot_id: str, command: dict) -> HTTPResponse:
+        """|httpres|\n
+        Edits a bot's command.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        command: :class:`dict`
+            The command payload.
+        """
+        return self._request(
+            method='PATCH',
+            path=f'/bots/{bot_id}/commands',
+            headers={'Authorization': self.token},
+            json=command,
+            requires_token=True
+        )
+
+    def get_votes(self, bot_id: str, user_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the number of votes a user gave to a bot.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        user_id: :class:`str`
+            The user's ID.
+        """
+        return self._request(
+            method='PATCH',
+            path=f'/bots/{bot_id}/votes',
+            headers={'Authorization': self.token},
+            json={'user_id': user_id},
+            requires_token=True
+        )
+
+    def get_votes_timestamped(self, bot_id: str, user_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the number of votes a user gave to a bot with timestamps.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        user_id: :class:`str`
+            The user's ID.
+        """
+        return self._request(
+            method='PATCH',
+            path=f'/bots/{bot_id}/votes/timestamped',
+            headers={'Authorization': self.token},
+            json={'user_id': user_id},
+            requires_token=True
+        )
+
+
+class InfinityBotList(Service):
+    """
+    Represents the Infinity Bot List service.
+
+    .. seealso::
+        - `Infinity Bot List Website <https://infinitybotlist.com/>`_
+        - `Infinity Bot List API Documentation <https://docs.infinitybotlist.com/>`_
+    """
+
+    BASE_URL = 'https://api.infinitybotlist.com'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['infinitybotlist', 'infinitybotlist.com']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count: int = 0, user_count: int = 0,
+        voice_connections: int = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        payload = {'botid': bot_id, 'servers': server_count}
+        if shard_id and shard_count:
+            payload['shards'] = shard_count
+        return http_client.request(
+            method='POST',
+            path=f'{InfinityBotList.BASE_URL}/bot/{bot_id}/stats',
+            headers={'Authorization': token},
+            json=payload
+        )
+
+    def get_bot(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the bot listed on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bot/{bot_id}'
+        )
+
+    def get_user(self, user_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the user listed on this service.
+
+        Parameters
+        -----------
+        user_id: :class:`str`
+            The user's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/user/{user_id}'
+        )
+
+
+class Listcord(Service):
+    """
+    Represents the Listcord service.
+
+    .. seealso::
+        - `Listcord Website <https://listcord.gg/>`_
+        - `Listcord API Documentation <https://listcord.gg/docs/>`_
+    """
+
+    BASE_URL = 'https://listcord.gg/api'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['listcord', 'listcord.gg']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count: int = 0, user_count: int = 0,
+        voice_connections: int = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        return http_client.request(
+            method='POST',
+            path=f'{Listcord.BASE_URL}/bots/{bot_id}/stats',
+            headers={'Authorization': token},
+            json={'server_count': server_count}
+        )
+
+    def get_bot(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the bot listed on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def get_bot_reviews(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets a bot's reviews.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}/reviews',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def user_voted(self, bot_id: str, user_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets whether a user has voted for a bot.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        user_id: :class:`str`
+            The user's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}/voted',
+            query={'user_id': user_id},
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def get_bot_pack(self, pack_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets a bot pack.
+
+        Parameters
+        -----------
+        pack_id: :class:`str`
+            The pack's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/pack/{pack_id}',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def get_bot_packs(self) -> HTTPResponse:
+        """|httpres|\n\nGets all botpacks."""
+        return self._request(
+            method='GET',
+            path='/packs',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+
+class MotionBotlist(Service):
+    """
+    Represents the MotionBotlist service.
+
+    .. seealso::
+        - `MotionBotlist Website <https://www.motiondevelopment.top/bot/>`_
+        - `MotionBotlist API Documentation <https://www.motiondevelopment.top/docs/api/intro/>`_
+    """
+
+    BASE_URL = 'https://www.motiondevelopment.top/api/v1.2'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['motion', 'motiondevelopment', 'motionbotlist', 'motiondevelopment.top']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count: int = 0, user_count: int = 0,
+        voice_connections: int = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        return http_client.request(
+            method='POST',
+            path=f'{MotionBotlist.BASE_URL}/bots/{bot_id}/stats',
+            headers={'key': token, 'Content-Type': 'application/json'},
+            json={'server_count': server_count}
+        )
+
+    def get_bot(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets a bot.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}',
+            headers={'key': self.token, 'Content-Type': 'application/json'},
+            requires_token=True
+        )
+
+    def get_bot_votes(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets a bot's reviews.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}/votes',
+            headers={'key': self.token, 'Content-Type': 'application/json'},
+            requires_token=True
+        )
 
 
 class SpaceBotsList(Service):
@@ -1396,6 +2168,105 @@ class TopGG(Service):
         return f'{TopGG.BASE_URL}/widget/{subpath}{bot_id}.svg?{_encode_query(query)}'
 
 
+class VoidBots(Service):
+    """
+    Represents the Void Bots service.
+
+    .. seealso::
+        - `Void Bots Website <https://voidbots.net/>`_
+        - `Void Bots API Documentation <https://www.motiondevelopment.top/docs/api/intro/>`_
+    """
+
+    BASE_URL = 'https://api.voidbots.net'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['voidbots', 'voidbots.net']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count: int = 0, user_count: int = 0,
+        voice_connections: int = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        payload = {'server_count': server_count}
+        if shard_id and shard_count:
+            payload['shard_count'] = shard_count
+        return http_client.request(
+            method='POST',
+            path=f'{VoidBots.BASE_URL}/bot/stats/{bot_id}',
+            headers={'Authorization': token},
+            json=payload
+        )
+
+    def get_bot(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the bot listed on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bot/info/{bot_id}',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def user_voted(self, bot_id: str, user_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Checks whether or not a user has voted for a bot on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        user_id: :class:`str`
+            The user's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bot/voted/{bot_id}/{user_id}',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def get_bot_reviews(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the bot's reviews on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bot/reviews/{bot_id}',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def get_bot_analytics(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the bot's analytics on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bot/analytics/{bot_id}',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+
 class WonderBotList(Service):
     """
     Represents the Wonder Bot List service.
@@ -1579,8 +2450,9 @@ class YABL(Service):
 
 
 Service.SERVICES = [
-    Blist, BotsOnDiscord, Carbon,
-    DiscordBotsGG, DiscordBoats, DiscordBotList,
-    DiscordExtremeList, DiscordLabs, DiscordListSpace, DiscordListology,
-    DiscordsCom, SpaceBotsList, TopCord, TopGG, WonderBotList, YABL
+    BladeList, Blist, BotsOnDiscord, Carbon, DBots,
+    DiscordBoats, DiscordBotList, DiscordBotlistEU, DiscordBotsGG,
+    DiscordExtremeList, DiscordLabs, DiscordListSpace, DiscordListology, DiscordServices,
+    DiscordsCom, Disforge, FatesList, InfinityBotList, Listcord, MotionBotlist,
+    SpaceBotsList, TopCord, TopGG, VoidBots, WonderBotList, YABL
 ]

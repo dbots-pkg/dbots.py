@@ -46,6 +46,9 @@ HTTP Classes
 Services
 --------
 
+.. autoclass:: BladeList
+    :members:
+
 .. autoclass:: Blist
     :members:
 
@@ -55,10 +58,16 @@ Services
 .. autoclass:: Carbon
     :members:
 
+.. autoclass:: DBots
+    :members:
+
 .. autoclass:: DiscordBoats
     :members:
 
 .. autoclass:: DiscordBotList
+    :members:
+
+.. autoclass:: DiscordBotlistEU
     :members:
 
 .. autoclass:: DiscordBotsGG
@@ -76,7 +85,25 @@ Services
 .. autoclass:: DiscordListology
     :members:
 
+.. autoclass:: DiscordServices
+    :members:
+
 .. autoclass:: DiscordsCom
+    :members:
+
+.. autoclass:: Disforge
+    :members:
+
+.. autoclass:: FatesList
+    :members:
+
+.. autoclass:: InfinityBotList
+    :members:
+
+.. autoclass:: Listcord
+    :members:
+
+.. autoclass:: MotionBotlist
     :members:
 
 .. autoclass:: SpaceBotsList
@@ -86,6 +113,9 @@ Services
     :members:
 
 .. autoclass:: TopGG
+    :members:
+
+.. autoclass:: VoidBots
     :members:
 
 .. autoclass:: WonderBotList
