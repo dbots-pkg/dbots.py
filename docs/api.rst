@@ -85,6 +85,9 @@ Services
 .. autoclass:: DiscordListology
     :members:
 
+.. autoclass:: DiscordServices
+    :members:
+
 .. autoclass:: DiscordsCom
     :members:
 

@@ -610,7 +610,7 @@ class DiscordBotlistEU(Service):
     ) -> HTTPResponse:
         return http_client.request(
             method='POST',
-            path=f'{DBots.BASE_URL}/update',
+            path=f'{DiscordBotlistEU.BASE_URL}/update',
             headers={'Authorization': f'Bearer {token}'},
             json={'serverCount': server_count}
         )
@@ -1196,6 +1196,83 @@ class DiscordListology(Service):
         )
 
 
+class DiscordServices(Service):
+    """
+    Represents the DiscordServices service.
+
+    .. seealso::
+        - `DiscordServices Website <https://discordservices.net/>`_
+        - `DiscordServices API Documentation <https://discordservices.net/docs/api/>`_
+    """
+
+    BASE_URL = 'https://api.discordservices.net'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['discordservices', 'discordservices.net']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count: int = 0, user_count: int = 0,
+        voice_connections: int = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        payload = {'servers': server_count}
+        if shard_id and shard_count:
+            payload['shards'] = shard_count
+        return http_client.request(
+            method='POST',
+            path=f'{DiscordServices.BASE_URL}/bot/{bot_id}/stats',
+            headers={'Authorization': token},
+            json=payload
+        )
+
+    def post_news(self, bot_id: str, title: str, content: str) -> HTTPResponse:
+        """|httpres|\n
+        Posts news to your bot page.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        title: :class:`str`
+            The title of the post.
+        content: :class:`str`
+            The content of the post.
+        """
+        return self._request(
+            method='POST',
+            path=f'/bot/{bot_id}/news',
+            json={
+                'title': title,
+                'content': content,
+                'error': False
+            },
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def post_commands(self, bot_id: str, commands: list) -> HTTPResponse:
+        """|httpres|\n
+        Posts commands info to your bot page.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        commands: :class:`list`
+            The command info to post.
+        """
+        return self._request(
+            method='POST',
+            path=f'/bot/{bot_id}/commands',
+            json=commands,
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+
 class DiscordsCom(Service):
     """
     Represents the Discords.com service (formerly Bots For Discord).
@@ -1750,5 +1827,5 @@ Service.SERVICES = [
     BladeList, Blist, BotsOnDiscord, Carbon, DBots,
     DiscordBoats, DiscordBotList, DiscordBotlistEU, DiscordBotsGG,
     DiscordExtremeList, DiscordLabs, DiscordListSpace, DiscordListology,
-    DiscordsCom, SpaceBotsList, TopCord, TopGG, WonderBotList, YABL
+    DiscordServices, DiscordsCom, SpaceBotsList, TopCord, TopGG, WonderBotList, YABL
 ]
