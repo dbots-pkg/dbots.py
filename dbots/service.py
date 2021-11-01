@@ -1749,6 +1749,112 @@ class InfinityBotList(Service):
         )
 
 
+class Listcord(Service):
+    """
+    Represents the Listcord service.
+
+    .. seealso::
+        - `Listcord Website <https://listcord.gg/>`_
+        - `Listcord API Documentation <https://listcord.gg/docs/>`_
+    """
+
+    BASE_URL = 'https://listcord.gg/api'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['listcord', 'listcord.gg']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count: int = 0, user_count: int = 0,
+        voice_connections: int = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        return http_client.request(
+            method='POST',
+            path=f'{Listcord.BASE_URL}/bots/{bot_id}/stats',
+            headers={'Authorization': token},
+            json={'server_count': server_count}
+        )
+
+    def get_bot(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the bot listed on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def get_bot_reviews(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets a bot's reviews.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}/reviews',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def user_voted(self, bot_id: str, user_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets whether a user has voted for a bot.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        user_id: :class:`str`
+            The user's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}/voted',
+            query={'user_id': user_id},
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def get_bot_pack(self, pack_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets a bot pack.
+
+        Parameters
+        -----------
+        pack_id: :class:`str`
+            The pack's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/pack/{pack_id}',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def get_bot_packs(self) -> HTTPResponse:
+        """|httpres|\n\nGets all botpacks."""
+        return self._request(
+            method='GET',
+            path='/packs',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+
 class SpaceBotsList(Service):
     """
     Represents the Space Bots List service.
@@ -2186,5 +2292,6 @@ Service.SERVICES = [
     BladeList, Blist, BotsOnDiscord, Carbon, DBots,
     DiscordBoats, DiscordBotList, DiscordBotlistEU, DiscordBotsGG,
     DiscordExtremeList, DiscordLabs, DiscordListSpace, DiscordListology, DiscordServices,
-    DiscordsCom, Disforge, FatesList, InfinityBotList, SpaceBotsList, TopCord, TopGG, WonderBotList, YABL
+    DiscordsCom, Disforge, FatesList, InfinityBotList, Listcord,
+    SpaceBotsList, TopCord, TopGG, WonderBotList, YABL
 ]

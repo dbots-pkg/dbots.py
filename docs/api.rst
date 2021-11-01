@@ -100,6 +100,9 @@ Services
 .. autoclass:: InfinityBotList
     :members:
 
+.. autoclass:: Listcord
+    :members:
+
 .. autoclass:: SpaceBotsList
     :members:
 
