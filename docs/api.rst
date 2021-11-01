@@ -46,6 +46,9 @@ HTTP Classes
 Services
 --------
 
+.. autoclass:: BladeList
+    :members:
+
 .. autoclass:: Blist
     :members:
 

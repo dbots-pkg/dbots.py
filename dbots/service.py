@@ -97,6 +97,55 @@ class Service:
 ###############################
 
 
+class BladeList(Service):
+    """
+    Represents the BladeList service.
+
+    .. seealso::
+        - `BladeList Website <https://bladelist.gg/>`_
+        - `BladeList API Documentation <https://docs.bladelist.gg/en/latest/api/index.html>`_
+    """
+
+    BASE_URL = 'https://api.bladelist.gg'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['bladebotlist', 'bladebotlist.xyz', 'bladelist', 'bladelist.gg']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count: int = 0, user_count: int = 0,
+        voice_connections: int = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        payload = {'server_count': server_count}
+        if shard_id and shard_count:
+            payload['shard_count'] = shard_count
+        return http_client.request(
+            method='PUT',
+            path=f'{BladeList.BASE_URL}/bots/{bot_id}/',
+            headers={'Authorization': token, 'Content-Type': 'application/json'},
+            json=payload
+        )
+
+    def get_bot(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets a bot listed on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+
 class Blist(Service):
     """
     Represents the Blist service.
