@@ -58,6 +58,9 @@ Services
 .. autoclass:: Carbon
     :members:
 
+.. autoclass:: DBots
+    :members:
+
 .. autoclass:: DiscordBoats
     :members:
 

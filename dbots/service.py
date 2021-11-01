@@ -399,6 +399,68 @@ class Carbon(Service):
         )
 
 
+class DBots(Service):
+    """
+    Represents the DBots service.
+
+    .. seealso::
+        - `DBots Website <https://dbots.co/>`_
+        - `DBots API Documentation <https://docs.dbots.co/>`_
+    """
+
+    BASE_URL = 'https://dbots.co/api/v1'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['dbots', 'dbots.co']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count: int = 0, user_count: int = 0,
+        voice_connections: int = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        return http_client.request(
+            method='POST',
+            path=f'{DBots.BASE_URL}/bots/{bot_id}/stats',
+            headers={'Authorization': token},
+            json={'guildCount': server_count}
+        )
+
+    def get_audit(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the bot's audit logs.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}/log',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def regen_token(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Regenerates the bot API token.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}/keys/regen',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+
 class DiscordBoats(Service):
     """
     Represents the Discord Boats service.
@@ -1628,7 +1690,7 @@ class YABL(Service):
 
 
 Service.SERVICES = [
-    Blist, BotsOnDiscord, Carbon,
+    BladeList, Blist, BotsOnDiscord, Carbon, DBots,
     DiscordBotsGG, DiscordBoats, DiscordBotList,
     DiscordExtremeList, DiscordLabs, DiscordListSpace, DiscordListology,
     DiscordsCom, SpaceBotsList, TopCord, TopGG, WonderBotList, YABL
