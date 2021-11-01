@@ -97,6 +97,9 @@ Services
 .. autoclass:: FatesList
     :members:
 
+.. autoclass:: InfinityBotList
+    :members:
+
 .. autoclass:: SpaceBotsList
     :members:
 

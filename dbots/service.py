@@ -1278,8 +1278,8 @@ class DiscordsCom(Service):
     Represents the Discords.com service (formerly Bots For Discord).
 
     .. seealso::
-        - `Discords.com service Website <https://discords.com/bots>`_
-        - `Discords.com service API Documentation <https://docs.botsfordiscord.com/>`_
+        - `Discords.com Website <https://discords.com/bots>`_
+        - `Discords.com API Documentation <https://docs.botsfordiscord.com/>`_
     """
 
     BASE_URL = 'https://discords.com/bots/api'
@@ -1458,7 +1458,7 @@ class FatesList(Service):
     ) -> HTTPResponse:
         return http_client.request(
             method='POST',
-            path=f'{Disforge.BASE_URL}/botstats/{bot_id}',
+            path=f'{FatesList.BASE_URL}/botstats/{bot_id}',
             headers={'Authorization': token},
             json={'servers': server_count}
         )
@@ -1685,6 +1685,67 @@ class FatesList(Service):
             headers={'Authorization': self.token},
             json={'user_id': user_id},
             requires_token=True
+        )
+
+
+class InfinityBotList(Service):
+    """
+    Represents the Infinity Bot List service.
+
+    .. seealso::
+        - `Infinity Bot List Website <https://infinitybotlist.com/>`_
+        - `Infinity Bot List API Documentation <https://docs.infinitybotlist.com/>`_
+    """
+
+    BASE_URL = 'https://api.infinitybotlist.com'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['infinitybotlist', 'infinitybotlist.com']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count: int = 0, user_count: int = 0,
+        voice_connections: int = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        payload = {'botid': bot_id, 'servers': server_count}
+        if shard_id and shard_count:
+            payload['shards'] = shard_count
+        return http_client.request(
+            method='POST',
+            path=f'{InfinityBotList.BASE_URL}/bot/{bot_id}/stats',
+            headers={'Authorization': token},
+            json=payload
+        )
+
+    def get_bot(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the bot listed on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bot/{bot_id}'
+        )
+
+    def get_user(self, user_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the user listed on this service.
+
+        Parameters
+        -----------
+        user_id: :class:`str`
+            The user's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/user/{user_id}'
         )
 
 
@@ -2125,5 +2186,5 @@ Service.SERVICES = [
     BladeList, Blist, BotsOnDiscord, Carbon, DBots,
     DiscordBoats, DiscordBotList, DiscordBotlistEU, DiscordBotsGG,
     DiscordExtremeList, DiscordLabs, DiscordListSpace, DiscordListology, DiscordServices,
-    DiscordsCom, Disforge, FatesList, SpaceBotsList, TopCord, TopGG, WonderBotList, YABL
+    DiscordsCom, Disforge, FatesList, InfinityBotList, SpaceBotsList, TopCord, TopGG, WonderBotList, YABL
 ]
