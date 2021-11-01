@@ -2,7 +2,7 @@ __title__ = 'dbots'
 __author__ = 'Snazzah'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2020 Snazzah'
-__version__ = '3.0.0'
+__version__ = '4.0.0'
 
 from collections import namedtuple
 import logging
