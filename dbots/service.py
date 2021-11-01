@@ -1434,6 +1434,260 @@ class Disforge(Service):
         )
 
 
+class FatesList(Service):
+    """
+    Represents the FatesList service.
+
+    .. seealso::
+        - `FatesList Website <https://fateslist.xyz/>`_
+        - `FatesList API Documentation <https://apidocs.fateslist.xyz/>`_
+    """
+
+    BASE_URL = 'https://fateslist.xyz/api'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['fateslist', 'fateslist.xyz']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count: int = 0, user_count: int = 0,
+        voice_connections: int = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        return http_client.request(
+            method='POST',
+            path=f'{Disforge.BASE_URL}/botstats/{bot_id}',
+            headers={'Authorization': token},
+            json={'servers': server_count}
+        )
+
+    def get_bot_promotion(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets a bot promotion.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}/promotions'
+        )
+
+    def add_promotion(self, bot_id: str, promotion: dict) -> HTTPResponse:
+        """|httpres|\n
+        Adds a bot promotion.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        promotion: :class:`dict`
+            The promotion payload.
+        """
+        return self._request(
+            method='POST',
+            path=f'/bots/{bot_id}/promotions',
+            headers={'Authorization': self.token},
+            json=promotion,
+            requires_token=True
+        )
+
+    def delete_promotion(self, bot_id: str, promotion_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Deletes a bot promotion.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        promotion_id: :class:`str`
+            The promotion ID.
+        """
+        return self._request(
+            method='DELETE',
+            path=f'/bots/{bot_id}/promotions',
+            json={'promo_id', promotion_id},
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def edit_promotion(self, bot_id: str, promotion: dict) -> HTTPResponse:
+        """|httpres|\n
+        Edits a bot promotion.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        promotion: :class:`dict`
+            The promotion payload.
+        """
+        return self._request(
+            method='PATCH',
+            path=f'/bots/{bot_id}/promotions',
+            headers={'Authorization': self.token},
+            json=promotion,
+            requires_token=True
+        )
+
+    def regenerate_token(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Regenerates the API token.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='PATCH',
+            path=f'/bots/{bot_id}/token',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def get_random_bot(self) -> HTTPResponse:
+        """|httpres|\n\nGets a random bot."""
+        return self._request(
+            method='GET',
+            path='/bots/random'
+        )
+
+    def get_bot(self, bot_id: str, **query) -> HTTPResponse:
+        """|httpres|\n
+        Gets a bot from the API.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        **query
+            The query string to append to the URL.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}',
+            query=query,
+            headers={'Authorization': self.token}
+        )
+
+    def get_bot_commands(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Get a bot's commands.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bots/{bot_id}/commands'
+        )
+
+    def add_bot_command(self, bot_id: str, command: dict, **query) -> HTTPResponse:
+        """|httpres|\n
+        Adds a bot promotion.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        command: :class:`dict`
+            The command payload.
+        **query
+            The query string to append to the URL.
+        """
+        return self._request(
+            method='POST',
+            path=f'/bots/{bot_id}/commands',
+            headers={'Authorization': self.token},
+            query=query,
+            json=command,
+            requires_token=True
+        )
+
+    def delete_bot_command(self, bot_id: str, command_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Deletes a bot's command.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        command_id: :class:`str`
+            The command ID.
+        """
+        return self._request(
+            method='DELETE',
+            path=f'/bots/{bot_id}/commands',
+            json={'id', command_id},
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def edit_bot_command(self, bot_id: str, command: dict) -> HTTPResponse:
+        """|httpres|\n
+        Edits a bot's command.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        command: :class:`dict`
+            The command payload.
+        """
+        return self._request(
+            method='PATCH',
+            path=f'/bots/{bot_id}/commands',
+            headers={'Authorization': self.token},
+            json=command,
+            requires_token=True
+        )
+
+    def get_votes(self, bot_id: str, user_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the number of votes a user gave to a bot.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        user_id: :class:`str`
+            The user's ID.
+        """
+        return self._request(
+            method='PATCH',
+            path=f'/bots/{bot_id}/votes',
+            headers={'Authorization': self.token},
+            json={'user_id': user_id},
+            requires_token=True
+        )
+
+    def get_votes_timestamped(self, bot_id: str, user_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the number of votes a user gave to a bot with timestamps.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        user_id: :class:`str`
+            The user's ID.
+        """
+        return self._request(
+            method='PATCH',
+            path=f'/bots/{bot_id}/votes/timestamped',
+            headers={'Authorization': self.token},
+            json={'user_id': user_id},
+            requires_token=True
+        )
+
+
 class SpaceBotsList(Service):
     """
     Represents the Space Bots List service.
@@ -1871,5 +2125,5 @@ Service.SERVICES = [
     BladeList, Blist, BotsOnDiscord, Carbon, DBots,
     DiscordBoats, DiscordBotList, DiscordBotlistEU, DiscordBotsGG,
     DiscordExtremeList, DiscordLabs, DiscordListSpace, DiscordListology, DiscordServices,
-    DiscordsCom, Disforge, SpaceBotsList, TopCord, TopGG, WonderBotList, YABL
+    DiscordsCom, Disforge, FatesList, SpaceBotsList, TopCord, TopGG, WonderBotList, YABL
 ]

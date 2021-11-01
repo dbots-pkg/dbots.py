@@ -94,6 +94,9 @@ Services
 .. autoclass:: Disforge
     :members:
 
+.. autoclass:: FatesList
+    :members:
+
 .. autoclass:: SpaceBotsList
     :members:
 
