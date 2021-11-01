@@ -586,6 +586,63 @@ class DiscordBotList(Service):
         )
 
 
+class DiscordBotlistEU(Service):
+    """
+    Represents the DiscordBotlistEU service.
+
+    .. seealso::
+        - `DiscordBotlistEU Website <https://discord-botlist.eu/>`_
+        - `DiscordBotlistEU API Documentation <https://docs.discord-botlist.eu/>`_
+    """
+
+    BASE_URL = 'https://api.discord-botlist.eu/v1'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['dbleu', 'discordbotlisteu']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count: int = 0, user_count: int = 0,
+        voice_connections: int = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        return http_client.request(
+            method='POST',
+            path=f'{DBots.BASE_URL}/update',
+            headers={'Authorization': f'Bearer {token}'},
+            json={'serverCount': server_count}
+        )
+
+    def get_bot(self) -> HTTPResponse:
+        """|httpres|\n\nGets this bot's data."""
+        return self._request(
+            method='GET',
+            path='/ping',
+            headers={'Authorization': f'Bearer {self.token}'},
+            requires_token=True
+        )
+
+    def get_analytics(self) -> HTTPResponse:
+        """|httpres|\n\nGets this bot's analytics."""
+        return self._request(
+            method='GET',
+            path='/analytics',
+            headers={'Authorization': f'Bearer {self.token}'},
+            requires_token=True
+        )
+
+    def get_votes(self) -> HTTPResponse:
+        """|httpres|\n\nGets this bot's votes."""
+        return self._request(
+            method='GET',
+            path='/votes',
+            headers={'Authorization': f'Bearer {self.token}'},
+            requires_token=True
+        )
+
+
 class DiscordBotsGG(Service):
     """
     Represents the Discord Bots service.
@@ -1691,7 +1748,7 @@ class YABL(Service):
 
 Service.SERVICES = [
     BladeList, Blist, BotsOnDiscord, Carbon, DBots,
-    DiscordBotsGG, DiscordBoats, DiscordBotList,
+    DiscordBoats, DiscordBotList, DiscordBotlistEU, DiscordBotsGG,
     DiscordExtremeList, DiscordLabs, DiscordListSpace, DiscordListology,
     DiscordsCom, SpaceBotsList, TopCord, TopGG, WonderBotList, YABL
 ]

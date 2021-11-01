@@ -67,6 +67,9 @@ Services
 .. autoclass:: DiscordBotList
     :members:
 
+.. autoclass:: DiscordBotlistEU
+    :members:
+
 .. autoclass:: DiscordBotsGG
     :members:
 
