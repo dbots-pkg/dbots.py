@@ -1879,7 +1879,7 @@ class MotionBotlist(Service):
     ) -> HTTPResponse:
         return http_client.request(
             method='POST',
-            path=f'{Listcord.BASE_URL}/bots/{bot_id}/stats',
+            path=f'{MotionBotlist.BASE_URL}/bots/{bot_id}/stats',
             headers={'key': token, 'Content-Type': 'application/json'},
             json={'server_count': server_count}
         )
@@ -2168,6 +2168,105 @@ class TopGG(Service):
         return f'{TopGG.BASE_URL}/widget/{subpath}{bot_id}.svg?{_encode_query(query)}'
 
 
+class VoidBots(Service):
+    """
+    Represents the Void Bots service.
+
+    .. seealso::
+        - `Void Bots Website <https://voidbots.net/>`_
+        - `Void Bots API Documentation <https://www.motiondevelopment.top/docs/api/intro/>`_
+    """
+
+    BASE_URL = 'https://api.voidbots.net'
+
+    @staticmethod
+    def aliases() -> list:
+        return ['voidbots', 'voidbots.net']
+
+    @staticmethod
+    def _post(
+        http_client: HTTPClient, bot_id: str, token: str,
+        server_count: int = 0, user_count: int = 0,
+        voice_connections: int = 0, shard_count: int = None,
+        shard_id: int = None
+    ) -> HTTPResponse:
+        payload = {'server_count': server_count}
+        if shard_id and shard_count:
+            payload['shard_count'] = shard_count
+        return http_client.request(
+            method='POST',
+            path=f'{VoidBots.BASE_URL}/bot/stats/{bot_id}',
+            headers={'Authorization': token},
+            json=payload
+        )
+
+    def get_bot(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the bot listed on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bot/info/{bot_id}',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def user_voted(self, bot_id: str, user_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Checks whether or not a user has voted for a bot on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        user_id: :class:`str`
+            The user's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bot/voted/{bot_id}/{user_id}',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def get_bot_reviews(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the bot's reviews on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bot/reviews/{bot_id}',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+    def get_bot_analytics(self, bot_id: str) -> HTTPResponse:
+        """|httpres|\n
+        Gets the bot's analytics on this service.
+
+        Parameters
+        -----------
+        bot_id: :class:`str`
+            The bot's ID.
+        """
+        return self._request(
+            method='GET',
+            path=f'/bot/analytics/{bot_id}',
+            headers={'Authorization': self.token},
+            requires_token=True
+        )
+
+
 class WonderBotList(Service):
     """
     Represents the Wonder Bot List service.
@@ -2355,5 +2454,5 @@ Service.SERVICES = [
     DiscordBoats, DiscordBotList, DiscordBotlistEU, DiscordBotsGG,
     DiscordExtremeList, DiscordLabs, DiscordListSpace, DiscordListology, DiscordServices,
     DiscordsCom, Disforge, FatesList, InfinityBotList, Listcord, MotionBotlist,
-    SpaceBotsList, TopCord, TopGG, WonderBotList, YABL
+    SpaceBotsList, TopCord, TopGG, VoidBots, WonderBotList, YABL
 ]

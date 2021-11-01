@@ -115,6 +115,9 @@ Services
 .. autoclass:: TopGG
     :members:
 
+.. autoclass:: VoidBots
+    :members:
+
 .. autoclass:: WonderBotList
     :members:
 
