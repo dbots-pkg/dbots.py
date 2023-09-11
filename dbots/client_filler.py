@@ -76,7 +76,7 @@ class DiscordPy(ClientFiller):
     def shard_id(self):
         if self.client.__class__.__name__ == "AutoShardedClient":
             return None
-        elif type(self.client.shard_id) == int:
+        elif type(self.client.shard_id) is int:
             return self.client.shard_id
         return None
 
