@@ -5,7 +5,7 @@ idna==2.10
 imagesize==1.4.1
 jsonpointer==2.4
 pyparsing==2.4.7
-pytz==2023.3.post1
+pytz==2023.4
 pyyaml==5.4.1
 requests==2.31.0
 snowballstemmer==2.2.0
