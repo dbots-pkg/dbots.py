@@ -7,7 +7,7 @@ jsonpointer==2.4
 pyparsing==2.4.7
 pytz==2024.1
 pyyaml==5.4.1
-requests==2.32.0
+requests==2.32.3
 snowballstemmer==2.2.0
 sphinx==6.2.0
 sphinx-jsonschema==1.19.1
