@@ -3,7 +3,7 @@ babel==2.15.0
 certifi==2024.7.4
 idna==2.10
 imagesize==1.4.1
-jsonpointer==2.4
+jsonpointer==3.0.0
 pyparsing==2.4.7
 pytz==2024.1
 pyyaml==5.4.1
